@@ -1,0 +1,28 @@
+.logo {
+  width: 150px;
+  height: auto;
+}
+.logo img {
+  width: 100%;
+  height: auto;
+}
+.nav-item {
+  font-weight: 600;
+  border: 1px solid transparent;
+  transition: 0.3s all ease-in-out;
+  border-radius: 4px;
+  margin: 0 10px;
+  font-size: 18px;
+}
+
+.nav-item .nav-link {
+  padding: 7px 15px;
+}
+
+.nav-item .nav-link:hover {
+  color: #fff !important;
+}
+.nav-item:hover {
+  border: 1px solid #6bc52f;
+  background-color: #94d321;
+}
