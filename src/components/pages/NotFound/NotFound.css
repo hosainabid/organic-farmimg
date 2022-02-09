@@ -1,0 +1,9 @@
+.not-found {
+  display: block;
+  height: 100vh; /*U.S. 10 100% viewport height*/
+  width: 100vw; /*100% viewport width*/
+  background-color: rgba(255, 255, 255, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
