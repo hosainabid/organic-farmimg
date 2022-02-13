@@ -31,3 +31,36 @@ a {
 .text-big {
   font-size: 32px;
 }
+.form-control {
+  border-radius: 20px;
+  font-size: 1.2rem;
+  /* padding: 7px 25px; */
+}
+.form-control:focus {
+  border-color: #94d321;
+  box-shadow: 0 0 0 0.25rem rgb(148 211 33 / 25%);
+}
+.myBtn {
+  text-transform: uppercase;
+  font: 1.1rem;
+  font-weight: 700;
+  padding: 7px 35px;
+  background-color: #94d321;
+  border: 1px solid #6bc52f;
+  border-radius: 20px;
+  color: #fff;
+  transition: all 0.3s ease-in-out;
+}
+.myBtn:hover {
+  color: #000;
+  background-color: #6bc52f;
+  border: 1px solid #94d321;
+}
+.myLink {
+  color: #94d321;
+  transition: all 0.3s ease;
+}
+.myLink:hover {
+  text-decoration: underline;
+  color: #6bc52f;
+}

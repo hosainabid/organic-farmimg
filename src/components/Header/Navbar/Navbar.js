@@ -1,7 +1,7 @@
 import React from "react";
 import "./Navbar.css";
 import logo from "../../../images/logo.png";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 export default function Navbar() {
   return (
@@ -27,39 +27,39 @@ export default function Navbar() {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <Link
+                <NavLink
                   to="/home"
-                  className="nav-link active"
+                  className="nav-link"
                   aria-current="page"
                   href="#"
                 >
                   Home
-                </Link>
+                </NavLink>
               </li>
               <li className="nav-item">
-                <Link to="/seedBank" className="nav-link" href="#">
+                <NavLink to="/seedBank" className="nav-link" href="#">
                   Seed Bank
-                </Link>
+                </NavLink>
               </li>
               <li className="nav-item">
-                <Link to="/organicFood" className="nav-link" href="#">
+                <NavLink to="/organicFood" className="nav-link" href="#">
                   Organic Food
-                </Link>
+                </NavLink>
               </li>
               <li className="nav-item">
-                <Link to="/forum" className="nav-link" href="#">
+                <NavLink to="/forum" className="nav-link" href="#">
                   Forum
-                </Link>
+                </NavLink>
               </li>
               <li className="nav-item">
-                <Link to="/about" className="nav-link" href="#">
+                <NavLink to="/about" className="nav-link" href="#">
                   About
-                </Link>
+                </NavLink>
               </li>
               <li className="nav-item">
-                <Link to="contact" className="nav-link" href="#">
+                <NavLink to="contact" className="nav-link" href="#">
                   Contact
-                </Link>
+                </NavLink>
               </li>
             </ul>
           </div>

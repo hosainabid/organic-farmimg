@@ -11,9 +11,13 @@ export default function Search() {
               className="form-control me-2"
               type="search"
               placeholder="Search"
+              id="searchKey"
               aria-label="Search"
             />
-            <button className="btn btn-outline-success text-red" type="submit">
+            <button
+              className="btn btn-outline-success rounded-circle text-red"
+              type="submit"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"

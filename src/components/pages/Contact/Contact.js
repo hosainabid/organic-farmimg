@@ -11,7 +11,10 @@ export default function Contact() {
             <h3 className="text-center py-2 border-bottom mb-3">Contact Us</h3>
             <form className="my-3">
               <div className="mb-3">
-                <label htmlFor="formGroupExampleInput" className="form-label">
+                <label
+                  htmlFor="formGroupExampleInput"
+                  className="form-label my-3 h5 text-secondary"
+                >
                   Your name
                 </label>
                 <input
@@ -22,7 +25,10 @@ export default function Contact() {
                 />
               </div>
               <div className="mb-3">
-                <label htmlFor="formGroupExampleInput" className="form-label">
+                <label
+                  htmlFor="formGroupExampleInput"
+                  className="form-label my-3 h5 text-secondary"
+                >
                   Your Email
                 </label>
                 <input
@@ -33,7 +39,10 @@ export default function Contact() {
                 />
               </div>
               <div className="mb-3">
-                <label htmlFor="formGroupExampleInput2" className="form-label">
+                <label
+                  htmlFor="formGroupExampleInput2"
+                  className="form-label my-3 h5 text-secondary"
+                >
                   Subject
                 </label>
                 <input
@@ -51,7 +60,7 @@ export default function Contact() {
               </div>
 
               <div className="col-12">
-                <button type="submit" className="btn btn-primary w-100">
+                <button type="submit" className="myBtn w-100">
                   Send
                 </button>
               </div>

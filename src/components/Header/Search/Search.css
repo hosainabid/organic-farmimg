@@ -7,11 +7,6 @@
 .btn-outline-success:hover {
   background-color: #6bc52f;
 }
-.form-control {
-  min-width: 320px;
-  margin: auto;
-}
-.form-control:focus {
-  border-color: #94d321;
-  box-shadow: 0 0 0 0.25rem rgb(148 211 33 / 25%);
+#searchKey {
+  min-width: 360px;
 }

@@ -6,6 +6,9 @@ import Home from "./components/pages/Home/Home";
 import NotFound from "./components/pages/NotFound/NotFound";
 import OrganicFood from "./components/pages/OrganicFood/OrganicFood";
 import SeedBank from "./components/pages/SeedBank/SeedBank";
+import Login from "./components/User/Login/Login";
+import Registration from "./components/User/Registration/Registration";
+import UserDetails from "./components/User/UserDetails/UserDetails";
 
 function App() {
   return (
@@ -32,6 +35,15 @@ function App() {
           </Route>
           <Route path="/forum">
             <Forum />
+          </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/registration">
+            <Registration />
+          </Route>
+          <Route path="/myAccount">
+            <UserDetails />
           </Route>
           <Route>
             <NotFound />

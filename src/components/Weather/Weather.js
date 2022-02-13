@@ -44,6 +44,7 @@ export default function Weather() {
         return response.json();
       })
       .then((data) => {
+        console.log(data);
         setLocation(data);
       });
   }, []);
