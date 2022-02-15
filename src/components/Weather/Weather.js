@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getDate } from "bangla-calendar";
 import WeaterUpdate from "./WeaterUpdate/WeaterUpdate";
+import axios from "axios";
 
 export default function Weather() {
   const monthNames = [
@@ -31,22 +32,32 @@ export default function Weather() {
   const date1 = new Date(makeDateForBanglaDate);
 
   const [location, setLocation] = useState({});
-  // const [allDivisions, setAllDivisions] = useState({});
-  const [selectedDivision, setSelectedDivision] = useState("");
+  const [selectedDivision, setSelectedDivision] = useState([]);
   const [selectedDistrict, setSelectedDistrict] = useState("");
   const [selectedUpazilas, setSelectedUpazilas] = useState("");
   const [selectedUnions, setSelectedUnions] = useState("");
   const [latitude, setattitude] = useState("0");
   const [longitude, setLongitude] = useState("0");
+  const loadingLocation = async () => {
+    try {
+      const data = await axios
+        .get("https://fosholi.com/idss_api//get/locations")
+        .then((res) => {
+          setLocation(res.data);
+          // setSelectedDivision(res.data.divisions);
+          // setSelectedDistrict(res.data.districts);
+          // setSelectedUpazilas(res.data.upazzzilas);
+          // setSelectedUnions(res.data.unions);
+        });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  console.log(location);
+
   useEffect(() => {
-    fetch("https://fosholi.com/idss_api//get/locations")
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        console.log(data);
-        setLocation(data);
-      });
+    loadingLocation();
   }, []);
 
   const handleDivisionChange = (e) => {
@@ -63,7 +74,13 @@ export default function Weather() {
     setSelectedUnions(e.target.value);
   };
 
-  const getPosition = () => {};
+  const getPosition = (unionId) => {
+    setattitude(location.data.unions[unionId].latitude);
+    setLongitude(location.data.unions[unionId].longitude);
+  };
+
+  console.log(latitude);
+  console.log(longitude);
   return (
     <div className="container my-4">
       <div className="row justify-content-center align-items-center">
@@ -84,7 +101,7 @@ export default function Weather() {
                   </svg>
                 </div>
                 <div className="col-9">
-                  <p></p>
+                  <p>{location.data ? `` : `choose your location first`}</p>
                 </div>
               </div>
             </div>
@@ -212,6 +229,7 @@ export default function Weather() {
                 type="button"
                 data-bs-dismiss="modal"
                 className="btn btn-primary"
+                onClick={() => getPosition(selectedUnions)}
               >
                 Save changes
               </button>
