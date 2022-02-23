@@ -1,8 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "../../Header/Header";
 
 export default function Registration() {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [number, setNumber] = useState("");
+  const [roll, setRoll] = useState("");
+
+  const handleRegistration = (e) => {
+    e.preventDefault();
+    console.log(firstName, lastName, email, password, number, roll);
+  };
+
   return (
     <div>
       <Header />
@@ -10,17 +22,18 @@ export default function Registration() {
         <div className="row justify-content-center align-items-center">
           <div className="col-md-6 col-sm-9 col-xs-12">
             <h3>Registration</h3>
-            <form>
+            <form onSubmit={handleRegistration}>
               <div className="row">
                 <div className="col-md-6  col-sm-6">
                   <label className="my-3 h5 text-secondary" htmlFor="firstName">
                     First name
                   </label>
                   <input
+                    required
                     type="text"
                     className="form-control"
-                    id="firstName"
                     placeholder="First name"
+                    onChange={(e) => setFirstName(e.target.value)}
                   />
                 </div>
                 <div className="col-md-6  col-sm-6">
@@ -28,10 +41,11 @@ export default function Registration() {
                     Last Name
                   </label>
                   <input
+                    required
                     type="text"
                     className="form-control"
-                    id="lastName"
                     placeholder="Last name"
+                    onChange={(e) => setLastName(e.target.value)}
                   />
                 </div>
               </div>
@@ -40,11 +54,12 @@ export default function Registration() {
                   Email address
                 </label>
                 <input
+                  required
                   type="email"
                   className="form-control"
-                  id="loginEmail"
                   aria-describedby="emailHelp"
                   placeholder="Enter email"
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div className="row justify-content-center align-items-center">
@@ -56,10 +71,11 @@ export default function Registration() {
                     Password
                   </label>
                   <input
-                    type="text"
+                    required
+                    type="password"
                     className="form-control"
-                    id="regPassword"
                     placeholder="Password"
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
                 <div className="col-md-6  col-sm-6">
@@ -67,13 +83,14 @@ export default function Registration() {
                     className="my-3 h5 text-secondary"
                     htmlFor="confirmPassword"
                   >
-                    Confirm Password
+                    Your Phone No
                   </label>
                   <input
+                    required
                     type="text"
                     className="form-control"
-                    id="confirmPassword"
-                    placeholder="Confirm Password"
+                    placeholder="Enter your phone number"
+                    onChange={(e) => setNumber(e.target.value)}
                   />
                 </div>
               </div>
@@ -85,6 +102,8 @@ export default function Registration() {
                   className="form-control"
                   id="selectRoll"
                   defaultValue={"DEFAULT"}
+                  required
+                  onChange={(e) => setRoll(e.target.value)}
                 >
                   <option value="DEFAULT" disabled>
                     Select Your Roll

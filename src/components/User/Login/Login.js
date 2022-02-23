@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "../../Header/Header";
 
 export default function Login() {
+  const [userLoginEmail, setUserLoginEmail] = useState("");
+  const [userLoginPassword, setUserLoginPassword] = useState("");
+
+  console.log(userLoginEmail, userLoginPassword);
   return (
     <div>
       <Header />
@@ -18,9 +22,9 @@ export default function Login() {
                 <input
                   type="email"
                   className="form-control"
-                  id="loginEmail"
                   aria-describedby="emailHelp"
                   placeholder="Enter email"
+                  onChange={(e) => setUserLoginEmail(e.target.value)}
                 />
               </div>
               <div className="form-group">
@@ -33,8 +37,8 @@ export default function Login() {
                 <input
                   type="password"
                   className="form-control"
-                  id="loginPassward"
                   placeholder="Password"
+                  onChange={(e) => setUserLoginPassword(e.target.value)}
                 />
               </div>
               <button type="submit" className="myBtn my-4">
