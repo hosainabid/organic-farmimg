@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getDate } from "bangla-calendar";
-import WeaterUpdate from "./WeaterUpdate/WeaterUpdate";
+import WeaterUpdate from "./WeatherUpdate/WeatherUpdate";
 import axios from "axios";
 
 export default function Weather() {
@@ -32,46 +32,41 @@ export default function Weather() {
   const date1 = new Date(makeDateForBanglaDate);
 
   const [location, setLocation] = useState({});
-  const [selectedDivision, setSelectedDivision] = useState([]);
-  const [selectedDistrict, setSelectedDistrict] = useState("");
-  const [selectedUpazilas, setSelectedUpazilas] = useState("");
-  const [selectedUnions, setSelectedUnions] = useState("");
-  const [latitude, setattitude] = useState("0");
-  const [longitude, setLongitude] = useState("0");
+  const [selectedDivision, setSelectedDivision] = useState(96);
+  const [selectedDistrict, setSelectedDistrict] = useState(18);
+  const [selectedUpazilas, setSelectedUpazilas] = useState(194);
+  const [selectedUnions, setSelectedUnions] = useState(1661);
+  const [latitude, setattitude] = useState(24.975);
+  const [longitude, setLongitude] = useState(88.7642);
+
   const loadingLocation = async () => {
     try {
       const data = await axios
-        .get("https://fosholi.com/idss_api//get/locations")
+        .get("https://api.jsonbin.io/b/6218965fc4790b340623b277")
         .then((res) => {
           setLocation(res.data);
-          // setSelectedDivision(res.data.divisions);
-          // setSelectedDistrict(res.data.districts);
-          // setSelectedUpazilas(res.data.upazzzilas);
-          // setSelectedUnions(res.data.unions);
         });
     } catch (e) {
       console.log(e);
     }
   };
 
-  console.log(location);
-
   useEffect(() => {
     loadingLocation();
   }, []);
 
   const handleDivisionChange = (e) => {
-    setSelectedDivision(e.target.value);
+    setSelectedDivision(Number(e.target.value));
   };
 
   const handleDistrictChange = (e) => {
-    setSelectedDistrict(e.target.value);
+    setSelectedDistrict(Number(e.target.value));
   };
   const handleUpazilasChange = (e) => {
-    setSelectedUpazilas(e.target.value);
+    setSelectedUpazilas(Number(e.target.value));
   };
   const handleUnionsChange = (e) => {
-    setSelectedUnions(e.target.value);
+    setSelectedUnions(Number(e.target.value));
   };
 
   const getPosition = (unionId) => {
@@ -79,8 +74,6 @@ export default function Weather() {
     setLongitude(location.data.unions[unionId].longitude);
   };
 
-  console.log(latitude);
-  console.log(longitude);
   return (
     <div className="container my-4">
       <div className="row justify-content-center align-items-center">
@@ -101,7 +94,22 @@ export default function Weather() {
                   </svg>
                 </div>
                 <div className="col-9">
-                  <p>{location.data ? `` : `choose your location first`}</p>
+                  <p>
+                    {location.data &&
+                      location.data.upazilas.find(
+                        (upazila) => upazila.id == selectedUpazilas
+                      ).name}
+                    {` - `}
+                    {location.data &&
+                      location.data.districts.find(
+                        (district) => district.id == selectedDistrict
+                      ).name}
+                    {", "}
+                    {location.data &&
+                      location.data.divisions.find(
+                        (division) => division.id == selectedDivision
+                      ).name}
+                  </p>
                 </div>
               </div>
             </div>
@@ -128,7 +136,7 @@ export default function Weather() {
 
           {/* weater update area  */}
 
-          <WeaterUpdate />
+          <WeaterUpdate latitude={latitude} longitude={longitude} />
         </div>
       </div>
 
@@ -161,8 +169,12 @@ export default function Weather() {
                       Choose Your Division ...
                     </option>
                     {location.data &&
-                      location.data.divisions.map((e) => {
-                        return <option value={e.id}>{e.name}</option>;
+                      location.data.divisions.map((e, index) => {
+                        return (
+                          <option key={index} value={e.id}>
+                            {e.name}
+                          </option>
+                        );
                       })}
                   </select>
                 </div>
@@ -177,9 +189,13 @@ export default function Weather() {
                       Choose Your District ...
                     </option>
                     {location.data &&
-                      location.data.districts.map((e) => {
+                      location.data.districts.map((e, index) => {
                         if (e.division_id == selectedDivision) {
-                          return <option value={e.id}>{e.name}</option>;
+                          return (
+                            <option key={index} value={e.id}>
+                              {e.name}
+                            </option>
+                          );
                         }
                       })}
                   </select>
@@ -196,9 +212,13 @@ export default function Weather() {
                       Choose Your Upazila ...
                     </option>
                     {location.data &&
-                      location.data.upazilas.map((e) => {
+                      location.data.upazilas.map((e, index) => {
                         if (e.district_id == selectedDistrict) {
-                          return <option value={e.id}>{e.name}</option>;
+                          return (
+                            <option key={index} value={e.id}>
+                              {e.name}
+                            </option>
+                          );
                         }
                       })}
                   </select>
@@ -215,9 +235,13 @@ export default function Weather() {
                       Choose Your Union ...
                     </option>
                     {location.data &&
-                      location.data.unions.map((e) => {
+                      location.data.unions.map((e, index) => {
                         if (e.upazila_id == selectedUpazilas) {
-                          return <option value={e.id}>{e.name}</option>;
+                          return (
+                            <option key={index} value={e.id}>
+                              {e.name}
+                            </option>
+                          );
                         }
                       })}
                   </select>

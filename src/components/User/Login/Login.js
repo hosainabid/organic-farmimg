@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "../../Header/Header";
@@ -6,7 +7,21 @@ export default function Login() {
   const [userLoginEmail, setUserLoginEmail] = useState("");
   const [userLoginPassword, setUserLoginPassword] = useState("");
 
-  console.log(userLoginEmail, userLoginPassword);
+  const handleLogin = (e) => {
+    e.preventDefault();
+    const loginDetails = {
+      email: userLoginEmail,
+      password: userLoginPassword,
+    };
+    axios
+      .post(
+        "https://shrouded-basin-02702.herokuapp.com/user_registration",
+        loginDetails
+      )
+      .then((res) => console.log(res));
+
+    e.target.reset();
+  };
   return (
     <div>
       <Header />
@@ -14,7 +29,7 @@ export default function Login() {
         <div className="row justify-content-center align-items-center">
           <div className="col-md-6 col-sm-9 col-xs-12">
             <h3>Login</h3>
-            <form>
+            <form onSubmit={handleLogin}>
               <div className="form-group">
                 <label className="my-3 h5 text-secondary" htmlFor="loginEmail">
                   Email address

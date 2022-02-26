@@ -1,3 +1,4 @@
+import axios, { Axios } from "axios";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "../../Header/Header";
@@ -8,11 +9,24 @@ export default function Registration() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [number, setNumber] = useState("");
-  const [roll, setRoll] = useState("");
+  const [role, setRole] = useState("");
 
   const handleRegistration = (e) => {
     e.preventDefault();
-    console.log(firstName, lastName, email, password, number, roll);
+    const newUser = {
+      name: `${firstName} ${lastName}`,
+      mobile: number,
+      email: email,
+      role: role,
+      password: password,
+    };
+    axios
+      .post(
+        "https://shrouded-basin-02702.herokuapp.com/user_registration",
+        newUser
+      )
+      .then((res) => console.log(res));
+    e.target.reset();
   };
 
   return (
@@ -94,7 +108,7 @@ export default function Registration() {
                   />
                 </div>
               </div>
-              <div class="form-group">
+              <div className="form-group">
                 <label className="my-3 h5 text-secondary" htmlFor="selectRoll">
                   Registration as:
                 </label>
@@ -103,7 +117,7 @@ export default function Registration() {
                   id="selectRoll"
                   defaultValue={"DEFAULT"}
                   required
-                  onChange={(e) => setRoll(e.target.value)}
+                  onChange={(e) => setRole(e.target.value)}
                 >
                   <option value="DEFAULT" disabled>
                     Select Your Roll

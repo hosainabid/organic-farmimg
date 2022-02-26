@@ -1,14 +1,614 @@
 {
   "data": {
     "divisions": [
-      { "id": 94, "name": "Barishal", "geo_code": null },
-      { "id": 95, "name": "Chattogram", "geo_code": null },
-      { "id": 96, "name": "Dhaka", "geo_code": null },
-      { "id": 97, "name": "Khulna", "geo_code": null },
-      { "id": 98, "name": "Mymensingh", "geo_code": null },
-      { "id": 99, "name": "Rajshahi", "geo_code": null },
-      { "id": 100, "name": "Rangpur", "geo_code": null },
-      { "id": 101, "name": "Sylhet", "geo_code": null }
+      {
+        "id": 94,
+        "name": "Barishal",
+        "geo_code": null,
+        "crops": {
+          "January": [
+            {
+              "name": "Cauliflower",
+              "img": "https://i.ibb.co/pwjVZcF/Cauliflower.jpg"
+            },
+            { "name": "Tomato", "img": "https://i.ibb.co/pvbPHzz/tomato.webp" }
+          ],
+          "February": [
+            {
+              "name": "Green Peas",
+              "img": "https://i.ibb.co/rd4Yt6X/Green-Peas.jpg"
+            }
+          ],
+          "March": [
+            { "name": "Okra", "img": "https://i.ibb.co/HhdVFnc/Okra.webp" }
+          ],
+          "April": [
+            {
+              "name": "ব্রি ধান২৭",
+              "img": "https://i.ibb.co/Xj6VrDx/Bri27.jpg"
+            },
+            {
+              "name": "Summer Squash",
+              "img": "https://i.ibb.co/gPSWCrP/Fresh-raw-courgettes-in-different-colors-on-white-background.jpg"
+            }
+          ],
+          "May": [
+            {
+              "name": "Tomatillos",
+              "img": "https://i.ibb.co/ZWkbYsv/tomatillos.jpg"
+            }
+          ],
+          "June": [
+            {
+              "name": "ব্রি ধান৭০",
+              "img": "https://i.ibb.co/nc3YLkq/bri70.jpg"
+            },
+            {
+              "name": "Asparagus",
+              "img": "https://i.ibb.co/QJ45FtV/Asparagus.jpg"
+            }
+          ],
+          "July": [
+            { "name": "Carrots", "img": "https://i.ibb.co/gdf8LG3/carrots.jpg" }
+          ],
+          "August": [
+            {
+              "name": "Spring onions",
+              "img": "https://i.ibb.co/ryN274r/spring-onion.png"
+            }
+          ],
+          "September": [
+            {
+              "name": "Sweetcorn",
+              "img": "https://i.ibb.co/z8Z4Drb/Corn-on-the-cob-kernels-peeled-isolated-on-white-background.jpg"
+            }
+          ],
+          "October": [
+            {
+              "name": "Cucumber",
+              "img": "https://i.ibb.co/DLXTBCb/A-pile-of-fresh-cucumbers-lying-diagonally-with-drops-of-water-with-one-cut-open.jpg"
+            }
+          ],
+          "November": [
+            { "name": "Pumpkin", "img": "https://i.ibb.co/brmzsGP/Pumpkin.jpg" }
+          ],
+          "December": [
+            { "name": "Turnips", "img": "https://i.ibb.co/CJ9fLWd/Turnips.jpg" }
+          ]
+        }
+      },
+      {
+        "id": 95,
+        "name": "Chattogram",
+        "geo_code": null,
+        "crops": {
+          "January": [
+            { "name": "Cabbage", "img": "https://i.ibb.co/fpcFcS0/Cabbage.jpg" }
+          ],
+          "February": [
+            {
+              "name": "Broccoli",
+              "img": "https://i.ibb.co/3k8pNB3/Broccoli.jpg"
+            }
+          ],
+          "March": [
+            { "name": "Carrots", "img": "https://i.ibb.co/gdf8LG3/carrots.jpg" }
+          ],
+          "April": [
+            {
+              "name": "ব্রি ধান৮২",
+              "img": "https://i.ibb.co/KbZLDBT/bri82.jpg"
+            },
+            {
+              "name": "Summer Squash",
+              "img": "https://i.ibb.co/gPSWCrP/Fresh-raw-courgettes-in-different-colors-on-white-background.jpg"
+            }
+          ],
+          "May": [
+            { "name": "Carrots", "img": "https://i.ibb.co/gdf8LG3/carrots.jpg" }
+          ],
+          "June": [
+            {
+              "name": "ব্রি ধান৩২",
+              "img": "https://i.ibb.co/8dn9ZJ3/Bri32.jpg"
+            },
+            {
+              "name": "Asparagus",
+              "img": "https://i.ibb.co/QJ45FtV/Asparagus.jpg"
+            }
+          ],
+          "July": [
+            { "name": "Carrots", "img": "https://i.ibb.co/gdf8LG3/carrots.jpg" }
+          ],
+          "August": [
+            {
+              "name": "Spring onions",
+              "img": "https://i.ibb.co/ryN274r/spring-onion.png"
+            }
+          ],
+          "September": [
+            {
+              "name": "Sweetcorn",
+              "img": "https://i.ibb.co/z8Z4Drb/Corn-on-the-cob-kernels-peeled-isolated-on-white-background.jpg"
+            }
+          ],
+          "October": [
+            {
+              "name": "Cucumber",
+              "img": "https://i.ibb.co/DLXTBCb/A-pile-of-fresh-cucumbers-lying-diagonally-with-drops-of-water-with-one-cut-open.jpg"
+            }
+          ],
+          "November": [
+            { "name": "Pumpkin", "img": "https://i.ibb.co/brmzsGP/Pumpkin.jpg" }
+          ],
+          "December": [
+            {
+              "name": "ব্রি ধান৬৮",
+              "img": "https://i.ibb.co/7jfGX1h/bri68.jpg"
+            },
+            {
+              "name": "Green Peas",
+              "img": "https://i.ibb.co/rd4Yt6X/Green-Peas.jpg"
+            }
+          ]
+        }
+      },
+      {
+        "id": 96,
+        "name": "Dhaka",
+        "geo_code": null,
+        "crops": {
+          "January": [
+            { "name": "Cabbage", "img": "https://i.ibb.co/fpcFcS0/Cabbage.jpg" }
+          ],
+          "February": [
+            {
+              "name": "Broccoli",
+              "img": "https://i.ibb.co/3k8pNB3/Broccoli.jpg"
+            }
+          ],
+          "March": [
+            { "name": "Carrots", "img": "https://i.ibb.co/gdf8LG3/carrots.jpg" }
+          ],
+          "April": [
+            {
+              "name": "ব্রি ধান৮২",
+              "img": "https://i.ibb.co/KbZLDBT/bri82.jpg"
+            },
+            {
+              "name": "Summer Squash",
+              "img": "https://i.ibb.co/gPSWCrP/Fresh-raw-courgettes-in-different-colors-on-white-background.jpg"
+            }
+          ],
+          "May": [
+            { "name": "Carrots", "img": "https://i.ibb.co/gdf8LG3/carrots.jpg" }
+          ],
+          "June": [
+            {
+              "name": "ব্রি ধান৩২",
+              "img": "https://i.ibb.co/8dn9ZJ3/Bri32.jpg"
+            },
+            {
+              "name": "Asparagus",
+              "img": "https://i.ibb.co/QJ45FtV/Asparagus.jpg"
+            }
+          ],
+          "July": [
+            { "name": "Carrots", "img": "https://i.ibb.co/gdf8LG3/carrots.jpg" }
+          ],
+          "August": [
+            {
+              "name": "Spring onions",
+              "img": "https://i.ibb.co/ryN274r/spring-onion.png"
+            }
+          ],
+          "September": [
+            {
+              "name": "Sweetcorn",
+              "img": "https://i.ibb.co/z8Z4Drb/Corn-on-the-cob-kernels-peeled-isolated-on-white-background.jpg"
+            }
+          ],
+          "October": [
+            {
+              "name": "Cucumber",
+              "img": "https://i.ibb.co/DLXTBCb/A-pile-of-fresh-cucumbers-lying-diagonally-with-drops-of-water-with-one-cut-open.jpg"
+            }
+          ],
+          "November": [
+            { "name": "Pumpkin", "img": "https://i.ibb.co/brmzsGP/Pumpkin.jpg" }
+          ],
+          "December": [
+            {
+              "name": "ব্রি ধান৬৮",
+              "img": "https://i.ibb.co/7jfGX1h/bri68.jpg"
+            },
+            {
+              "name": "Green Peas",
+              "img": "https://i.ibb.co/rd4Yt6X/Green-Peas.jpg"
+            }
+          ]
+        }
+      },
+      {
+        "id": 97,
+        "name": "Khulna",
+        "geo_code": null,
+        "crops": {
+          "January": [
+            { "name": "Cabbage", "img": "https://i.ibb.co/fpcFcS0/Cabbage.jpg" }
+          ],
+          "February": [
+            {
+              "name": "Broccoli",
+              "img": "https://i.ibb.co/3k8pNB3/Broccoli.jpg"
+            }
+          ],
+          "March": [
+            { "name": "Carrots", "img": "https://i.ibb.co/gdf8LG3/carrots.jpg" }
+          ],
+          "April": [
+            {
+              "name": "ব্রি ধান৮২",
+              "img": "https://i.ibb.co/KbZLDBT/bri82.jpg"
+            },
+            {
+              "name": "Summer Squash",
+              "img": "https://i.ibb.co/gPSWCrP/Fresh-raw-courgettes-in-different-colors-on-white-background.jpg"
+            }
+          ],
+          "May": [
+            { "name": "Carrots", "img": "https://i.ibb.co/gdf8LG3/carrots.jpg" }
+          ],
+          "June": [
+            {
+              "name": "ব্রি ধান৩২",
+              "img": "https://i.ibb.co/8dn9ZJ3/Bri32.jpg"
+            },
+            {
+              "name": "Asparagus",
+              "img": "https://i.ibb.co/QJ45FtV/Asparagus.jpg"
+            }
+          ],
+          "July": [
+            { "name": "Carrots", "img": "https://i.ibb.co/gdf8LG3/carrots.jpg" }
+          ],
+          "August": [
+            {
+              "name": "Spring onions",
+              "img": "https://i.ibb.co/ryN274r/spring-onion.png"
+            }
+          ],
+          "September": [
+            {
+              "name": "Sweetcorn",
+              "img": "https://i.ibb.co/z8Z4Drb/Corn-on-the-cob-kernels-peeled-isolated-on-white-background.jpg"
+            }
+          ],
+          "October": [
+            {
+              "name": "Cucumber",
+              "img": "https://i.ibb.co/DLXTBCb/A-pile-of-fresh-cucumbers-lying-diagonally-with-drops-of-water-with-one-cut-open.jpg"
+            }
+          ],
+          "November": [
+            { "name": "Pumpkin", "img": "https://i.ibb.co/brmzsGP/Pumpkin.jpg" }
+          ],
+          "December": [
+            {
+              "name": "ব্রি ধান৬৮",
+              "img": "https://i.ibb.co/7jfGX1h/bri68.jpg"
+            },
+            {
+              "name": "Green Peas",
+              "img": "https://i.ibb.co/rd4Yt6X/Green-Peas.jpg"
+            }
+          ]
+        }
+      },
+      {
+        "id": 98,
+        "name": "Mymensingh",
+        "geo_code": null,
+        "crops": {
+          "January": [
+            { "name": "Cabbage", "img": "https://i.ibb.co/fpcFcS0/Cabbage.jpg" }
+          ],
+          "February": [
+            {
+              "name": "Broccoli",
+              "img": "https://i.ibb.co/3k8pNB3/Broccoli.jpg"
+            }
+          ],
+          "March": [
+            { "name": "Carrots", "img": "https://i.ibb.co/gdf8LG3/carrots.jpg" }
+          ],
+          "April": [
+            {
+              "name": "ব্রি ধান৮২",
+              "img": "https://i.ibb.co/KbZLDBT/bri82.jpg"
+            },
+            {
+              "name": "Summer Squash",
+              "img": "https://i.ibb.co/gPSWCrP/Fresh-raw-courgettes-in-different-colors-on-white-background.jpg"
+            }
+          ],
+          "May": [
+            { "name": "Carrots", "img": "https://i.ibb.co/gdf8LG3/carrots.jpg" }
+          ],
+          "June": [
+            {
+              "name": "ব্রি ধান৩২",
+              "img": "https://i.ibb.co/8dn9ZJ3/Bri32.jpg"
+            },
+            {
+              "name": "Asparagus",
+              "img": "https://i.ibb.co/QJ45FtV/Asparagus.jpg"
+            }
+          ],
+          "July": [
+            { "name": "Carrots", "img": "https://i.ibb.co/gdf8LG3/carrots.jpg" }
+          ],
+          "August": [
+            {
+              "name": "Spring onions",
+              "img": "https://i.ibb.co/ryN274r/spring-onion.png"
+            }
+          ],
+          "September": [
+            {
+              "name": "Sweetcorn",
+              "img": "https://i.ibb.co/z8Z4Drb/Corn-on-the-cob-kernels-peeled-isolated-on-white-background.jpg"
+            }
+          ],
+          "October": [
+            {
+              "name": "Cucumber",
+              "img": "https://i.ibb.co/DLXTBCb/A-pile-of-fresh-cucumbers-lying-diagonally-with-drops-of-water-with-one-cut-open.jpg"
+            }
+          ],
+          "November": [
+            { "name": "Pumpkin", "img": "https://i.ibb.co/brmzsGP/Pumpkin.jpg" }
+          ],
+          "December": [
+            {
+              "name": "ব্রি ধান৬৮",
+              "img": "https://i.ibb.co/7jfGX1h/bri68.jpg"
+            },
+            {
+              "name": "Green Peas",
+              "img": "https://i.ibb.co/rd4Yt6X/Green-Peas.jpg"
+            }
+          ]
+        }
+      },
+      {
+        "id": 99,
+        "name": "Rajshahi",
+        "geo_code": null,
+        "crops": {
+          "January": [
+            { "name": "Cabbage", "img": "https://i.ibb.co/fpcFcS0/Cabbage.jpg" }
+          ],
+          "February": [
+            {
+              "name": "Broccoli",
+              "img": "https://i.ibb.co/3k8pNB3/Broccoli.jpg"
+            }
+          ],
+          "March": [
+            { "name": "Carrots", "img": "https://i.ibb.co/gdf8LG3/carrots.jpg" }
+          ],
+          "April": [
+            {
+              "name": "ব্রি ধান৮২",
+              "img": "https://i.ibb.co/KbZLDBT/bri82.jpg"
+            },
+            {
+              "name": "Summer Squash",
+              "img": "https://i.ibb.co/gPSWCrP/Fresh-raw-courgettes-in-different-colors-on-white-background.jpg"
+            }
+          ],
+          "May": [
+            { "name": "Carrots", "img": "https://i.ibb.co/gdf8LG3/carrots.jpg" }
+          ],
+          "June": [
+            {
+              "name": "ব্রি ধান৩২",
+              "img": "https://i.ibb.co/8dn9ZJ3/Bri32.jpg"
+            },
+            {
+              "name": "Asparagus",
+              "img": "https://i.ibb.co/QJ45FtV/Asparagus.jpg"
+            }
+          ],
+          "July": [
+            { "name": "Carrots", "img": "https://i.ibb.co/gdf8LG3/carrots.jpg" }
+          ],
+          "August": [
+            {
+              "name": "Spring onions",
+              "img": "https://i.ibb.co/ryN274r/spring-onion.png"
+            }
+          ],
+          "September": [
+            {
+              "name": "Sweetcorn",
+              "img": "https://i.ibb.co/z8Z4Drb/Corn-on-the-cob-kernels-peeled-isolated-on-white-background.jpg"
+            }
+          ],
+          "October": [
+            {
+              "name": "Cucumber",
+              "img": "https://i.ibb.co/DLXTBCb/A-pile-of-fresh-cucumbers-lying-diagonally-with-drops-of-water-with-one-cut-open.jpg"
+            }
+          ],
+          "November": [
+            { "name": "Pumpkin", "img": "https://i.ibb.co/brmzsGP/Pumpkin.jpg" }
+          ],
+          "December": [
+            {
+              "name": "ব্রি ধান৬৮",
+              "img": "https://i.ibb.co/7jfGX1h/bri68.jpg"
+            },
+            {
+              "name": "Green Peas",
+              "img": "https://i.ibb.co/rd4Yt6X/Green-Peas.jpg"
+            }
+          ]
+        }
+      },
+      {
+        "id": 100,
+        "name": "Rangpur",
+        "geo_code": null,
+        "crops": {
+          "January": [
+            { "name": "Cabbage", "img": "https://i.ibb.co/fpcFcS0/Cabbage.jpg" }
+          ],
+          "February": [
+            {
+              "name": "Broccoli",
+              "img": "https://i.ibb.co/3k8pNB3/Broccoli.jpg"
+            }
+          ],
+          "March": [
+            { "name": "Carrots", "img": "https://i.ibb.co/gdf8LG3/carrots.jpg" }
+          ],
+          "April": [
+            {
+              "name": "ব্রি ধান৮২",
+              "img": "https://i.ibb.co/KbZLDBT/bri82.jpg"
+            },
+            {
+              "name": "Summer Squash",
+              "img": "https://i.ibb.co/gPSWCrP/Fresh-raw-courgettes-in-different-colors-on-white-background.jpg"
+            }
+          ],
+          "May": [
+            { "name": "Carrots", "img": "https://i.ibb.co/gdf8LG3/carrots.jpg" }
+          ],
+          "June": [
+            {
+              "name": "ব্রি ধান৩২",
+              "img": "https://i.ibb.co/8dn9ZJ3/Bri32.jpg"
+            },
+            {
+              "name": "Asparagus",
+              "img": "https://i.ibb.co/QJ45FtV/Asparagus.jpg"
+            }
+          ],
+          "July": [
+            { "name": "Carrots", "img": "https://i.ibb.co/gdf8LG3/carrots.jpg" }
+          ],
+          "August": [
+            {
+              "name": "Spring onions",
+              "img": "https://i.ibb.co/ryN274r/spring-onion.png"
+            }
+          ],
+          "September": [
+            {
+              "name": "Sweetcorn",
+              "img": "https://i.ibb.co/z8Z4Drb/Corn-on-the-cob-kernels-peeled-isolated-on-white-background.jpg"
+            }
+          ],
+          "October": [
+            {
+              "name": "Cucumber",
+              "img": "https://i.ibb.co/DLXTBCb/A-pile-of-fresh-cucumbers-lying-diagonally-with-drops-of-water-with-one-cut-open.jpg"
+            }
+          ],
+          "November": [
+            { "name": "Pumpkin", "img": "https://i.ibb.co/brmzsGP/Pumpkin.jpg" }
+          ],
+          "December": [
+            {
+              "name": "ব্রি ধান৬৮",
+              "img": "https://i.ibb.co/7jfGX1h/bri68.jpg"
+            },
+            {
+              "name": "Green Peas",
+              "img": "https://i.ibb.co/rd4Yt6X/Green-Peas.jpg"
+            }
+          ]
+        }
+      },
+      {
+        "id": 101,
+        "name": "Sylhet",
+        "geo_code": null,
+        "crops": {
+          "January": [
+            { "name": "Cabbage", "img": "https://i.ibb.co/fpcFcS0/Cabbage.jpg" }
+          ],
+          "February": [
+            {
+              "name": "Broccoli",
+              "img": "https://i.ibb.co/3k8pNB3/Broccoli.jpg"
+            }
+          ],
+          "March": [
+            { "name": "Carrots", "img": "https://i.ibb.co/gdf8LG3/carrots.jpg" }
+          ],
+          "April": [
+            {
+              "name": "ব্রি ধান৮২",
+              "img": "https://i.ibb.co/KbZLDBT/bri82.jpg"
+            },
+            {
+              "name": "Summer Squash",
+              "img": "https://i.ibb.co/gPSWCrP/Fresh-raw-courgettes-in-different-colors-on-white-background.jpg"
+            }
+          ],
+          "May": [
+            { "name": "Carrots", "img": "https://i.ibb.co/gdf8LG3/carrots.jpg" }
+          ],
+          "June": [
+            {
+              "name": "ব্রি ধান৩২",
+              "img": "https://i.ibb.co/8dn9ZJ3/Bri32.jpg"
+            },
+            {
+              "name": "Asparagus",
+              "img": "https://i.ibb.co/QJ45FtV/Asparagus.jpg"
+            }
+          ],
+          "July": [
+            { "name": "Carrots", "img": "https://i.ibb.co/gdf8LG3/carrots.jpg" }
+          ],
+          "August": [
+            {
+              "name": "Spring onions",
+              "img": "https://i.ibb.co/ryN274r/spring-onion.png"
+            }
+          ],
+          "September": [
+            {
+              "name": "Sweetcorn",
+              "img": "https://i.ibb.co/z8Z4Drb/Corn-on-the-cob-kernels-peeled-isolated-on-white-background.jpg"
+            }
+          ],
+          "October": [
+            {
+              "name": "Cucumber",
+              "img": "https://i.ibb.co/DLXTBCb/A-pile-of-fresh-cucumbers-lying-diagonally-with-drops-of-water-with-one-cut-open.jpg"
+            }
+          ],
+          "November": [
+            { "name": "Pumpkin", "img": "https://i.ibb.co/brmzsGP/Pumpkin.jpg" }
+          ],
+          "December": [
+            {
+              "name": "ব্রি ধান৬৮",
+              "img": "https://i.ibb.co/7jfGX1h/bri68.jpg"
+            },
+            {
+              "name": "Green Peas",
+              "img": "https://i.ibb.co/rd4Yt6X/Green-Peas.jpg"
+            }
+          ]
+        }
+      }
     ],
     "districts": [
       {
