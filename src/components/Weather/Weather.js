@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { getDate } from "bangla-calendar";
 import WeaterUpdate from "./WeatherUpdate/WeatherUpdate";
 import axios from "axios";
+import CropSuggestion from "./CropSuggestion/CropSuggestion";
+import cropsObj from "../../js/cropsObj";
 
 export default function Weather() {
   const monthNames = [
@@ -36,8 +38,10 @@ export default function Weather() {
   const [selectedDistrict, setSelectedDistrict] = useState(18);
   const [selectedUpazilas, setSelectedUpazilas] = useState(194);
   const [selectedUnions, setSelectedUnions] = useState(1661);
-  const [latitude, setattitude] = useState(24.975);
-  const [longitude, setLongitude] = useState(88.7642);
+  const [latitude, setLatitude] = useState(23.7752);
+  const [longitude, setLongitude] = useState(90.3982);
+
+  const [crops, setCrops] = useState(cropsObj);
 
   const loadingLocation = async () => {
     try {
@@ -70,14 +74,23 @@ export default function Weather() {
   };
 
   const getPosition = (unionId) => {
-    setattitude(location.data.unions[unionId].latitude);
-    setLongitude(location.data.unions[unionId].longitude);
+    setLatitude(
+      location.data.unions.find((union) => union.id == unionId).latitude
+    );
+    setLongitude(
+      location.data.unions.find((union) => union.id == unionId).longitude
+    );
+    setCrops(
+      location.data.divisions.find(
+        (division) => division.id == selectedDivision
+      ).crops
+    );
   };
 
   return (
     <div className="container my-4">
       <div className="row justify-content-center align-items-center">
-        <div className="col-lg-5 border">
+        <div className="col-lg-6 border">
           <div className="row m-3 border-bottom">
             <div className="col-8">
               <div className="row  justify-content-center align-items-center">
@@ -140,6 +153,12 @@ export default function Weather() {
         </div>
       </div>
 
+      {location.data && (
+        <CropSuggestion
+          crops={crops}
+          monthName={monthNames[current.getMonth()]}
+        />
+      )}
       {/* modal  */}
 
       <div
@@ -172,7 +191,7 @@ export default function Weather() {
                       location.data.divisions.map((e, index) => {
                         return (
                           <option key={index} value={e.id}>
-                            {e.name}
+                            {e.name} {e.id}
                           </option>
                         );
                       })}
@@ -193,7 +212,7 @@ export default function Weather() {
                         if (e.division_id == selectedDivision) {
                           return (
                             <option key={index} value={e.id}>
-                              {e.name}
+                              {e.name} {e.id} {e.latitude} {e.longitude}
                             </option>
                           );
                         }
@@ -216,7 +235,7 @@ export default function Weather() {
                         if (e.district_id == selectedDistrict) {
                           return (
                             <option key={index} value={e.id}>
-                              {e.name}
+                              {e.name} {e.id} {e.latitude} {e.longitude}
                             </option>
                           );
                         }
@@ -239,7 +258,7 @@ export default function Weather() {
                         if (e.upazila_id == selectedUpazilas) {
                           return (
                             <option key={index} value={e.id}>
-                              {e.name}
+                              {e.name} {e.id} {e.latitude} {e.longitude}
                             </option>
                           );
                         }
