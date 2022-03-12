@@ -26,21 +26,18 @@ export default function WeaterUpdate({ latitude, longitude }) {
 
   return (
     <div className="row m-3 justify-content-center align-items-center">
-      <div className="col-3 border-end">
-        <p>Now</p>
+      <div className="col-3 border-end text-center">
+        <p>Temperature</p>
         <p>
           {Boolean(weatherUpdate) && fToC(weatherUpdate.main.temp)}
           <span>&#176;</span>
         </p>
       </div>
-      <div className="col-3 border-end">
-        <p>Max</p>
-        <p>
-          {Boolean(weatherUpdate) && fToC(weatherUpdate.main.temp_max)}
-          <span>&#176;</span>
-        </p>
+      <div className="col-3 border-end text-center">
+        <p>Weather</p>
+        <p>{Boolean(weatherUpdate) && weatherUpdate.weather[0].main}</p>
       </div>
-      <div className="col-3">
+      <div className="col-3 text-center">
         <p>Humidity</p>
         <p>{Boolean(weatherUpdate) && weatherUpdate.main.humidity}%</p>
       </div>

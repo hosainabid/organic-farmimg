@@ -1,25 +1,17 @@
-import axios from "axios";
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
+import useAuth from "../../../hooks/useAuth";
 import Header from "../../Header/Header";
 
 export default function Login() {
   const [userLoginEmail, setUserLoginEmail] = useState("");
   const [userLoginPassword, setUserLoginPassword] = useState("");
-
+  const { userLogin, user } = useAuth();
+  const history = useHistory();
   const handleLogin = (e) => {
     e.preventDefault();
-    const loginDetails = {
-      email: userLoginEmail,
-      password: userLoginPassword,
-    };
-    axios
-      .post(
-        "https://shrouded-basin-02702.herokuapp.com/user_registration",
-        loginDetails
-      )
-      .then((res) => console.log(res));
-
+    userLogin(userLoginEmail, userLoginPassword, history);
     e.target.reset();
   };
   return (
@@ -39,7 +31,7 @@ export default function Login() {
                   className="form-control"
                   aria-describedby="emailHelp"
                   placeholder="Enter email"
-                  onChange={(e) => setUserLoginEmail(e.target.value)}
+                  onBlur={(e) => setUserLoginEmail(e.target.value)}
                 />
               </div>
               <div className="form-group">
@@ -53,7 +45,7 @@ export default function Login() {
                   type="password"
                   className="form-control"
                   placeholder="Password"
-                  onChange={(e) => setUserLoginPassword(e.target.value)}
+                  onBlur={(e) => setUserLoginPassword(e.target.value)}
                 />
               </div>
               <button type="submit" className="myBtn my-4">

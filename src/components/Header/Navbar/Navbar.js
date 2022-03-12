@@ -17,14 +17,14 @@ export default function Navbar() {
             className="navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
+            data-bs-target="#headerMenu"
+            aria-controls="headerMenu"
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
             <span className="navbar-toggler-icon"></span>
           </button>
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <div className="collapse navbar-collapse" id="headerMenu">
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
               <li className="nav-item">
                 <NavLink
@@ -49,6 +49,11 @@ export default function Navbar() {
               <li className="nav-item">
                 <NavLink to="/forum" className="nav-link" href="#">
                   Forum
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink to="/blogs" className="nav-link" href="#">
+                  Blogs
                 </NavLink>
               </li>
               <li className="nav-item">
