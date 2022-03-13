@@ -4,7 +4,6 @@ import useAuth from "../../../../../hooks/useAuth";
 
 export default function Sidebar() {
   const { user, userLogout } = useAuth();
-  console.log(user);
   return (
     <div className="bg-light">
       <div className="container">
@@ -26,7 +25,7 @@ export default function Sidebar() {
           <div className="collapse navbar-collapse" id="sidebarMenu">
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
               {user.role == "admin" ? (
-                <li className="nav-item">
+                <li className="nav-item my-2">
                   <NavLink
                     to="/myAccount/uploadSeed"
                     className="nav-link"
@@ -38,7 +37,20 @@ export default function Sidebar() {
               ) : (
                 ""
               )}
-              <li className="nav-item">
+              {user.role == "admin" ? (
+                <li className="nav-item my-2">
+                  <NavLink
+                    to="/myAccount/allUser"
+                    className="nav-link"
+                    aria-current="page"
+                  >
+                    All User
+                  </NavLink>
+                </li>
+              ) : (
+                ""
+              )}
+              <li className="nav-item my-2">
                 <NavLink
                   to="/login"
                   className="nav-link"

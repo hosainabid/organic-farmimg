@@ -165,13 +165,13 @@ export default function Weather() {
         className="modal fade "
         id="exampleModal"
         tabindex="-1"
-        aria-labelledby="exampleModalLabel"
+        aria-labelledby="setLocation"
         aria-hidden="true"
       >
         <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="modal-title" id="exampleModalLabel">
+              <h5 className="modal-title" id="setLocation">
                 Set your location
               </h5>
             </div>
