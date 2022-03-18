@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #f0f2f5;
 }
 
 code {
@@ -63,4 +64,9 @@ a {
 .myLink:hover {
   text-decoration: underline;
   color: #6bc52f;
+}
+
+p {
+  margin: 0;
+  padding: 0;
 }

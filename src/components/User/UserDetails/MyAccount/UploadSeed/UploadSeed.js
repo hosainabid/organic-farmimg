@@ -49,6 +49,7 @@ const UploadSeed = () => {
 
               <div className="form-group mt-4">
                 <input
+                  required
                   type="text"
                   className="form-control"
                   value={seedCategory}
@@ -61,6 +62,7 @@ const UploadSeed = () => {
 
               <div className="form-group mt-4">
                 <input
+                  required
                   type="text"
                   className="form-control"
                   value={seedQuantity}
@@ -74,6 +76,7 @@ const UploadSeed = () => {
               <div className="form-group mt-4">
                 <label htmlFor="seedStock">Seed Stock</label>
                 <input
+                  required
                   type="number"
                   id="seedStock"
                   className="form-control"
@@ -88,8 +91,9 @@ const UploadSeed = () => {
 
               <div className="form-group mt-4">
                 <input
+                  required
                   type="file"
-                  className="form-control-file"
+                  className="form-control"
                   onChange={(e) => setSeedImage(e.target.files[0])}
                 />
               </div>

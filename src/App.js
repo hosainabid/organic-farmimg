@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import Header from "./components/Header/Header";
 import About from "./components/pages/About/About";
 import Blogs from "./components/pages/Blogs/Blogs";
 import Contact from "./components/pages/Contact/Contact";

@@ -9,7 +9,19 @@ export default function Sidebar() {
       <div className="container">
         <nav className="navbar navbar-light bg-light">
           <Link to="/myAccount" className="navbar-brand" href="#">
-            <div className="logo">{user.name}</div>
+            <div className="logo text-capitalize">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                fill="currentColor"
+                className="bi bi-person-fill me-2"
+                viewBox="0 0 16 16"
+              >
+                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+              </svg>
+              {user.name}
+            </div>
           </Link>
           <button
             className="navbar-toggler"
@@ -24,7 +36,7 @@ export default function Sidebar() {
           </button>
           <div className="collapse navbar-collapse" id="sidebarMenu">
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-              {user.role == "admin" ? (
+              {user.role === "admin" ? (
                 <li className="nav-item my-2">
                   <NavLink
                     to="/myAccount/uploadSeed"
@@ -37,7 +49,7 @@ export default function Sidebar() {
               ) : (
                 ""
               )}
-              {user.role == "admin" ? (
+              {user.role === "admin" ? (
                 <li className="nav-item my-2">
                   <NavLink
                     to="/myAccount/allUser"
@@ -50,6 +62,28 @@ export default function Sidebar() {
               ) : (
                 ""
               )}
+              {user.role === "farmar" ? (
+                <li className="nav-item my-2">
+                  <NavLink
+                    to="/myAccount/cropUpload"
+                    className="nav-link"
+                    aria-current="page"
+                  >
+                    Crop Upload
+                  </NavLink>
+                </li>
+              ) : (
+                ""
+              )}
+              <li className="nav-item my-2">
+                <NavLink
+                  to="/myAccount/forumPost"
+                  className="nav-link"
+                  aria-current="page"
+                >
+                  Post on Forum
+                </NavLink>
+              </li>
               <li className="nav-item my-2">
                 <NavLink
                   to="/login"

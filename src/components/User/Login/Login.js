@@ -27,6 +27,7 @@ export default function Login() {
                   Email address
                 </label>
                 <input
+                  required
                   type="email"
                   className="form-control"
                   aria-describedby="emailHelp"
@@ -42,6 +43,7 @@ export default function Login() {
                   Password
                 </label>
                 <input
+                  required
                   type="password"
                   className="form-control"
                   placeholder="Password"

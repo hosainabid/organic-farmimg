@@ -9,15 +9,19 @@ const useUserInfo = () => {
       email: userLoginEmail,
       password: userLoginPassword,
     };
-    history.replace("/");
+
     axios
       .post("https://shrouded-basin-02702.herokuapp.com/login", loginDetails)
       .then((res) => {
-        setUser(res.data.user_info);
-        localStorage.setItem(
-          "organicFarm-user",
-          JSON.stringify(res.data.user_info)
-        );
+        console.log(res);
+        if (res.data.isSuccess) {
+          setUser(res.data.user_info);
+          localStorage.setItem(
+            "organicFarm-user",
+            JSON.stringify(res.data.user_info)
+          );
+          history.replace("/myAccount");
+        }
       });
   };
 
