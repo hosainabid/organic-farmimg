@@ -75,6 +75,19 @@ export default function Sidebar() {
               ) : (
                 ""
               )}
+              {user.role === "farmar" ? (
+                <li className="nav-item my-2">
+                  <NavLink
+                    to="/myAccount/upcomingProductUpload"
+                    className="nav-link"
+                    aria-current="page"
+                  >
+                    Upcoming Product Upload
+                  </NavLink>
+                </li>
+              ) : (
+                ""
+              )}
               <li className="nav-item my-2">
                 <NavLink
                   to="/myAccount/forumPost"

@@ -7,8 +7,8 @@ export default function AllSeeds({ allSeed }) {
       {allSeed.length ? (
         <div className="row">
           {allSeed.map((seed) => (
-            <div className="col-md-3">
-              <SingleSeed seed={seed} key={seed._id} />
+            <div key={seed._id} className="col-md-3">
+              <SingleSeed seed={seed} />
             </div>
           ))}
         </div>

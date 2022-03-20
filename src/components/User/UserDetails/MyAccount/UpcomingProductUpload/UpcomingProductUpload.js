@@ -3,12 +3,12 @@ import React, { useState } from "react";
 import useAuth from "../../../../../hooks/useAuth";
 import LoadingSpinner from "../../../../utilities/LoadingSpinner/LoadingSpinner";
 
-export default function CropUpload() {
+export default function UpcomingProductUpload() {
   const [cropName, setCropName] = useState("");
   const [cropCategory, setCropCategory] = useState("");
   const [cropQuantity, setCropQuantity] = useState("");
   const [cropStock, setCropStock] = useState(0);
-  const [cropImage, setCropImage] = useState();
+  const [cropImage, setCropImage] = useState(null);
   const [allCrop, setAllCrop] = useState([]);
   const [flag, setFlag] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -38,7 +38,10 @@ export default function CropUpload() {
     formData.append("postTime", postTime);
 
     axios
-      .post("https://shrouded-basin-02702.herokuapp.com/add_new_crop", formData)
+      .post(
+        "https://shrouded-basin-02702.herokuapp.com/add_new_upcoming_product",
+        formData
+      )
       .then((res) => {
         console.log(res);
         setFlag((prevState) => !prevState);
@@ -51,13 +54,12 @@ export default function CropUpload() {
     setCropCategory("");
     setCropQuantity("");
     setCropStock(0);
-    setCropImage();
+    setCropImage(null);
   };
-
   const loadMyCrops = async () => {
     try {
       const data = await axios
-        .get("https://shrouded-basin-02702.herokuapp.com/all_crops")
+        .get("https://shrouded-basin-02702.herokuapp.com/all_upcoming_products")
         .then((res) => {
           setAllCrop(res.data.reverse());
           setIsLoading(false);
@@ -65,22 +67,6 @@ export default function CropUpload() {
     } catch (e) {
       console.log(e);
     }
-  };
-
-  React.useEffect(() => loadMyCrops(), [flag]);
-
-  const deleteMyCrop = (id) => {
-    axios
-      .post("https://shrouded-basin-02702.herokuapp.com/delete_crop", {
-        id: id,
-      })
-      .then((res) => {
-        console.log(res);
-        setFlag((prevState) => !prevState);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   };
 
   const updateCrop = (
@@ -102,16 +88,19 @@ export default function CropUpload() {
     })}'${d.getDate()} ${d.getFullYear()}`;
 
     axios
-      .post("https://shrouded-basin-02702.herokuapp.com/update_crop_info", {
-        id: id,
-        name: updatedCropName || prevName,
-        category: updatedCropCategory || prevCategory,
-        quantity: updatedCropQuantity || prevQuantity,
-        stock: updatedCropStock || prevStock,
-        farmerId: farmerId,
-        farmerName: farmerName,
-        postTime: postTime,
-      })
+      .post(
+        "https://shrouded-basin-02702.herokuapp.com/update_upcoming_product_info",
+        {
+          id: id,
+          name: updatedCropName || prevName,
+          category: updatedCropCategory || prevCategory,
+          quantity: updatedCropQuantity || prevQuantity,
+          stock: updatedCropStock || prevStock,
+          farmerId: farmerId,
+          farmerName: farmerName,
+          postTime: postTime,
+        }
+      )
       .then((res) => {
         console.log(res);
         setFlag((prevState) => !prevState);
@@ -121,9 +110,27 @@ export default function CropUpload() {
       });
   };
 
+  React.useEffect(() => loadMyCrops(), [flag]);
+
+  const deleteMyCrop = (id) => {
+    axios
+      .post(
+        "https://shrouded-basin-02702.herokuapp.com/delete_upcoming_product",
+        {
+          id: id,
+        }
+      )
+      .then((res) => {
+        console.log(res);
+        setFlag((prevState) => !prevState);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <div className="my-4">
-      <h3 className="text-center mb-4">Upload A New Crop</h3>
+      <h3 className="text-center mb-4">Upload A New Upcoming Crop</h3>
       <div className="row justify-content-center">
         <div className="col-lg-6">
           <form onSubmit={uploadCropHandler}>
@@ -199,7 +206,8 @@ export default function CropUpload() {
         </div>
       </div>
       <hr />
-      <h3 className="text-center my-4">My Uploaded Crops</h3>
+
+      <h3 className="text-center my-4">My Uploaded Upcoming Crops</h3>
       <div className="table-responsive">
         <table className="table  table-hover">
           <thead>
@@ -292,6 +300,7 @@ export default function CropUpload() {
           </tbody>
         </table>
       </div>
+
       {isLoading && <LoadingSpinner />}
     </div>
   );

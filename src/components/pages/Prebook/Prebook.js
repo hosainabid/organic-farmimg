@@ -3,13 +3,13 @@ import React from "react";
 import Header from "../../Header/Header";
 import LoadingSpinner from "../../utilities/LoadingSpinner/LoadingSpinner";
 
-export default function OrganicFood() {
+export default function Prebook() {
   const [allCrops, setAllCrops] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const loadAllCrops = async () => {
     try {
       const data = await axios
-        .get("https://shrouded-basin-02702.herokuapp.com/all_crops")
+        .get("https://shrouded-basin-02702.herokuapp.com/all_upcoming_products")
         .then((res) => {
           setAllCrops(res.data.reverse());
           setIsLoading(false);
@@ -22,17 +22,16 @@ export default function OrganicFood() {
   React.useEffect(() => {
     loadAllCrops();
   }, []);
-
   return (
     <div>
       <Header />
       <div className="container">
-        <h3 className="my-4 text-center">Organic Food</h3>
+        <h3 className="my-4 text-center">Prebook Your Item</h3>
         <div className="row">
           {isLoading && <LoadingSpinner />}
           {allCrops ? (
             allCrops.map((crop) => (
-              <div key={crop._id} className="col-lg-3 col-md-4">
+              <div key={crop._id} className="col-lg-3 col-md-4 ">
                 <div className="p-3 card-group">
                   <div className="card p-1 shadow">
                     <img

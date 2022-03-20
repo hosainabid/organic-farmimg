@@ -47,6 +47,11 @@ export default function Navbar() {
                 </NavLink>
               </li>
               <li className="nav-item">
+                <NavLink to="/prebook" className="nav-link" href="#">
+                  Prebook
+                </NavLink>
+              </li>
+              <li className="nav-item">
                 <NavLink to="/forum" className="nav-link" href="#">
                   Forum
                 </NavLink>

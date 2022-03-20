@@ -1,5 +1,4 @@
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import Header from "./components/Header/Header";
 import About from "./components/pages/About/About";
 import Blogs from "./components/pages/Blogs/Blogs";
 import Contact from "./components/pages/Contact/Contact";
@@ -7,7 +6,9 @@ import Forum from "./components/pages/Forum/Forum";
 import Home from "./components/pages/Home/Home";
 import NotFound from "./components/pages/NotFound/NotFound";
 import OrganicFood from "./components/pages/OrganicFood/OrganicFood";
+import Prebook from "./components/pages/Prebook/Prebook";
 import SeedBank from "./components/pages/SeedBank/SeedBank";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import Login from "./components/User/Login/Login";
 import Registration from "./components/User/Registration/Registration";
 import UserDetails from "./components/User/UserDetails/UserDetails";
@@ -37,6 +38,9 @@ function App() {
             <Route path="/organicFood">
               <OrganicFood />
             </Route>
+            <Route path="/prebook">
+              <Prebook />
+            </Route>
             <Route path="/forum">
               <Forum />
             </Route>
@@ -49,9 +53,9 @@ function App() {
             <Route path="/registration">
               <Registration />
             </Route>
-            <Route path="/myAccount">
+            <PrivateRoute path="/myAccount">
               <UserDetails />
-            </Route>
+            </PrivateRoute>
             <Route>
               <NotFound />
             </Route>
