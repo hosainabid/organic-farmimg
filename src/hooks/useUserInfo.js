@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 const useUserInfo = () => {
-  const [user, setUser] = React.useState(
+  const [user, setUser] = useState(
     JSON.parse(localStorage.getItem("organicFarm-user"))
   );
+
+  const [isCartUpdated, setIsCartUpdated] = useState(false);
+
   const userLogin = (userLoginEmail, userLoginPassword, history) => {
     const loginDetails = {
       email: userLoginEmail,
@@ -35,6 +38,8 @@ const useUserInfo = () => {
     userLogin,
     user,
     userLogout,
+    isCartUpdated,
+    setIsCartUpdated,
   };
 };
 

@@ -12,3 +12,16 @@
   padding: 7px 15px;
   color: #fff;
 }
+#myBag a {
+  margin: 0;
+  padding: 0;
+}
+#myBag a button {
+  color: #94d321;
+  font-weight: 600;
+  background-color: transparent;
+}
+
+#myBag a button span {
+  color: #94d321;
+}
