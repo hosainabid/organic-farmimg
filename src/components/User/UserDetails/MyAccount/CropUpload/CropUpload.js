@@ -7,6 +7,7 @@ export default function CropUpload() {
   const [cropName, setCropName] = useState("");
   const [cropCategory, setCropCategory] = useState("");
   const [cropQuantity, setCropQuantity] = useState("");
+  const [cropPrice, setCropPrice] = useState(0);
   const [cropStock, setCropStock] = useState(0);
   const [cropImage, setCropImage] = useState();
   const [allCrop, setAllCrop] = useState([]);
@@ -16,6 +17,7 @@ export default function CropUpload() {
   const [updatedCropName, setUpdatedCropName] = useState("");
   const [updatedCropCategory, setUpdatedCropCategory] = useState("");
   const [updatedCropQuantity, setUpdatedCropQuantity] = useState("");
+  const [updatedCropPrice, setUpdatedCropPrice] = useState(0);
   const [updatedCropStock, setUpdatedCropStock] = useState(0);
 
   const { user } = useAuth();
@@ -31,6 +33,7 @@ export default function CropUpload() {
     formData.append("name", cropName);
     formData.append("category", cropCategory);
     formData.append("quantity", cropQuantity);
+    formData.append("price", cropPrice);
     formData.append("stock", cropStock);
     formData.append("file", cropImage);
     formData.append("farmerId", user._id);
@@ -50,6 +53,7 @@ export default function CropUpload() {
     setCropName("");
     setCropCategory("");
     setCropQuantity("");
+    setCropPrice(0);
     setCropStock(0);
     setCropImage();
   };
@@ -90,10 +94,12 @@ export default function CropUpload() {
     updatedCropName,
     updatedCropCategory,
     updatedCropQuantity,
+    updatedCropPrice,
     updatedCropStock,
     prevName,
     prevCategory,
     prevQuantity,
+    prevPrice,
     prevStock
   ) => {
     const d = new Date();
@@ -107,6 +113,7 @@ export default function CropUpload() {
         name: updatedCropName || prevName,
         category: updatedCropCategory || prevCategory,
         quantity: updatedCropQuantity || prevQuantity,
+        price: updatedCropPrice || prevPrice,
         stock: updatedCropStock || prevStock,
         farmerId: farmerId,
         farmerName: farmerName,
@@ -166,6 +173,22 @@ export default function CropUpload() {
               </div>
 
               <div className="form-group mt-4">
+                <label htmlFor="cropStock">Crop Price</label>
+                <input
+                  required
+                  type="number"
+                  id="cropPrice"
+                  className="form-control"
+                  value={cropPrice}
+                  min={1}
+                  placeholder="Crop Quality..."
+                  onChange={(e) => {
+                    setCropPrice(e.target.value);
+                  }}
+                />
+              </div>
+
+              <div className="form-group mt-4">
                 <label htmlFor="cropStock">Crop Stock</label>
                 <input
                   required
@@ -208,6 +231,7 @@ export default function CropUpload() {
               <th scope="col">Name</th>
               <th scope="col">Category</th>
               <th scope="col">Quantity</th>
+              <th scope="col">Price</th>
               <th scope="col">Stock</th>
               <th scope="col">Post Time</th>
               <th scope="col">Edit</th>
@@ -245,6 +269,17 @@ export default function CropUpload() {
                         defaultValue={myCrop.quantity}
                       />
                     </td>
+
+                    <td>
+                      <input
+                        className="form-control"
+                        onChange={(e) => setUpdatedCropPrice(e.target.value)}
+                        min="1"
+                        type="number"
+                        defaultValue={myCrop.price}
+                      />
+                    </td>
+
                     <td>
                       <input
                         className="form-control"
@@ -265,10 +300,12 @@ export default function CropUpload() {
                             updatedCropName,
                             updatedCropCategory,
                             updatedCropQuantity,
+                            updatedCropPrice,
                             updatedCropStock,
                             myCrop.name,
                             myCrop.category,
                             myCrop.quantity,
+                            myCrop.price,
                             myCrop.stock
                           )
                         }

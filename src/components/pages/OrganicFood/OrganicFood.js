@@ -19,6 +19,10 @@ export default function OrganicFood() {
     }
   };
 
+  if (!window.localStorage.getItem("organicFood")) {
+    localStorage.setItem("organicFood", JSON.stringify([]));
+  }
+
   React.useEffect(() => {
     loadAllCrops();
   }, []);
@@ -49,17 +53,26 @@ export default function OrganicFood() {
                             {crop.quantity}
                           </span>
                         </p>
+
                         <p className="py-1">
                           Item left:{" "}
                           <span className="text-warning fw-bold">
-                            {crop.stock}
+                            {crop.stock}{" "}
                           </span>
+                          Unit
                         </p>
                         <p className="py-1">
                           Farmer Name:{" "}
                           <span className="fw-bold">{crop.farmerName}</span>
                         </p>
                       </div>
+                      <p className="py-1">
+                        Item left:{" "}
+                        <span className="text-warning fw-bold">
+                          {crop.price}{" "}
+                        </span>
+                        Tk
+                      </p>
                       <div className="d-flex justify-content-center mt-3">
                         <button type="button" className="list-btn px-3 py-2">
                           Add to Cart

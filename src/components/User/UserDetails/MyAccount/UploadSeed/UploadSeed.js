@@ -6,6 +6,7 @@ const UploadSeed = () => {
   const [seedName, setSeedName] = useState("");
   const [seedCategory, setSeedCategory] = useState("");
   const [seedQuantity, setSeedQuantity] = useState("");
+  const [seedPrice, setSeedPrice] = useState(0);
   const [seedStock, setSeedStock] = useState(0);
   const [seedImage, setSeedImage] = useState();
 
@@ -16,6 +17,7 @@ const UploadSeed = () => {
   const [updatedCropName, setUpdatedCropName] = useState("");
   const [updatedCropCategory, setUpdatedCropCategory] = useState("");
   const [updatedCropQuantity, setUpdatedCropQuantity] = useState("");
+  const [updatedCropPrice, setUpdatedCropPrice] = useState(0);
   const [updatedCropStock, setUpdatedCropStock] = useState(0);
 
   const uploadSeedHandler = (event) => {
@@ -24,8 +26,11 @@ const UploadSeed = () => {
     formData.append("name", seedName);
     formData.append("category", seedCategory);
     formData.append("quantity", seedQuantity);
+    formData.append("price", seedPrice);
     formData.append("stock", seedStock);
     formData.append("file", seedImage);
+
+    console.log(seedPrice);
 
     axios
       .post("https://shrouded-basin-02702.herokuapp.com/add_new_seed", formData)
@@ -44,8 +49,8 @@ const UploadSeed = () => {
         .get("https://shrouded-basin-02702.herokuapp.com/all_seeds")
         .then((res) => {
           setAllSeed(res.data);
+          console.log(res.data);
           setIsSeedLoaded(true);
-          setFlag((prevState) => !prevState);
         });
     } catch (e) {
       console.log(e);
@@ -71,10 +76,12 @@ const UploadSeed = () => {
     updatedCropName,
     updatedCropCategory,
     updatedCropQuantity,
+    updatedCropPrice,
     updatedCropStock,
     prevName,
     prevCategory,
     prevQuantity,
+    prevPrice,
     prevStock
   ) => {
     axios
@@ -83,6 +90,7 @@ const UploadSeed = () => {
         name: updatedCropName || prevName,
         category: updatedCropCategory || prevCategory,
         quantity: updatedCropQuantity || prevQuantity,
+        price: updatedCropPrice || prevPrice,
         stock: updatedCropStock || prevStock,
       })
       .then((res) => {
@@ -146,6 +154,22 @@ const UploadSeed = () => {
               </div>
 
               <div className="form-group mt-4">
+                <label htmlFor="seedStock">Seed Price</label>
+                <input
+                  required
+                  type="number"
+                  id="seedPrice"
+                  className="form-control"
+                  value={seedPrice}
+                  min={1}
+                  placeholder="Seed Price..."
+                  onChange={(e) => {
+                    setSeedPrice(e.target.value);
+                  }}
+                />
+              </div>
+
+              <div className="form-group mt-4">
                 <label htmlFor="seedStock">Seed Stock</label>
                 <input
                   required
@@ -191,6 +215,7 @@ const UploadSeed = () => {
                 <th scope="col">Name</th>
                 <th scope="col">Category</th>
                 <th scope="col">Quantity</th>
+                <th scope="col">Price</th>
                 <th scope="col">Stock</th>
                 <th scope="col">Update</th>
                 <th scope="col">Delete</th>
@@ -230,6 +255,15 @@ const UploadSeed = () => {
                       className="form-control"
                       type="number"
                       min="0"
+                      defaultValue={tr.price}
+                      onChange={(e) => setUpdatedCropPrice(e.target.value)}
+                    />
+                  </td>
+                  <td>
+                    <input
+                      className="form-control"
+                      type="number"
+                      min="0"
                       defaultValue={tr.stock}
                       onChange={(e) => setUpdatedCropStock(e.target.value)}
                     />
@@ -242,10 +276,12 @@ const UploadSeed = () => {
                           updatedCropName,
                           updatedCropCategory,
                           updatedCropQuantity,
+                          updatedCropPrice,
                           updatedCropStock,
                           tr.name,
                           tr.category,
                           tr.quantity,
+                          tr.price,
                           tr.stock
                         )
                       }

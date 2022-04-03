@@ -16,7 +16,6 @@ const useUserInfo = () => {
     axios
       .post("https://shrouded-basin-02702.herokuapp.com/login", loginDetails)
       .then((res) => {
-        console.log(res);
         if (res.data.isSuccess) {
           setUser(res.data.user_info);
           localStorage.setItem(

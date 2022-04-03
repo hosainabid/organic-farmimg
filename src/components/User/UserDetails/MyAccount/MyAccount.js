@@ -7,6 +7,8 @@ import CropUpload from "./CropUpload/CropUpload";
 import ForumPost from "./ForumPost/ForumPost";
 import UpcomingProductUpload from "./UpcomingProductUpload/UpcomingProductUpload";
 import PrivateRouteForAdmin from "../../../PrivateRoute/PrivateRouteForAdmin";
+import MyBag from "./MyBag/MyBag";
+import PrivateRoute from "../../../PrivateRoute/PrivateRoute";
 
 const MyAccount = () => {
   return (
@@ -31,6 +33,13 @@ const MyAccount = () => {
         <Route path="/myAccount/upcomingProductUpload">
           <UpcomingProductUpload />
         </Route>
+      </Switch>
+      <Switch>
+        <PrivateRoute>
+          <Route path="/myAccount/myBag">
+            <MyBag />
+          </Route>
+        </PrivateRoute>
       </Switch>
       <Switch>
         <Route path="/myAccount/forumPost">

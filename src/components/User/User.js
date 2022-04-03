@@ -9,10 +9,12 @@ export default function User() {
   useEffect(() => {
     let totalItemQuantity = 0;
     let seedJSON = JSON.parse(window.localStorage.getItem("organicFoodSeeds"));
-    seedJSON.map(
-      (seed) => (totalItemQuantity = totalItemQuantity + seed.quantity)
-    );
-    setAddedProductCount(totalItemQuantity);
+    if (seedJSON) {
+      seedJSON.map(
+        (seed) => (totalItemQuantity = totalItemQuantity + seed.quantity)
+      );
+      setAddedProductCount(totalItemQuantity);
+    }
   }, [isCartUpdated]);
 
   return (
@@ -29,7 +31,7 @@ export default function User() {
             </li>
 
             <li id="myBag">
-              <Link to="/myAccount">
+              <Link to="/myAccount/myBag">
                 <button type="button" className="list-btn">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

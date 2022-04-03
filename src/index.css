@@ -74,3 +74,39 @@ p {
 table input {
   min-width: 120px;
 }
+
+.add-btn {
+  background-color: #2ecc71;
+}
+.subtract-btn {
+  background-color: #e74c3c;
+}
+
+.add-btn,
+.subtract-btn {
+  color: #000;
+  font-size: 20px;
+  font-weight: 900;
+  width: 40px;
+}
+
+.cart-product-img {
+  width: 120px;
+  height: auto;
+}
+
+.cart-product-quantity-field {
+  width: 120px;
+}
+
+.cart-product-delete-btn {
+  color: #2ecc71;
+  transition: all 0.4s ease-in-out;
+}
+.cart-product-delete-btn:hover {
+  color: #fff;
+  background-color: #2ecc71;
+}
+.product-img-container {
+  height: 160px;
+}
