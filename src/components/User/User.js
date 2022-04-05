@@ -9,9 +9,29 @@ export default function User() {
   useEffect(() => {
     let totalItemQuantity = 0;
     let seedJSON = JSON.parse(window.localStorage.getItem("organicFoodSeeds"));
+    let prebookJSON = JSON.parse(
+      window.localStorage.getItem("organicFoodPrebook")
+    );
+    let organicFoodJSON = JSON.parse(
+      window.localStorage.getItem("organicFood")
+    );
     if (seedJSON) {
       seedJSON.map(
         (seed) => (totalItemQuantity = totalItemQuantity + seed.quantity)
+      );
+      setAddedProductCount(totalItemQuantity);
+    }
+
+    if (prebookJSON) {
+      prebookJSON.map(
+        (crop) => (totalItemQuantity = totalItemQuantity + crop.quantity)
+      );
+      setAddedProductCount(totalItemQuantity);
+    }
+
+    if (organicFoodJSON) {
+      organicFoodJSON.map(
+        (crop) => (totalItemQuantity = totalItemQuantity + crop.quantity)
       );
       setAddedProductCount(totalItemQuantity);
     }

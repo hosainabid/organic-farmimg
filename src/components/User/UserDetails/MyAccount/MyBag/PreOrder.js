@@ -1,60 +1,64 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import useAuth from "../../../../../hooks/useAuth";
 
-export default function SeedBag() {
-  const [seedsInCart, setSeedsInCart] = useState([]);
-  const { isCartUpdated, setIsCartUpdated } = useAuth();
-  const [seedSubtotal, setSeedSubtotal] = useState(0);
-  const [seedTotal, setSeedTotal] = useState(0);
+export default function PreOrder() {
+  const [prebookItems, setPrebookItems] = useState(
+    JSON.parse(localStorage.getItem("organicFoodPrebook"))
+  );
+  const [preorderSubtotal, setPreorderSubtotal] = useState(0);
   const [quickShipping, setQuickShipping] = useState(false);
+  const [prebookTotal, setPrebookTotal] = useState(0);
+  const { isCartUpdated, setIsCartUpdated } = useAuth();
+
   useEffect(() => {
-    setSeedsInCart(JSON.parse(localStorage.getItem("organicFoodSeeds")));
-    const availableSeeds = JSON.parse(localStorage.getItem("organicFoodSeeds"));
-    let seedsPrice = 0;
-    availableSeeds.map((product) => {
-      seedsPrice = seedsPrice + product.seed.price * product.quantity;
+    setPrebookItems(JSON.parse(localStorage.getItem("organicFoodPrebook")));
+    let preorderItemsPrice = 0;
+    prebookItems.map((product) => {
+      preorderItemsPrice =
+        preorderItemsPrice + product.cropDetails.price * product.quantity;
     });
-    setSeedSubtotal(seedsPrice);
+    setPreorderSubtotal(preorderItemsPrice);
     if (quickShipping) {
-      setSeedTotal(seedsPrice + 150);
+      setPrebookTotal(preorderItemsPrice + 150);
     } else {
-      setSeedTotal(seedsPrice + 100);
+      setPrebookTotal(preorderItemsPrice + 100);
     }
   }, [isCartUpdated, quickShipping]);
 
-  const deleteFromCartHandler = (index) => {
-    const prevOrganicFoodSeeds = JSON.parse(
-      localStorage.getItem("organicFoodSeeds")
+  const deleteFromPrebookItems = (index) => {
+    const prevPrebookItems = JSON.parse(
+      localStorage.getItem("organicFoodPrebook")
     );
-    prevOrganicFoodSeeds.splice(index, 1);
+
+    prevPrebookItems.splice(index, 1);
     localStorage.setItem(
-      "organicFoodSeeds",
-      JSON.stringify([...prevOrganicFoodSeeds])
+      "organicFoodPrebook",
+      JSON.stringify([...prevPrebookItems])
     );
-    setSeedsInCart(JSON.parse(localStorage.getItem("organicFoodSeeds")));
+    setPrebookItems(JSON.parse(localStorage.getItem("organicFoodPrebook")));
     setIsCartUpdated((prevState) => !prevState);
   };
 
-  const updateFromCart = (index, value) => {
-    const prevOrganicFoodSeeds = JSON.parse(
-      localStorage.getItem("organicFoodSeeds")
+  const updatePrebookItem = (index, value) => {
+    const prevPrebookItems = JSON.parse(
+      localStorage.getItem("organicFoodPrebook")
     );
-    prevOrganicFoodSeeds[index].quantity = parseInt(value);
-
+    prevPrebookItems[index].quantity = parseInt(value);
     localStorage.setItem(
-      "organicFoodSeeds",
-      JSON.stringify([...prevOrganicFoodSeeds])
+      "organicFoodPrebook",
+      JSON.stringify([...prevPrebookItems])
     );
 
-    setSeedsInCart(JSON.parse(localStorage.getItem("organicFoodSeeds")));
+    setPrebookItems(JSON.parse(localStorage.getItem("organicFoodPrebook")));
     setIsCartUpdated((prevState) => !prevState);
   };
 
   return (
     <Fragment>
-      {Boolean(seedsInCart.length) && (
+      {Boolean(prebookItems.length) && (
         <div className="rounded border p-3 my-5">
-          <h4 className="fw-light">Added seeds in cart</h4>
+          <h4 className="fw-light mt-3">Added Prebook foods in cart</h4>
+
           <div className="table-responsive">
             <table className="mt-3 table table-borderless">
               <thead>
@@ -68,12 +72,12 @@ export default function SeedBag() {
               </thead>
 
               <tbody>
-                {seedsInCart.map((product, index) => {
+                {prebookItems.map((product, index) => {
                   return (
-                    <tr key={product.seed._id}>
+                    <tr key={product.cropDetails._id}>
                       <td className="d-flex justify-content-center">
                         <button
-                          onClick={() => deleteFromCartHandler(index)}
+                          onClick={() => deleteFromPrebookItems(index)}
                           className="border rounded cart-product-delete-btn p-2"
                         >
                           <svg
@@ -93,17 +97,19 @@ export default function SeedBag() {
                           <div className="cart-product-img mx-3">
                             <img
                               className="img-fluid rounded"
-                              src={`data:image/png;base64,${product.seed.image.img}`}
-                              alt={product.seed.name}
+                              src={`data:image/png;base64,${product.cropDetails.image.img}`}
+                              alt={product.cropDetails.name}
                             />
                           </div>
                           <div className="cart-product-name text-capitalize mx-3 fw-bold">
-                            {product.seed.name}
+                            {product.cropDetails.name}
                           </div>
                         </div>
                       </td>
                       <td>
-                        <span className="fw-bold h5">{product.seed.price}</span>{" "}
+                        <span className="fw-bold h5">
+                          {product.cropDetails.price}
+                        </span>{" "}
                         {" Tk"}
                       </td>
                       <td className="fw-bold">
@@ -113,13 +119,13 @@ export default function SeedBag() {
                           defaultValue={product.quantity}
                           min={1}
                           onChange={(e) =>
-                            updateFromCart(index, e.target.value)
+                            updatePrebookItem(index, e.target.value)
                           }
                         />
                       </td>
                       <td>
                         <span className="h5">
-                          {product.seed.price * product.quantity}
+                          {product.cropDetails.price * product.quantity}
                         </span>
                         {" Tk"}
                       </td>
@@ -134,7 +140,7 @@ export default function SeedBag() {
             <div className="col-md-6 px-3">
               <p className="h5 fw-bold text-secondary">
                 Total Product Cost:{" "}
-                <span className="h4 text-info">{seedSubtotal}</span> {" Tk"}
+                <span className="h4 text-info">{preorderSubtotal}</span> {" Tk"}
               </p>
               <p className="h5 fw-bold text-secondary pb-1">
                 Shipping Charge:{" "}
@@ -147,22 +153,26 @@ export default function SeedBag() {
                 <input
                   className="form-check-input"
                   type="checkbox"
-                  id="seedQuickDelivary"
+                  id="prebookQuickDelivary"
                   onChange={(e) => setQuickShipping(e.target.checked)}
                 />
-                <label className="form-check-label" htmlFor="seedQuickDelivary">
+                <label
+                  className="form-check-label"
+                  htmlFor="prebookQuickDelivary"
+                >
                   Get Delivary within 24h
                 </label>
               </div>
               <hr />
               <p className="h5 fw-bold text-secondary">
-                Total: <span className="h4 text-info">{seedTotal}</span> {" Tk"}
+                Total: <span className="h4 text-info">{prebookTotal}</span>{" "}
+                {" Tk"}
               </p>
             </div>
 
             <div className="col-md-6 px-3 text-center">
-              <button type="button" className="list-btn px-5 py-2 mt-sm-4">
-                Place Seeds Order
+              <button type="button" className="list-btn px-5 py-2">
+                Place Prebook Foods Order
               </button>
             </div>
           </div>

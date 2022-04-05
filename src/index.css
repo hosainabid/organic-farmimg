@@ -93,6 +93,7 @@ table input {
 .cart-product-img {
   width: 120px;
   height: auto;
+  max-height: 120px;
 }
 
 .cart-product-quantity-field {

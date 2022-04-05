@@ -20,10 +20,6 @@ export default function SeedBank() {
     }
   };
 
-  if (!window.localStorage.getItem("organicFoodSeeds")) {
-    localStorage.setItem("organicFoodSeeds", JSON.stringify([]));
-  }
-
   React.useEffect(() => {
     loadAllSeed();
   }, []);
