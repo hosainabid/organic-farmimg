@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import useAuth from "../../../../../hooks/useAuth";
 import LoadingSpinner from "../../../../utilities/LoadingSpinner/LoadingSpinner";
 
@@ -13,6 +13,7 @@ export default function UpcomingProductUpload() {
   const [allCrop, setAllCrop] = useState([]);
   const [flag, setFlag] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [myCrop, setMyCrop] = useState([]);
 
   const [updatedCropName, setUpdatedCropName] = useState("");
   const [updatedCropCategory, setUpdatedCropCategory] = useState("");
@@ -73,6 +74,13 @@ export default function UpcomingProductUpload() {
     }
   };
 
+  useEffect(() => {
+    if (allCrop.length > 0) {
+      const filtered = allCrop.filter((myCrop) => user._id === myCrop.farmerId);
+      setMyCrop(filtered);
+    }
+  }, [allCrop]);
+
   const updateCrop = (
     id,
     farmerName,
@@ -117,7 +125,7 @@ export default function UpcomingProductUpload() {
       });
   };
 
-  React.useEffect(() => loadMyCrops(), [flag]);
+  useEffect(() => loadMyCrops(), [flag]);
 
   const deleteMyCrop = (id) => {
     axios
@@ -230,35 +238,35 @@ export default function UpcomingProductUpload() {
       </div>
       <hr />
 
-      <h3 className="text-center my-4">My Uploaded Upcoming Crops</h3>
-      <div className="table-responsive">
-        <table className="table  table-hover">
-          <thead>
-            <tr>
-              <th scope="col">No</th>
-              <th scope="col">Name</th>
-              <th scope="col">Category</th>
-              <th scope="col">Quantity</th>
-              <th scope="col">Price</th>
-              <th scope="col">Stock</th>
-              <th scope="col">Post Time</th>
-              <th scope="col">Edit</th>
-              <th scope="col">Delete</th>
-            </tr>
-          </thead>
+      {Boolean(myCrop) && (
+        <Fragment>
+          <h3 className="text-center my-4">My Uploaded Upcoming Crops</h3>
+          <div className="table-responsive">
+            <table className="table  table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">No</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Category</th>
+                  <th scope="col">Quantity</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Stock</th>
+                  <th scope="col">Post Time</th>
+                  <th scope="col">Edit</th>
+                  <th scope="col">Delete</th>
+                </tr>
+              </thead>
 
-          <tbody>
-            {allCrop.map((myCrop, index) => {
-              if (user._id === myCrop.farmerId) {
-                return (
-                  <tr key={myCrop._id}>
+              <tbody>
+                {myCrop.map((crop, index) => (
+                  <tr key={crop._id}>
                     <th scope="row">{index + 1}</th>
                     <td>
                       <input
                         onChange={(e) => setUpdatedCropName(e.target.value)}
                         className="form-control"
                         type="text"
-                        defaultValue={myCrop.name}
+                        defaultValue={crop.name}
                       />
                     </td>
                     <td>
@@ -266,7 +274,7 @@ export default function UpcomingProductUpload() {
                         type="text"
                         onChange={(e) => setUpdatedCropCategory(e.target.value)}
                         className="form-control"
-                        defaultValue={myCrop.category}
+                        defaultValue={crop.category}
                       />
                     </td>
                     <td>
@@ -274,7 +282,7 @@ export default function UpcomingProductUpload() {
                         className="form-control"
                         onChange={(e) => setUpdatedCropQuantity(e.target.value)}
                         type="text"
-                        defaultValue={myCrop.quantity}
+                        defaultValue={crop.quantity}
                       />
                     </td>
                     <td>
@@ -283,7 +291,7 @@ export default function UpcomingProductUpload() {
                         onChange={(e) => setUpdatedCropPrice(e.target.value)}
                         min="1"
                         type="number"
-                        defaultValue={myCrop.price}
+                        defaultValue={crop.price}
                       />
                     </td>
                     <td>
@@ -292,27 +300,27 @@ export default function UpcomingProductUpload() {
                         onChange={(e) => setUpdatedCropStock(e.target.value)}
                         min="1"
                         type="number"
-                        defaultValue={myCrop.stock}
+                        defaultValue={crop.stock}
                       />
                     </td>
-                    <td>{myCrop.postTime}</td>
+                    <td>{crop.postTime}</td>
                     <td>
                       <button
                         onClick={() =>
                           updateCrop(
-                            myCrop._id,
-                            myCrop.farmerName,
-                            myCrop.farmerId,
+                            crop._id,
+                            crop.farmerName,
+                            crop.farmerId,
                             updatedCropName,
                             updatedCropCategory,
                             updatedCropQuantity,
                             updatedCropPrice,
                             updatedCropStock,
-                            myCrop.name,
-                            myCrop.category,
-                            myCrop.quantity,
-                            myCrop.price,
-                            myCrop.stock
+                            crop.name,
+                            crop.category,
+                            crop.quantity,
+                            crop.price,
+                            crop.stock
                           )
                         }
                         className="list-btn px-3 py-1"
@@ -322,19 +330,19 @@ export default function UpcomingProductUpload() {
                     </td>
                     <td>
                       <button
-                        onClick={() => deleteMyCrop(myCrop._id)}
+                        onClick={() => deleteMyCrop(crop._id)}
                         className="list-btn px-3 py-1"
                       >
                         Delete
                       </button>
                     </td>
                   </tr>
-                );
-              }
-            })}
-          </tbody>
-        </table>
-      </div>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Fragment>
+      )}
 
       {isLoading && <LoadingSpinner />}
     </div>
