@@ -46,9 +46,10 @@ export default function Weather() {
   const loadingLocation = async () => {
     try {
       const data = await axios
-        .get("https://api.jsonbin.io/b/6218965fc4790b340623b277")
+        .get("https://api.npoint.io/86c6415acaacbfcffbbc")
         .then((res) => {
           setLocation(res.data);
+          console.log(res.data);
         });
     } catch (e) {
       console.log(e);

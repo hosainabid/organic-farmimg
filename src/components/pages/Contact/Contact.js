@@ -85,7 +85,7 @@ export default function Contact() {
                   Your Comment
                 </label>
                 <textarea
-                  class="form-control"
+                  className="form-control"
                   name="message"
                   placeholder="Leave Your Comment Here..."
                 ></textarea>

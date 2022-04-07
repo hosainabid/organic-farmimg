@@ -1,5 +1,5 @@
 import axios from "axios";
-import React from "react";
+import React, { Fragment } from "react";
 import LoadingSpinner from "../../../../utilities/LoadingSpinner/LoadingSpinner";
 
 const AllUser = () => {
@@ -75,25 +75,27 @@ const AllUser = () => {
   ));
 
   return (
-    <div className="my-4">
+    <Fragment>
       <h3 className="text-center">All User Details</h3>
 
-      <table className="table table-hover">
-        <thead>
-          <tr>
-            <th scope="col">No</th>
-            <th scope="col">Name</th>
-            <th scope="col">Mobile</th>
-            <th scope="col">Email</th>
-            <th scope="col">Role</th>
-            <th scope="col">Make Admin</th>
-          </tr>
-        </thead>
-        <tbody>{allUserContainer}</tbody>
-      </table>
+      <div className="table-responsive">
+        <table className="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">No</th>
+              <th scope="col">Name</th>
+              <th scope="col">Mobile</th>
+              <th scope="col">Email</th>
+              <th scope="col">Role</th>
+              <th scope="col">Make Admin</th>
+            </tr>
+          </thead>
+          <tbody>{allUserContainer}</tbody>
+        </table>
+      </div>
 
       {!isAllUserLoaded && <LoadingSpinner />}
-    </div>
+    </Fragment>
   );
 };
 

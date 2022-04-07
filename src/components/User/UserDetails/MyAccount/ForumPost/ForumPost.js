@@ -39,7 +39,7 @@ const ForumPost = () => {
       <h3 className="text-center my-4">Upload A Forum Post</h3>
 
       <div className="row justify-content-center">
-        <div className="col-lg-6">
+        <div className="col-lg-10">
           <form onSubmit={forumPostHandler}>
             <div className="mb-3">
               <input

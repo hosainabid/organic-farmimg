@@ -31,6 +31,10 @@ const useUserInfo = () => {
     window.localStorage.removeItem("organicFarm-user");
     setUser(null);
     history.replace("/login");
+    localStorage.setItem("organicFood", JSON.stringify([]));
+    localStorage.setItem("organicFoodPrebook", JSON.stringify([]));
+    localStorage.setItem("organicFoodSeeds", JSON.stringify([]));
+    setIsCartUpdated((prev) => !prev);
   };
 
   return {

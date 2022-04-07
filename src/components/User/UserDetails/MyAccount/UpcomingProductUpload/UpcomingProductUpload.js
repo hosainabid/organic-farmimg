@@ -144,10 +144,10 @@ export default function UpcomingProductUpload() {
       });
   };
   return (
-    <div className="my-4">
+    <>
       <h3 className="text-center mb-4">Upload A New Upcoming Crop</h3>
       <div className="row justify-content-center">
-        <div className="col-lg-6">
+        <div className="col-lg-10">
           <form onSubmit={uploadCropHandler}>
             <div>
               <div className="form-group mt-4">
@@ -345,6 +345,6 @@ export default function UpcomingProductUpload() {
       )}
 
       {isLoading && <LoadingSpinner />}
-    </div>
+    </>
   );
 }

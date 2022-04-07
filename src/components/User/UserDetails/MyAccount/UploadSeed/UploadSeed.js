@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Fragment } from "react";
 import axios from "axios";
 import LoadingSpinner from "../../../../utilities/LoadingSpinner/LoadingSpinner";
 
@@ -108,10 +108,10 @@ const UploadSeed = () => {
   }, [flag]);
 
   return (
-    <div className="my-5">
+    <Fragment>
       <h3 className="text-center my-4">Upload A New Seed</h3>
       <div className="row justify-content-center">
-        <div className="col-lg-6">
+        <div className="col-lg-10">
           <form onSubmit={uploadSeedHandler}>
             <div>
               <div className="form-group mt-4">
@@ -306,7 +306,7 @@ const UploadSeed = () => {
         </div>
       </div>
       {!isSeedLoaded && <LoadingSpinner />}
-    </div>
+    </Fragment>
   );
 };
 

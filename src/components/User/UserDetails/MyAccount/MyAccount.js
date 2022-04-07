@@ -12,40 +12,44 @@ import PrivateRoute from "../../../PrivateRoute/PrivateRoute";
 
 const MyAccount = () => {
   return (
-    <div className="row">
-      <Sidebar />
-      <Switch>
-        <PrivateRouteForAdmin path="/myAccount/uploadSeed">
-          <UploadSeed />
-        </PrivateRouteForAdmin>
-      </Switch>
-      <Switch>
-        <PrivateRouteForAdmin path="/myAccount/allUser">
-          <AllUser />
-        </PrivateRouteForAdmin>
-      </Switch>
-      <Switch>
-        <Route path="/myAccount/cropUpload">
-          <CropUpload />
-        </Route>
-      </Switch>
-      <Switch>
-        <Route path="/myAccount/upcomingProductUpload">
-          <UpcomingProductUpload />
-        </Route>
-      </Switch>
-      <Switch>
-        <PrivateRoute>
-          <Route path="/myAccount/myBag">
-            <MyBag />
+    <div className="d-md-flex">
+      <div className="col-md-3 col-sm-12">
+        <Sidebar />
+      </div>
+      <div className="col-md-9 col-sm-12 ps-md-5">
+        <Switch>
+          <PrivateRouteForAdmin path="/myAccount/uploadSeed">
+            <UploadSeed />
+          </PrivateRouteForAdmin>
+        </Switch>
+        <Switch>
+          <PrivateRouteForAdmin path="/myAccount/allUser">
+            <AllUser />
+          </PrivateRouteForAdmin>
+        </Switch>
+        <Switch>
+          <Route path="/myAccount/cropUpload">
+            <CropUpload />
           </Route>
-        </PrivateRoute>
-      </Switch>
-      <Switch>
-        <Route path="/myAccount/forumPost">
-          <ForumPost />
-        </Route>
-      </Switch>
+        </Switch>
+        <Switch>
+          <Route path="/myAccount/upcomingProductUpload">
+            <UpcomingProductUpload />
+          </Route>
+        </Switch>
+        <Switch>
+          <PrivateRoute>
+            <Route path="/myAccount/myBag">
+              <MyBag />
+            </Route>
+          </PrivateRoute>
+        </Switch>
+        <Switch>
+          <Route path="/myAccount/forumPost">
+            <ForumPost />
+          </Route>
+        </Switch>
+      </div>
     </div>
   );
 };

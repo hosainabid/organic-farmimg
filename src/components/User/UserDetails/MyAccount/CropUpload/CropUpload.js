@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, Fragment } from "react";
 import useAuth from "../../../../../hooks/useAuth";
 import LoadingSpinner from "../../../../utilities/LoadingSpinner/LoadingSpinner";
 
@@ -129,10 +129,10 @@ export default function CropUpload() {
   };
 
   return (
-    <div className="my-4">
+    <Fragment>
       <h3 className="text-center mb-4">Upload A New Crop</h3>
       <div className="row justify-content-center">
-        <div className="col-lg-6">
+        <div className="col-lg-10">
           <form onSubmit={uploadCropHandler}>
             <div>
               <div className="form-group mt-4">
@@ -330,6 +330,6 @@ export default function CropUpload() {
         </table>
       </div>
       {isLoading && <LoadingSpinner />}
-    </div>
+    </Fragment>
   );
 }

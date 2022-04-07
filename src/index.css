@@ -109,5 +109,10 @@ table input {
   background-color: #2ecc71;
 }
 .product-img-container {
-  height: 160px;
+  width: 276px;
+  height: 180px;
+}
+
+.z-index {
+  z-index: 10;
 }

@@ -29,11 +29,11 @@ export default function OrganicFood() {
       <Header />
       <div className="container">
         <h3 className="my-4 text-center">Organic Food</h3>
-        <div className="row">
-          {isLoading && <LoadingSpinner />}
+        {isLoading && <LoadingSpinner />}
+        <div className="row row-cols-1 row-cols-md-4 g-4">
           {allCrops ? (
             allCrops.map((crop) => (
-              <div key={crop._id} className="col-lg-3 col-md-4">
+              <div key={crop._id} className="col">
                 <OrganicFoodItem crop={crop} />
               </div>
             ))

@@ -84,67 +84,67 @@ export default function PrebookItem({ crop }) {
     setIsCartUpdated((prev) => !prev);
   };
   return (
-    <div className="p-3 card-group">
-      <div className="card p-1 shadow">
-        <img
-          className="card-img-top"
-          src={`data:image/png;base64,${crop.image.img}`}
-          alt=""
-        />
-        <div className="card-body">
-          <h5 className="card-title">{crop.name}</h5>
-          <div className="card-text">
-            <p className="py-1">
-              Unit Quantity:{" "}
-              <span className="text-success fw-bold">{crop.quantity}</span>
-            </p>
-            <p className="py-1">
-              Item left:{" "}
-              <span className="text-warning fw-bold">{crop.stock} </span> Unit
-            </p>
-            <p className="py-1">
-              Farmer Name: <span className="fw-bold">{crop.farmerName}</span>
-            </p>
-          </div>
+    <div className="card h-100 p-1 shadow">
+      <img
+        className="card-img-top"
+        src={`data:image/png;base64,${crop.image.img}`}
+        alt=""
+      />
+      <div className="card-body">
+        <h5 className="card-title">{crop.name}</h5>
+        <div className="card-text">
           <p className="py-1">
-            Item Price:{" "}
-            <span className="text-danger h4 fw-bold">{crop.price} </span> Tk
+            Unit Quantity:{" "}
+            <span className="text-success fw-bold">{crop.quantity}</span>
           </p>
-          <div className="d-flex justify-content-center mt-3">
-            {addCounter ? (
-              <div className="btn-group" role="group">
-                <button
-                  onClick={() => {
-                    subtractFromPrebookHandler(crop._id);
-                  }}
-                  type="button"
-                  className="btn subtract-btn"
-                >
-                  -
-                </button>
-                <button type="button" className="btn px-3" disabled>
-                  {addCounter}
-                </button>
-                <button
-                  onClick={() => addToPrebookCartHandler(crop)}
-                  type="button"
-                  className="btn add-btn"
-                >
-                  +
-                </button>
-              </div>
-            ) : (
+          <p className="py-1">
+            Item left:{" "}
+            <span className="text-warning fw-bold">{crop.stock} </span> Unit
+          </p>
+          <p className="py-1">
+            Farmer Name: <span className="fw-bold">{crop.farmerName}</span>
+          </p>
+        </div>
+        <p className="py-1">
+          Item Price:{" "}
+          <span className="text-danger h4 fw-bold">{crop.price} </span> Tk
+        </p>
+      </div>
+      <div className="card-footer">
+        <div className="d-flex justify-content-center mt-3">
+          {addCounter ? (
+            <div className="btn-group w-100" role="group">
               <button
                 onClick={() => {
-                  addToPrebookCartHandler(crop);
+                  subtractFromPrebookHandler(crop._id);
                 }}
                 type="button"
-                className="list-btn px-3 py-2"
+                className="btn subtract-btn"
               >
-                Add to Cart
+                -
               </button>
-            )}
-          </div>
+              <button type="button" className="btn px-3" disabled>
+                {addCounter}
+              </button>
+              <button
+                onClick={() => addToPrebookCartHandler(crop)}
+                type="button"
+                className="btn add-btn"
+              >
+                +
+              </button>
+            </div>
+          ) : (
+            <button
+              onClick={() => {
+                addToPrebookCartHandler(crop);
+              }}
+              type="button"
+              className="list-btn px-3 py-2 w-100"
+            >
+              Add to Cart
+            </button>
+          )}
         </div>
       </div>
     </div>

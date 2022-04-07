@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { Fragment, useState, useEffect } from "react";
 import useAuth from "../../../../../hooks/useAuth";
 
@@ -8,7 +9,7 @@ export default function OrganicFoodBag() {
   const [organicFoodSubtotal, setOrganicFoodSubtotal] = useState(0);
   const [quickShipping, setQuickShipping] = useState(false);
   const [organicFoodTotal, setOrganicFoodTotal] = useState(0);
-  const { isCartUpdated, setIsCartUpdated } = useAuth();
+  const { user, isCartUpdated, setIsCartUpdated } = useAuth();
 
   useEffect(() => {
     setOrganicFoodItems(JSON.parse(localStorage.getItem("organicFood")));
@@ -24,6 +25,27 @@ export default function OrganicFoodBag() {
       setOrganicFoodTotal(organicFoodItemsPrice + 100);
     }
   }, [isCartUpdated, quickShipping]);
+
+  const placeOrganicFoodOrder = () => {
+    const orderedOrganicFoods = JSON.parse(localStorage.getItem("organicFood"));
+    axios
+      .post("https://shrouded-basin-02702.herokuapp.com/place_order", {
+        productDetails: orderedOrganicFoods,
+        userId: user._id,
+        userName: user.name,
+        userEmail: user.email,
+        mobile: user.mobile,
+        orderStatus: 1,
+      })
+      .then((response) => {
+        console.log(response);
+        localStorage.setItem("organicFood", JSON.stringify([]));
+        setIsCartUpdated((prev) => !prev);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const deleteFromPrebookItems = (index) => {
     const prevOrganicFoodItems = JSON.parse(
@@ -172,7 +194,11 @@ export default function OrganicFoodBag() {
             </div>
 
             <div className="col-md-6 px-3 text-center">
-              <button type="button" className="list-btn px-5 py-2">
+              <button
+                onClick={placeOrganicFoodOrder}
+                type="button"
+                className="list-btn px-5 py-2"
+              >
                 Place Organic Foods Order
               </button>
             </div>
