@@ -1,37 +1,30 @@
+import axios from "axios";
 import React, { useEffect, useState, Fragment } from "react";
-import Weather from "../../Weather/Weather";
 import Header from "../../Header/Header";
+import LoadingSpinner from "../../utilities/LoadingSpinner/LoadingSpinner";
+import Weather from "./Weather";
 
 export default function Home() {
-  // const [isAllLoaded, setIsAllLodaded] = useState(false);
+  const [isAPILoaded, setIsAPILoaded] = useState(false);
+  const [locationData, setLocationData] = useState();
 
-  // useEffect(() => {
-  //   let one = "https://shrouded-basin-02702.herokuapp.com";
-  //   let two = "https://shrouded-basin-02702.herokuapp.com";
-  //   let three = "https://shrouded-basin-02702.herokuapp.com";
+  useEffect(() => {
+    axios.get("https://api.npoint.io/d9e2be545bf3f235e5df").then((response) => {
+      setLocationData(response.data);
+      setIsAPILoaded(true);
+    });
+  }, []);
 
-  //   const requestOne = axios.get(one);
-  //   const requestTwo = axios.get(two);
-  //   const requestThree = axios.get(three);
-
-  //   axios
-  //     .all([requestOne, requestTwo, requestThree])
-  //     .then(
-  //       axios.spread((...responses) => {
-  //         const responseOne = responses[0];
-  //         const responseTwo = responses[1];
-  //         const responesThree = responses[2];
-  //         // use/access the results
-  //       })
-  //     )
-  //     .catch((errors) => {
-  //       // react on errors.
-  //     });
-  // }, []);
   return (
     <Fragment>
       <Header />
-      <Weather />
+      {isAPILoaded ? (
+        <Weather locationData={locationData.data} />
+      ) : (
+        <div className="my-4">
+          <LoadingSpinner />
+        </div>
+      )}
     </Fragment>
   );
 }

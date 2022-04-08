@@ -116,3 +116,8 @@ table input {
 .z-index {
   z-index: 10;
 }
+
+.submenu {
+  list-style: none;
+  padding: 0;
+}

@@ -5,11 +5,11 @@ import MyAccount from "./MyAccount/MyAccount";
 
 export default function UserDetails() {
   const { user } = useAuth();
-
   return (
     <div>
       <Header />
-      <div className="container my-4">
+
+      <div className="container-fluid my-4">
         {user ? (
           <MyAccount user={user} />
         ) : (

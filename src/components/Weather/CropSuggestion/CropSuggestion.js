@@ -2,6 +2,7 @@ import React from "react";
 import "./CropSuggestion.css";
 
 export default function CropSuggestion({ crops, monthName }) {
+  console.log(crops);
   return (
     <div className="row justify-content-center align-items-center my-4 crop-suggestion">
       <div className="col-lg-6">

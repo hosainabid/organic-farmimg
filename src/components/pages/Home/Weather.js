@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { getDate } from "bangla-calendar";
-import WeaterUpdate from "./WeatherUpdate/WeatherUpdate";
-import axios from "axios";
-import CropSuggestion from "./CropSuggestion/CropSuggestion";
-import cropsObj from "../../js/cropsObj";
 
-export default function Weather() {
+export default function Weather({ locationData }) {
+  console.log(locationData.divisions);
+  const [selectedDivision, setSelectedDivision] = useState(96);
+  const [selectedDistrict, setSelectedDistrict] = useState(18);
+  const [selectedUpazilas, setSelectedUpazilas] = useState(194);
+  const [selectedUnions, setSelectedUnions] = useState(1661);
+  const [latitude, setLatitude] = useState(23.7752);
+  const [longitude, setLongitude] = useState(90.3982);
+
   const monthNames = [
     "January",
     "February",
@@ -32,62 +36,6 @@ export default function Weather() {
   } ${current.getDate()} ${current.getFullYear()} ${current.getHours()}:${current.getMinutes()}:${current.getSeconds()}`;
 
   const date1 = new Date(makeDateForBanglaDate);
-
-  const [location, setLocation] = useState({});
-  const [selectedDivision, setSelectedDivision] = useState(96);
-  const [selectedDistrict, setSelectedDistrict] = useState(18);
-  const [selectedUpazilas, setSelectedUpazilas] = useState(194);
-  const [selectedUnions, setSelectedUnions] = useState(1661);
-  const [latitude, setLatitude] = useState(23.7752);
-  const [longitude, setLongitude] = useState(90.3982);
-
-  const [crops, setCrops] = useState();
-
-  const loadingLocation = async () => {
-    try {
-      const data = await axios
-        .get("https://api.npoint.io/d9e2be545bf3f235e5df")
-        .then((res) => {
-          setLocation(res.data);
-          console.log(res.data);
-        });
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  useEffect(() => {
-    loadingLocation();
-  }, []);
-
-  const handleDivisionChange = (e) => {
-    setSelectedDivision(Number(e.target.value));
-  };
-
-  const handleDistrictChange = (e) => {
-    setSelectedDistrict(Number(e.target.value));
-  };
-  const handleUpazilasChange = (e) => {
-    setSelectedUpazilas(Number(e.target.value));
-  };
-  const handleUnionsChange = (e) => {
-    setSelectedUnions(Number(e.target.value));
-  };
-
-  const getPosition = (unionId) => {
-    setLatitude(
-      location.data.unions.find((union) => union.id == unionId).latitude
-    );
-    setLongitude(
-      location.data.unions.find((union) => union.id == unionId).longitude
-    );
-    setCrops(
-      location.data.divisions.find(
-        (division) => division.id == selectedDivision
-      ).crops
-    );
-  };
-
   return (
     <div className="container my-4">
       <div className="row justify-content-center align-items-center">
@@ -109,20 +57,23 @@ export default function Weather() {
                 </div>
                 <div className="col-9">
                   <p>
-                    {location.data &&
-                      location.data.upazilas.find(
+                    {
+                      locationData.upazilas.find(
                         (upazila) => upazila.id == selectedUpazilas
-                      ).name}
-                    {` - `}
-                    {location.data &&
-                      location.data.districts.find(
+                      ).name
+                    }
+                    {`, `}
+                    {
+                      locationData.districts.find(
                         (district) => district.id == selectedDistrict
-                      ).name}
+                      ).name
+                    }
                     {", "}
-                    {location.data &&
-                      location.data.divisions.find(
+                    {
+                      locationData.divisions.find(
                         (division) => division.id == selectedDivision
-                      ).name}
+                      ).name
+                    }
                   </p>
                 </div>
               </div>
@@ -147,19 +98,9 @@ export default function Weather() {
           <p className="m-3 text-center lead fw-normal">
             {getDate(date1)} / {date}
           </p>
-
-          {/* weater update area  */}
-
-          <WeaterUpdate latitude={latitude} longitude={longitude} />
         </div>
       </div>
 
-      {/* {location.data && (
-        <CropSuggestion
-          crops={crops}
-          monthName={monthNames[current.getMonth()]}
-        />
-      )} */}
       {/* modal  */}
 
       <div
@@ -180,7 +121,6 @@ export default function Weather() {
               <form>
                 <div className="my-2">
                   <select
-                    onChange={handleDivisionChange}
                     id="divisionField"
                     className="form-select"
                     defaultValue={"DEFAULT"}
@@ -188,19 +128,17 @@ export default function Weather() {
                     <option value="DEFAULT" disabled>
                       Choose Your Division ...
                     </option>
-                    {location.data &&
-                      location.data.divisions.map((e, index) => {
-                        return (
-                          <option key={index} value={e.id}>
-                            {e.name} {e.id}
-                          </option>
-                        );
-                      })}
+                    {locationData.divisions.map((e, index) => {
+                      return (
+                        <option key={index} value={e.id}>
+                          {e.name} {e.id}
+                        </option>
+                      );
+                    })}
                   </select>
                 </div>
                 <div className="my-2">
                   <select
-                    onChange={handleDistrictChange}
                     id="divisionField"
                     className="form-select"
                     defaultValue={"DEFAULT"}
@@ -208,22 +146,20 @@ export default function Weather() {
                     <option value="DEFAULT" disabled>
                       Choose Your District ...
                     </option>
-                    {location.data &&
-                      location.data.districts.map((e, index) => {
-                        if (e.division_id == selectedDivision) {
-                          return (
-                            <option key={index} value={e.id}>
-                              {e.name} {e.id} {e.latitude} {e.longitude}
-                            </option>
-                          );
-                        }
-                      })}
+                    {locationData.districts.map((e, index) => {
+                      if (e.division_id == selectedDivision) {
+                        return (
+                          <option key={index} value={e.id}>
+                            {e.name} {e.id} {e.latitude} {e.longitude}
+                          </option>
+                        );
+                      }
+                    })}
                   </select>
                 </div>
 
                 <div className="my-2">
                   <select
-                    onChange={handleUpazilasChange}
                     id="divisionField"
                     className="form-select"
                     defaultValue={"DEFAULT"}
@@ -231,22 +167,20 @@ export default function Weather() {
                     <option value="DEFAULT" disabled>
                       Choose Your Upazila ...
                     </option>
-                    {location.data &&
-                      location.data.upazilas.map((e, index) => {
-                        if (e.district_id == selectedDistrict) {
-                          return (
-                            <option key={index} value={e.id}>
-                              {e.name} {e.id} {e.latitude} {e.longitude}
-                            </option>
-                          );
-                        }
-                      })}
+                    {locationData.upazilas.map((e, index) => {
+                      if (e.district_id == selectedDistrict) {
+                        return (
+                          <option key={index} value={e.id}>
+                            {e.name} {e.id} {e.latitude} {e.longitude}
+                          </option>
+                        );
+                      }
+                    })}
                   </select>
                 </div>
 
                 <div className="my-2">
                   <select
-                    onChange={handleUnionsChange}
                     id="divisionField"
                     className="form-select"
                     defaultValue={"DEFAULT"}
@@ -254,16 +188,15 @@ export default function Weather() {
                     <option value="DEFAULT" disabled>
                       Choose Your Union ...
                     </option>
-                    {location.data &&
-                      location.data.unions.map((e, index) => {
-                        if (e.upazila_id == selectedUpazilas) {
-                          return (
-                            <option key={index} value={e.id}>
-                              {e.name} {e.id} {e.latitude} {e.longitude}
-                            </option>
-                          );
-                        }
-                      })}
+                    {locationData.unions.map((e, index) => {
+                      if (e.upazila_id == selectedUpazilas) {
+                        return (
+                          <option key={index} value={e.id}>
+                            {e.name} {e.id} {e.latitude} {e.longitude}
+                          </option>
+                        );
+                      }
+                    })}
                   </select>
                 </div>
               </form>
@@ -273,7 +206,6 @@ export default function Weather() {
                 type="button"
                 data-bs-dismiss="modal"
                 className="btn btn-primary"
-                onClick={() => getPosition(selectedUnions)}
               >
                 Save changes
               </button>
