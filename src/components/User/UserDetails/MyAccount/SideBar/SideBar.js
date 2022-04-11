@@ -129,6 +129,18 @@ export default function Sidebar() {
                   </svg>
                   <span className="ms-2">Post on Forum</span>
                 </NavLink>
+
+                <ul className="my-order submenu ps-2">
+                  <li className="nav-item my-2">
+                    <NavLink
+                      to="/myAccount/forumPost/previousForumPosts"
+                      className="nav-link d-flex align-items-center"
+                      aria-current="page"
+                    >
+                      Previous Forum Posts
+                    </NavLink>
+                  </li>
+                </ul>
               </li>
               <li className="nav-item my-2">
                 <NavLink

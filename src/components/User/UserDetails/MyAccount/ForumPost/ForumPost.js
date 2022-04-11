@@ -1,5 +1,6 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, Fragment } from "react";
+import { NavLink } from "react-router-dom";
 import useAuth from "../../../../../hooks/useAuth";
 
 const ForumPost = () => {
@@ -19,6 +20,7 @@ const ForumPost = () => {
     const formData = new FormData();
     formData.append("publisherName", user.name);
     formData.append("publisherRole", user.role);
+    formData.append("publisherID", user._id);
     formData.append("title", postTitle);
     formData.append("postContent", postContent);
     formData.append("postTime", postTime);
@@ -35,7 +37,16 @@ const ForumPost = () => {
       });
   };
   return (
-    <div>
+    <Fragment>
+      <div className="my-2 d-flex justify-content-end">
+        <NavLink
+          to="/myAccount/forumPost/previousForumPosts"
+          className="myBtn py-2 px-3 fw-bold"
+          aria-current="page"
+        >
+          Previous Forum Posts
+        </NavLink>
+      </div>
       <h3 className="text-center my-4">Upload A Forum Post</h3>
 
       <div className="row justify-content-center">
@@ -78,7 +89,7 @@ const ForumPost = () => {
           </form>
         </div>
       </div>
-    </div>
+    </Fragment>
   );
 };
 

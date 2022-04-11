@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { Fragment, useState, useEffect } from "react";
 import useAuth from "../../../../../hooks/useAuth";
+import API_base_url from "../../../../../configurables";
 
 export default function PreOrder() {
   const [prebookItems, setPrebookItems] = useState(
@@ -56,13 +57,23 @@ export default function PreOrder() {
 
   const placePreorderedFoods = () => {
     const orderedFoods = JSON.parse(localStorage.getItem("organicFoodPrebook"));
+    const newObj = orderedFoods.map((food) => {
+      return {
+        _id: food.cropDetails._id,
+        quantity: food.quantity,
+      };
+    });
+
+    console.log(API_base_url);
+
     axios
-      .post("https://shrouded-basin-02702.herokuapp.com/prebook", {
-        productDetails: orderedFoods,
+      .post(`${API_base_url}/prebook`, {
+        productIDs: JSON.stringify(newObj),
         userId: user._id,
         userName: user.name,
         userEmail: user.email,
         mobile: user.mobile,
+        product_type: "preorder",
         orderStatus: 1,
       })
       .then((response) => {

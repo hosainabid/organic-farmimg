@@ -1,14 +1,32 @@
 import React, { useState, useEffect, useRef } from "react";
 import { getDate } from "bangla-calendar";
+import WeaterUpdate from "./WeatherUpdate";
+import Cropsuggestion from "./Cropsuggestion";
 
 export default function Weather({ locationData }) {
-  console.log(locationData.divisions);
-  const [selectedDivision, setSelectedDivision] = useState(96);
-  const [selectedDistrict, setSelectedDistrict] = useState(18);
-  const [selectedUpazilas, setSelectedUpazilas] = useState(194);
-  const [selectedUnions, setSelectedUnions] = useState(1661);
+  const [isOptionChanged, setIsOptionChanged] = useState(false);
+  const [location, setLocation] = useState("Tejgaon Ind. Area, Dhaka, Dhaka");
+  const divisionRef = useRef("");
+  const districtRef = useRef("");
+  const upazilaRef = useRef("");
+  const unionRef = useRef("");
+  const [selectedDivision, setSelectedDivision] = useState();
+  const [selectedDistrict, setSelectedDistrict] = useState();
+  const [selectedUpazilas, setSelectedUpazilas] = useState();
+  const [selectedUnions, setSelectedUnions] = useState();
+  const [divisionID, setDivisionID] = useState(96);
   const [latitude, setLatitude] = useState(23.7752);
   const [longitude, setLongitude] = useState(90.3982);
+
+  useEffect(() => {
+    if (selectedUnions != unionRef.current.value) {
+      setIsOptionChanged(false);
+    } else if (!Boolean(selectedUnions)) {
+      setIsOptionChanged(false);
+    } else {
+      setIsOptionChanged(true);
+    }
+  }, [unionRef.current.value]);
 
   const monthNames = [
     "January",
@@ -31,23 +49,90 @@ export default function Weather({ locationData }) {
   } ${current.getDate()}, ${current.getFullYear()}`;
 
   //   bangla date
-  const makeDateForBanglaDate = `${
-    monthNames[current.getMonth()]
-  } ${current.getDate()} ${current.getFullYear()} ${current.getHours()}:${current.getMinutes()}:${current.getSeconds()}`;
+  const banglaDate = new Date(date);
 
-  const date1 = new Date(makeDateForBanglaDate);
+  const handleDivisionChange = (e) => {
+    if (
+      selectedDivision !== divisionRef.current.value ||
+      selectedDivision === ""
+    ) {
+      districtRef.current.value = "";
+      upazilaRef.current.value = "";
+      unionRef.current.value = "";
+    }
+
+    setSelectedDivision(divisionRef.current.value);
+    setSelectedDistrict();
+    setSelectedUpazilas();
+  };
+
+  const handleDistrictChange = (e) => {
+    if (
+      selectedDistrict !== districtRef.current.value ||
+      selectedDistrict === ""
+    ) {
+      upazilaRef.current.value = "";
+      unionRef.current.value = "";
+    }
+    setSelectedDistrict(districtRef.current.value);
+  };
+  const handleUpazilasChange = (e) => {
+    if (
+      selectedUpazilas !== upazilaRef.current.value ||
+      selectedUpazilas === ""
+    ) {
+      unionRef.current.value = "";
+    }
+    setSelectedUpazilas(upazilaRef.current.value);
+  };
+
+  const handleUnionsChange = (e) => {
+    if (unionRef.current.valueOf !== "") {
+      setSelectedUnions(Number(e.target.value));
+    }
+  };
+
+  const getPosition = () => {
+    setLatitude(
+      locationData.unions.find((union) => union.id == unionRef.current.value)
+        .latitude
+    );
+    setLongitude(
+      locationData.unions.find((union) => union.id == unionRef.current.value)
+        .longitude
+    );
+
+    setLocation(`
+    ${
+      locationData.upazilas.find((upazila) => upazila.id == selectedUpazilas)
+        .name
+    }
+   , 
+  ${
+    locationData.districts.find((district) => district.id == selectedDistrict)
+      .name
+  }
+  , 
+  ${
+    locationData.divisions.find((division) => division.id == selectedDivision)
+      .name
+  }
+  `);
+
+    setDivisionID(selectedDivision);
+  };
   return (
     <div className="container my-4">
       <div className="row justify-content-center align-items-center">
         <div className="col-lg-6 border">
           <div className="row m-3 border-bottom">
             <div className="col-8">
-              <div className="row  justify-content-center align-items-center">
+              <div className="row align-items-center justify-content-center align-items-center">
                 <div className="col-3">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="40"
-                    height="40"
+                    width="45"
+                    height="45"
                     fill="currentColor"
                     className="bi bi-brightness-high"
                     viewBox="0 0 16 16"
@@ -56,30 +141,17 @@ export default function Weather({ locationData }) {
                   </svg>
                 </div>
                 <div className="col-9">
-                  <p>
-                    {
-                      locationData.upazilas.find(
-                        (upazila) => upazila.id == selectedUpazilas
-                      ).name
-                    }
-                    {`, `}
-                    {
-                      locationData.districts.find(
-                        (district) => district.id == selectedDistrict
-                      ).name
-                    }
-                    {", "}
-                    {
-                      locationData.divisions.find(
-                        (division) => division.id == selectedDivision
-                      ).name
-                    }
-                  </p>
+                  <p className="h5">{location}</p>
                 </div>
               </div>
             </div>
             <div className="col-4 border-start text-center">
-              <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              <a
+                className="myLink"
+                href="#"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="30"
@@ -91,14 +163,22 @@ export default function Weather({ locationData }) {
                   <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z" />
                   <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
                 </svg>
-                <p>change location now</p>
+                <p className="mb-3 fw-bold h6">Change Location Now</p>
               </a>
             </div>
           </div>
           <p className="m-3 text-center lead fw-normal">
-            {getDate(date1)} / {date}
+            {getDate(banglaDate)} / {date}
           </p>
+
+          <WeaterUpdate latitude={latitude} longitude={longitude} />
         </div>
+
+        <Cropsuggestion
+          divisionID={divisionID}
+          monthNames={monthNames[current.getMonth()]}
+          locationData={locationData}
+        />
       </div>
 
       {/* modal  */}
@@ -123,11 +203,11 @@ export default function Weather({ locationData }) {
                   <select
                     id="divisionField"
                     className="form-select"
-                    defaultValue={"DEFAULT"}
+                    defaultValue={divisionRef}
+                    onChange={handleDivisionChange}
+                    ref={divisionRef}
                   >
-                    <option value="DEFAULT" disabled>
-                      Choose Your Division ...
-                    </option>
+                    <option value="">Choose Your Division...</option>
                     {locationData.divisions.map((e, index) => {
                       return (
                         <option key={index} value={e.id}>
@@ -139,13 +219,13 @@ export default function Weather({ locationData }) {
                 </div>
                 <div className="my-2">
                   <select
-                    id="divisionField"
+                    id="districtField"
                     className="form-select"
-                    defaultValue={"DEFAULT"}
+                    defaultValue={districtRef}
+                    ref={districtRef}
+                    onChange={handleDistrictChange}
                   >
-                    <option value="DEFAULT" disabled>
-                      Choose Your District ...
-                    </option>
+                    <option value="">Choose Your District ...</option>
                     {locationData.districts.map((e, index) => {
                       if (e.division_id == selectedDivision) {
                         return (
@@ -160,13 +240,13 @@ export default function Weather({ locationData }) {
 
                 <div className="my-2">
                   <select
-                    id="divisionField"
+                    id="upazilaField"
                     className="form-select"
-                    defaultValue={"DEFAULT"}
+                    ref={upazilaRef}
+                    defaultValue={upazilaRef}
+                    onChange={handleUpazilasChange}
                   >
-                    <option value="DEFAULT" disabled>
-                      Choose Your Upazila ...
-                    </option>
+                    <option value="">Choose Your Upazila ...</option>
                     {locationData.upazilas.map((e, index) => {
                       if (e.district_id == selectedDistrict) {
                         return (
@@ -181,13 +261,13 @@ export default function Weather({ locationData }) {
 
                 <div className="my-2">
                   <select
-                    id="divisionField"
+                    id="unionField"
                     className="form-select"
-                    defaultValue={"DEFAULT"}
+                    defaultValue={unionRef}
+                    ref={unionRef}
+                    onChange={handleUnionsChange}
                   >
-                    <option value="DEFAULT" disabled>
-                      Choose Your Union ...
-                    </option>
+                    <option value="">Choose Your Union ...</option>
                     {locationData.unions.map((e, index) => {
                       if (e.upazila_id == selectedUpazilas) {
                         return (
@@ -202,13 +282,25 @@ export default function Weather({ locationData }) {
               </form>
             </div>
             <div className="modal-footer">
-              <button
-                type="button"
-                data-bs-dismiss="modal"
-                className="btn btn-primary"
-              >
-                Save changes
-              </button>
+              {isOptionChanged ? (
+                <button
+                  type="button"
+                  data-bs-dismiss="modal"
+                  className="list-btn w-100 h5 py-3"
+                  onClick={getPosition}
+                >
+                  Save changes
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  data-bs-dismiss="modal"
+                  className="btn btn-secondary btn-lg w-100 h5 py-3"
+                  disabled
+                >
+                  Save changes
+                </button>
+              )}
             </div>
           </div>
         </div>

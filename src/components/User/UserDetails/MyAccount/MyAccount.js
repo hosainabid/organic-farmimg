@@ -17,6 +17,7 @@ import OrderPending from "./MyBag/OrderStatus/Pending/OrderPending";
 import OrderComplete from "./MyBag/OrderStatus/Complete/OrderComplete";
 import OrderConfirmed from "./MyBag/OrderStatus/Confirmed/OrderConfirmed";
 import OrderShipped from "./MyBag/OrderStatus/Shipped/OrderShipped";
+import PreviousForumPost from "./ForumPost/PreviousForumPost";
 
 const MyAccount = () => {
   return (
@@ -57,11 +58,20 @@ const MyAccount = () => {
             </Route>
           </PrivateRoute>
         </Switch>
+
+        {/* forum routes start from here...  */}
         <Switch>
-          <Route path="/myAccount/forumPost">
+          <Route exact path="/myAccount/forumPost">
             <ForumPost />
           </Route>
         </Switch>
+        <Switch>
+          <Route path="/myAccount/forumPost/previousForumPosts">
+            <PreviousForumPost />
+          </Route>
+        </Switch>
+        {/* forum routes ends here ... */}
+
         <Switch>
           <Route path="/myAccount/myBag/pending">
             <OrderPending />
