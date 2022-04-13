@@ -1,23 +1,23 @@
 import axios from "axios";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../../Header/Header";
 import LoadingSpinner from "../../utilities/LoadingSpinner/LoadingSpinner";
+import rootAPI from "../../../configurables";
 
 import "./Forum.css";
 import SingleForumPost from "./SingleForumPost";
 
 export default function Forum() {
-  const [apiRecall, setApiRecall] = React.useState(false);
-  const [isSeedLoaded, setIsSeedLoaded] = React.useState(false);
-  const [allForumPost, setAllForumPost] = React.useState([]);
-  const [newComment, setNewComment] = React.useState("");
+  const [apiRecall, setApiRecall] = useState(false);
+  const [isSeedLoaded, setIsSeedLoaded] = useState(false);
+  const [allForumPost, setAllForumPost] = useState([]);
+  const [newComment, setNewComment] = useState("");
+  const [isCommentPosting, setIsCommentPosting] = useState(false);
 
   const loadAllForumPost = async () => {
     try {
       const data = await axios
-        .get(
-          "https://shrouded-basin-02702.herokuapp.com/all_forum_posts_with_comments"
-        )
+        .get(`${rootAPI}/all_forum_posts_with_comments`)
         .then((res) => {
           setAllForumPost(res.data.reverse());
           setIsSeedLoaded(true);
@@ -33,6 +33,8 @@ export default function Forum() {
 
   const onCommentSubmit = (event, postId, name, allComment) => {
     event.preventDefault();
+    setIsCommentPosting(true);
+
     const d = new Date();
     const commentTime = `${d.toLocaleString("default", {
       month: "short",
@@ -55,20 +57,19 @@ export default function Forum() {
       );
 
       axios
-        .post(
-          "https://shrouded-basin-02702.herokuapp.com/add_comment_to_forum_post",
-          formData
-        )
+        .post(`${rootAPI}/add_comment_to_forum_post`, formData)
         .then((res) => {
           console.log(res);
-          setApiRecall((prevState) => !prevState);
         })
         .catch((error) => {
           console.log(error);
+        })
+        .finally(() => {
+          setIsCommentPosting(false);
+          setNewComment("");
+          setApiRecall((prevState) => !prevState);
         });
     }
-
-    setNewComment("");
   };
 
   let forumContent = allForumPost.length ? (
@@ -78,11 +79,12 @@ export default function Forum() {
         postDetails={postDetails}
         onNewCommnet={setNewComment}
         commentValue={newComment}
+        isCommentPosting={isCommentPosting}
         onCommentSubmit={onCommentSubmit}
       />
     ))
   ) : (
-    <p>There is no forum post</p>
+    <p className="h5 text-center">There is no forum post</p>
   );
 
   return (

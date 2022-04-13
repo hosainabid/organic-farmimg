@@ -2,10 +2,9 @@ import axios from "axios";
 import React, { useState, Fragment } from "react";
 import { NavLink } from "react-router-dom";
 import useAuth from "../../../../../hooks/useAuth";
-
 import rootAPI from "../../../../../configurables";
 
-const ForumPost = () => {
+const BlogPost = () => {
   const [postTitle, setPostTitle] = useState("");
   const [postContent, setPostContent] = useState("");
   const [postImage, setPostImage] = useState(null);
@@ -33,8 +32,8 @@ const ForumPost = () => {
     formData.append("commments", JSON.stringify([]));
 
     axios
-      .post(`${rootAPI}/post_forum`, formData)
-      .then()
+      .post(`${rootAPI}/post_blog`, formData)
+      .then((res) => console.log(res))
       .catch((error) => {
         console.log(error);
       })
@@ -45,18 +44,19 @@ const ForumPost = () => {
         setPostImage(null);
       });
   };
+
   return (
     <Fragment>
       <div className="my-2 d-flex justify-content-end">
         <NavLink
-          to="/myAccount/forumPost/previousForumPosts"
+          to="/myAccount/blogPost/previousBlogPosts"
           className="myBtn py-2 px-3 fw-bold"
           aria-current="page"
         >
-          Previous Forum Posts
+          Previous Blog Posts
         </NavLink>
       </div>
-      <h3 className="text-center my-4">Upload A Forum Post</h3>
+      <h3 className="text-center my-4">Upload A Blog Post</h3>
 
       <div className="row justify-content-center">
         <div className="col-lg-10">
@@ -66,7 +66,7 @@ const ForumPost = () => {
                 required
                 type="text"
                 className="form-control"
-                placeholder="Forum Title"
+                placeholder="Blog Title"
                 value={postTitle}
                 onChange={(e) => setPostTitle(e.target.value)}
               />
@@ -76,7 +76,7 @@ const ForumPost = () => {
               <textarea
                 required
                 className="form-control"
-                placeholder="What's on your query..."
+                placeholder="What's on your blog..."
                 rows="4"
                 value={postContent}
                 onChange={(e) => setPostContent(e.target.value)}
@@ -99,11 +99,11 @@ const ForumPost = () => {
                   className="btn btn-secondary px-4 py-2 text-white"
                   disabled
                 >
-                  Posting on Forum...
+                  Posting on Blog...
                 </button>
               ) : (
                 <button type="submit" className="list-btn px-4 py-2 text-white">
-                  Post on Forum
+                  Post on Blog
                 </button>
               )}
             </div>
@@ -114,4 +114,4 @@ const ForumPost = () => {
   );
 };
 
-export default ForumPost;
+export default BlogPost;

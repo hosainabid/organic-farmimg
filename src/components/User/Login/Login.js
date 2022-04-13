@@ -50,7 +50,7 @@ export default function Login() {
                   onBlur={(e) => setUserLoginPassword(e.target.value)}
                 />
               </div>
-              <button type="submit" className="myBtn my-4">
+              <button type="submit" className="myBtn my-4 py-2 px-4 h5">
                 Login
               </button>
             </form>

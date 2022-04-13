@@ -9,7 +9,6 @@ import UpcomingProductUpload from "./UpcomingProductUpload/UpcomingProductUpload
 import PrivateRouteForAdmin from "../../../PrivateRoute/PrivateRouteForAdmin";
 import MyBag from "./MyBag/MyBag";
 import PrivateRoute from "../../../PrivateRoute/PrivateRoute";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PrivateRouteForFarmer from "../../../PrivateRoute/PrivateRouteForFarmer";
 import Dashboard from "./Dashboard/Dashboard";
 import OrderCancelled from "./MyBag/OrderStatus/Cancel/OrderCancelled";
@@ -18,6 +17,8 @@ import OrderComplete from "./MyBag/OrderStatus/Complete/OrderComplete";
 import OrderConfirmed from "./MyBag/OrderStatus/Confirmed/OrderConfirmed";
 import OrderShipped from "./MyBag/OrderStatus/Shipped/OrderShipped";
 import PreviousForumPost from "./ForumPost/PreviousForumPost";
+import BlogPost from "./BlogPost/BlogPost";
+import PreviousBlogPost from "./BlogPost/PreviousBlogPost";
 
 const MyAccount = () => {
   return (
@@ -71,6 +72,19 @@ const MyAccount = () => {
           </Route>
         </Switch>
         {/* forum routes ends here ... */}
+
+        {/* blog routes start from here...  */}
+        <Switch>
+          <PrivateRouteForAdmin exact path="/myAccount/blogPost">
+            <BlogPost />
+          </PrivateRouteForAdmin>
+        </Switch>
+        <Switch>
+          <PrivateRouteForAdmin path="/myAccount/blogPost/previousBlogPosts">
+            <PreviousBlogPost />
+          </PrivateRouteForAdmin>
+        </Switch>
+        {/* bloh routes ends here ... */}
 
         <Switch>
           <Route path="/myAccount/myBag/pending">

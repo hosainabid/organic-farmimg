@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { Fragment, useState, useEffect } from "react";
 import useAuth from "../../../../../hooks/useAuth";
-import API_base_url from "../../../../../configurables";
+import rootAPI from "../../../../../configurables";
 
 export default function PreOrder() {
   const [prebookItems, setPrebookItems] = useState(
@@ -64,10 +64,8 @@ export default function PreOrder() {
       };
     });
 
-    console.log(API_base_url);
-
     axios
-      .post(`${API_base_url}/prebook`, {
+      .post(`${rootAPI}/prebook`, {
         productIDs: JSON.stringify(newObj),
         userId: user._id,
         userName: user.name,

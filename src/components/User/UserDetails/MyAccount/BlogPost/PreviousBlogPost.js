@@ -1,11 +1,12 @@
 import axios from "axios";
 import React, { useState, useEffect, Fragment } from "react";
 import useAuth from "../../../../../hooks/useAuth";
-import LoadingSpinner from "../../../../utilities/LoadingSpinner/LoadingSpinner";
-import rootAPI from "../../../../../configurables";
-import MySingleForumPost from "./MySingleForumPost";
+import MySingleBlogPost from "./MySingleBlogPost";
 
-export default function PreviousForumPost() {
+import rootAPI from "../../../../../configurables";
+import LoadingSpinner from "../../../../utilities/LoadingSpinner/LoadingSpinner";
+
+export default function PreviousBlogPost() {
   const { user } = useAuth();
   const [apiRecall, setApiRecall] = useState(false);
   const [isForumLoaded, setIsForumLoaded] = useState(false);
@@ -14,7 +15,7 @@ export default function PreviousForumPost() {
   const loadAllForumPost = async () => {
     try {
       const data = await axios
-        .get(`${rootAPI}/all_forum_posts_with_comments`)
+        .get(`${rootAPI}/all_blog_posts_with_comments`)
         .then((res) => {
           setAllForumPost(res.data.reverse());
           setIsForumLoaded(true);
@@ -23,14 +24,12 @@ export default function PreviousForumPost() {
       console.log(e);
     }
   };
-
   useEffect(() => {
     loadAllForumPost();
   }, [apiRecall]);
-
   return (
     <Fragment>
-      <h3 className="text-center my-4">Update/Delete Your Forum Post</h3>
+      <h3 className="text-center my-4">Update/Delete Your Blog Post</h3>
       <div className="row justify-content-center"></div>
 
       {!isForumLoaded && <LoadingSpinner />}
@@ -39,7 +38,7 @@ export default function PreviousForumPost() {
           {allForumPost.map((post) => {
             if (post.publisherID === user._id)
               return (
-                <MySingleForumPost
+                <MySingleBlogPost
                   setApiRecall={setApiRecall}
                   key={post._id}
                   post={post}

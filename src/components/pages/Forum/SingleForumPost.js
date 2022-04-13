@@ -5,6 +5,7 @@ const SingleForumPost = ({
   postDetails,
   onNewCommnet,
   commentValue,
+  isCommentPosting,
   onCommentSubmit,
 }) => {
   const { user } = useAuth();
@@ -46,23 +47,29 @@ const SingleForumPost = ({
             onCommentSubmit(event, postDetails._id, user.name, allComment)
           }
         >
-          <div className="d-flex justify-content-center">
-            <input
-              required
-              type="text"
-              value={commentValue}
-              className="form-control me-2"
-              placeholder="Submit your comment here..."
-              onChange={(e) => onNewCommnet(e.target.value)}
-            />
-            <button
-              type="submit"
-              className="list-btn py-2 px-3"
-              style={{ borderRadius: "20px" }}
-            >
-              Comment
-            </button>
-          </div>
+          {isCommentPosting ? (
+            <p className="text-center h5 my-2 text-secondary">
+              Your comment is posting now, please wait...
+            </p>
+          ) : (
+            <div className="d-flex justify-content-center">
+              <input
+                required
+                type="text"
+                value={commentValue}
+                className="form-control me-2"
+                placeholder="Submit your comment here..."
+                onChange={(e) => onNewCommnet(e.target.value)}
+              />
+              <button
+                type="submit"
+                className="list-btn py-2 px-3"
+                style={{ borderRadius: "20px" }}
+              >
+                Comment
+              </button>
+            </div>
+          )}
         </form>
 
         {allComment.length ? (

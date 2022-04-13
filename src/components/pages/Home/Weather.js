@@ -211,7 +211,7 @@ export default function Weather({ locationData }) {
                     {locationData.divisions.map((e, index) => {
                       return (
                         <option key={index} value={e.id}>
-                          {e.name} {e.id}
+                          {e.name}
                         </option>
                       );
                     })}
@@ -230,7 +230,7 @@ export default function Weather({ locationData }) {
                       if (e.division_id == selectedDivision) {
                         return (
                           <option key={index} value={e.id}>
-                            {e.name} {e.id} {e.latitude} {e.longitude}
+                            {e.name}
                           </option>
                         );
                       }
@@ -251,7 +251,7 @@ export default function Weather({ locationData }) {
                       if (e.district_id == selectedDistrict) {
                         return (
                           <option key={index} value={e.id}>
-                            {e.name} {e.id} {e.latitude} {e.longitude}
+                            {e.name}
                           </option>
                         );
                       }
@@ -272,7 +272,7 @@ export default function Weather({ locationData }) {
                       if (e.upazila_id == selectedUpazilas) {
                         return (
                           <option key={index} value={e.id}>
-                            {e.name} {e.id} {e.latitude} {e.longitude}
+                            {e.name}
                           </option>
                         );
                       }
