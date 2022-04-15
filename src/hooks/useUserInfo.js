@@ -14,7 +14,7 @@ const useUserInfo = () => {
       password: userLoginPassword,
     };
 
-    axios.post(`${rootAPI}login`, loginDetails).then((res) => {
+    axios.post(`${rootAPI}/login`, loginDetails).then((res) => {
       if (res.data.isSuccess) {
         setUser(res.data.user_info);
         localStorage.setItem(
