@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import rootAPI from "../configurables";
 const useUserInfo = () => {
   const [user, setUser] = useState(
     JSON.parse(localStorage.getItem("organicFarm-user"))
@@ -13,18 +14,16 @@ const useUserInfo = () => {
       password: userLoginPassword,
     };
 
-    axios
-      .post("https://shrouded-basin-02702.herokuapp.com/login", loginDetails)
-      .then((res) => {
-        if (res.data.isSuccess) {
-          setUser(res.data.user_info);
-          localStorage.setItem(
-            "organicFarm-user",
-            JSON.stringify(res.data.user_info)
-          );
-          history.replace("/myAccount");
-        }
-      });
+    axios.post(`${rootAPI}login`, loginDetails).then((res) => {
+      if (res.data.isSuccess) {
+        setUser(res.data.user_info);
+        localStorage.setItem(
+          "organicFarm-user",
+          JSON.stringify(res.data.user_info)
+        );
+        history.replace("/myAccount");
+      }
+    });
   };
 
   const userLogout = (history) => {

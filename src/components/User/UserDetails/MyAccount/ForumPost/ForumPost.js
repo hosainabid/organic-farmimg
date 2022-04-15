@@ -89,6 +89,7 @@ const ForumPost = () => {
                 onChange={(e) => setPostImage(e.target.files[0])}
                 type="file"
                 className="form-control"
+                name="Choose a image please..."
               />
             </div>
 

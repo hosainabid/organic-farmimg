@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import SingleSeed from "../SingleSeed/SingleSeed";
+import OrganicFoodItem from "./OrganicFoodItem";
 
-export default function AllSeeds({ allSeed }) {
+export default function AllOrganicFood({ allCrops }) {
   const [searchKey, setSearchKey] = useState("");
-  const [displayProduct, setDisplayProduct] = useState(allSeed);
+  const [displayProduct, setDisplayProduct] = useState(allCrops);
 
   useEffect(() => {
-    const filtredProduct = allSeed.filter((product) => {
+    const filtredProduct = allCrops.filter((product) => {
       if (searchKey == "") {
         return product;
       } else if (product.name.toLowerCase().includes(searchKey.toLowerCase())) {
@@ -22,7 +22,7 @@ export default function AllSeeds({ allSeed }) {
           <input
             className="form-control me-2"
             type="search"
-            placeholder="Search Seeds/Fertilizers..."
+            placeholder="Search Organic Foods..."
             id="searchKey"
             aria-label="Search"
             onChange={(e) => {
@@ -34,9 +34,9 @@ export default function AllSeeds({ allSeed }) {
 
       {displayProduct.length ? (
         <div className="row row-cols-1 row-cols-md-4 g-4">
-          {displayProduct.map((seed) => (
-            <div key={seed._id} className="col">
-              <SingleSeed seed={seed} />
+          {displayProduct.map((crop) => (
+            <div key={crop._id} className="col">
+              <OrganicFoodItem crop={crop} />
             </div>
           ))}
         </div>

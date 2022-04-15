@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { Fragment } from "react";
 import LoadingSpinner from "../../../../utilities/LoadingSpinner/LoadingSpinner";
+import rootAPI from "../../../../../configurables";
 
 const AllUser = () => {
   const [isAllUserLoaded, setIsAllUserLoaded] = React.useState(false);
@@ -8,13 +9,11 @@ const AllUser = () => {
   const [allUser, setAllUser] = React.useState([]);
   const loadAllUser = async () => {
     try {
-      const data = await axios
-        .get("https://shrouded-basin-02702.herokuapp.com/users")
-        .then((res) => {
-          setAllUser(res.data);
-          setIsAllUserLoaded(true);
-          setFlag(true);
-        });
+      const data = await axios.get(`${rootAPI}/users`).then((res) => {
+        setAllUser(res.data);
+        setIsAllUserLoaded(true);
+        setFlag(true);
+      });
     } catch (e) {
       console.log(e);
     }
@@ -27,7 +26,7 @@ const AllUser = () => {
   //   make admin function
   const makeAdminHandler = (id) => {
     axios
-      .post("https://shrouded-basin-02702.herokuapp.com/make_admin", {
+      .post(`${rootAPI}/make_admin`, {
         id: id,
         role: "admin",
       })

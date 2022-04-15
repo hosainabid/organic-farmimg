@@ -7,7 +7,7 @@ import Header from "../../Header/Header";
 export default function Login() {
   const [userLoginEmail, setUserLoginEmail] = useState("");
   const [userLoginPassword, setUserLoginPassword] = useState("");
-  const { userLogin, user } = useAuth();
+  const { userLogin } = useAuth();
   const history = useHistory();
   const handleLogin = (e) => {
     e.preventDefault();
@@ -19,7 +19,7 @@ export default function Login() {
       <Header />
       <div className="container my-4">
         <div className="row justify-content-center align-items-center">
-          <div className="col-md-6 col-sm-9 col-xs-12">
+          <div className="col-sm-9 col-lg-6 col-xs-12">
             <h3>Login</h3>
             <form onSubmit={handleLogin}>
               <div className="form-group">

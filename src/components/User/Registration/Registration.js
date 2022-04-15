@@ -2,6 +2,7 @@ import axios, { Axios } from "axios";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "../../Header/Header";
+import rootAPI from "../../../configurables";
 
 export default function Registration() {
   const [firstName, setFirstName] = useState("");
@@ -10,23 +11,29 @@ export default function Registration() {
   const [password, setPassword] = useState("");
   const [number, setNumber] = useState("");
   const [role, setRole] = useState("");
+  const [userImage, setUserImage] = useState(null);
 
   const handleRegistration = (e) => {
     e.preventDefault();
-    const newUser = {
-      name: `${firstName} ${lastName}`,
-      mobile: number,
-      email: email,
-      role: role,
-      password: password,
-    };
+
+    const formData = new FormData();
+    formData.append("name", `${firstName} ${lastName}`);
+    formData.append("mobile", number);
+    formData.append("email", email);
+    formData.append("role", role);
+    formData.append("password", password);
+    formData.append("balance", 0);
+    formData.append("file", userImage);
+
     axios
-      .post(
-        "https://shrouded-basin-02702.herokuapp.com/user_registration",
-        newUser
-      )
-      .then((res) => console.log(res));
-    e.target.reset();
+      .post(`${rootAPI}/user_registration`, formData)
+      .then((res) => {
+        console.log(res);
+        e.target.reset();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -34,7 +41,7 @@ export default function Registration() {
       <Header />
       <div className="container mt-4">
         <div className="row justify-content-center align-items-center">
-          <div className="col-md-6 col-sm-9 col-xs-12">
+          <div className="col-sm-9 col-lg-6">
             <h3>Registration</h3>
             <form onSubmit={handleRegistration}>
               <div className="row">
@@ -126,7 +133,18 @@ export default function Registration() {
                   <option value="farmar">Farmar</option>
                 </select>
               </div>
-              <button type="submit" className="myBtn my-4">
+
+              <div className="my-3">
+                <input
+                  required
+                  onChange={(e) => setUserImage(e.target.files[0])}
+                  type="file"
+                  className="form-control"
+                  name="Choose a image please..."
+                />
+              </div>
+
+              <button type="submit" className="myBtn my-4  py-2 px-3 h4">
                 Registration
               </button>
             </form>

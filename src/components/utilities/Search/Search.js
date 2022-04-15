@@ -16,7 +16,7 @@ export default function Search() {
             />
             <button
               className="btn btn-outline-success rounded-circle text-red"
-              type="submit"
+              type="button"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

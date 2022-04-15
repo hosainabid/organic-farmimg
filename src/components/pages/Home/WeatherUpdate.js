@@ -19,6 +19,7 @@ export default function WeaterUpdate({ latitude, longitude }) {
   useEffect(() => {
     loadingWeatherUpdate();
   }, [latitude, longitude]);
+
   const fToC = (temp) => {
     const tempInC = Number(temp) - 273.15;
     return `${Math.round(tempInC)}`;

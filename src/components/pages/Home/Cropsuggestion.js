@@ -8,11 +8,14 @@ export default function Cropsuggestion({
   return (
     <Fragment>
       <h3 className="text-center my-4">Crop Suggstion</h3>
-      <div className="card-group justify-content-center gx-5">
+      <div className="card-group justify-content-center g-5">
         {locationData.divisions[Number(divisionID) - 94].crops[monthNames].map(
           (item) => {
             return (
-              <div key={item.img} className="col-lg-3 col-md-4 col-sm-6 mx-2">
+              <div
+                key={item.img}
+                className="col-lg-3 col-md-4 col-sm-6 mx-2 my-3"
+              >
                 <div className="card h-100">
                   <div className="card-img-top p-1">
                     <img

@@ -92,7 +92,7 @@ export default function Contact() {
               </div>
 
               <div className="col-12">
-                <button type="submit" className="myBtn w-100">
+                <button type="submit" className="myBtn w-100 h4 py-2">
                   Send
                 </button>
               </div>

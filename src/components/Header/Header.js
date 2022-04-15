@@ -1,7 +1,6 @@
 import React from "react";
 import User from "../User/User";
 import Navbar from "./Navbar/Navbar";
-import Search from "./Search/Search";
 
 if (!window.localStorage.getItem("organicFood")) {
   localStorage.setItem("organicFood", JSON.stringify([]));
@@ -20,7 +19,6 @@ export default function Header() {
     <div className="bg-light py-2 shadow-sm">
       <User />
       <Navbar />
-      <Search />
     </div>
   );
 }
