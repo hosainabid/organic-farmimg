@@ -6,46 +6,11 @@ export default function OrganicFoodBag() {
   const [organicFoodItems, setOrganicFoodItems] = useState(
     JSON.parse(localStorage.getItem("organicFood"))
   );
-  const [organicFoodSubtotal, setOrganicFoodSubtotal] = useState(0);
-  const [quickShipping, setQuickShipping] = useState(false);
-  const [organicFoodTotal, setOrganicFoodTotal] = useState(0);
   const { user, isCartUpdated, setIsCartUpdated } = useAuth();
 
   useEffect(() => {
     setOrganicFoodItems(JSON.parse(localStorage.getItem("organicFood")));
-    let organicFoodItemsPrice = 0;
-    organicFoodItems.map((product) => {
-      organicFoodItemsPrice =
-        organicFoodItemsPrice + product.cropDetails.price * product.quantity;
-    });
-    setOrganicFoodSubtotal(organicFoodItemsPrice);
-    if (quickShipping) {
-      setOrganicFoodTotal(organicFoodItemsPrice + 150);
-    } else {
-      setOrganicFoodTotal(organicFoodItemsPrice + 100);
-    }
-  }, [isCartUpdated, quickShipping]);
-
-  const placeOrganicFoodOrder = () => {
-    const orderedOrganicFoods = JSON.parse(localStorage.getItem("organicFood"));
-    axios
-      .post("https://shrouded-basin-02702.herokuapp.com/place_order", {
-        productDetails: orderedOrganicFoods,
-        userId: user._id,
-        userName: user.name,
-        userEmail: user.email,
-        mobile: user.mobile,
-        orderStatus: 1,
-      })
-      .then((response) => {
-        console.log(response);
-        localStorage.setItem("organicFood", JSON.stringify([]));
-        setIsCartUpdated((prev) => !prev);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  }, [isCartUpdated]);
 
   const deleteFromPrebookItems = (index) => {
     const prevOrganicFoodItems = JSON.parse(
@@ -156,52 +121,6 @@ export default function OrganicFoodBag() {
                 })}
               </tbody>
             </table>
-          </div>
-          <hr />
-          <div className="row align-items-center">
-            <div className="col-md-6 px-3">
-              <p className="h5 fw-bold text-secondary">
-                Total Product Cost:{" "}
-                <span className="h4 text-info">{organicFoodSubtotal}</span>{" "}
-                {" Tk"}
-              </p>
-              <p className="h5 fw-bold text-secondary pb-1">
-                Shipping Charge:{" "}
-                <span className="h4 text-info">
-                  {quickShipping ? "150" : "100"}
-                </span>{" "}
-                {" Tk"}
-              </p>
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  id="organicFoodQuickDelivary"
-                  onChange={(e) => setQuickShipping(e.target.checked)}
-                />
-                <label
-                  className="form-check-label"
-                  htmlFor="organicFoodQuickDelivary"
-                >
-                  Get Delivary within 24h
-                </label>
-              </div>
-              <hr />
-              <p className="h5 fw-bold text-secondary">
-                Total: <span className="h4 text-info">{organicFoodTotal}</span>{" "}
-                {" Tk"}
-              </p>
-            </div>
-
-            <div className="col-md-6 px-3 text-center">
-              <button
-                onClick={placeOrganicFoodOrder}
-                type="button"
-                className="list-btn px-5 py-2"
-              >
-                Place Organic Foods Order
-              </button>
-            </div>
           </div>
         </div>
       )}

@@ -36,14 +36,11 @@ export default function PreviousBlogPost() {
       {Boolean(allForumPost.length) && (
         <div className="row justify-content-center">
           {allForumPost.map((post) => {
-            if (post.publisherID === user._id)
-              return (
-                <MySingleBlogPost
-                  setApiRecall={setApiRecall}
-                  key={post._id}
-                  post={post}
-                />
-              );
+            <MySingleBlogPost
+              setApiRecall={setApiRecall}
+              key={post._id}
+              post={post}
+            />;
           })}
         </div>
       )}

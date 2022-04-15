@@ -5,23 +5,9 @@ import useAuth from "../../../../../hooks/useAuth";
 export default function SeedBag() {
   const [seedsInCart, setSeedsInCart] = useState([]);
   const { user, isCartUpdated, setIsCartUpdated } = useAuth();
-  const [seedSubtotal, setSeedSubtotal] = useState(0);
-  const [seedTotal, setSeedTotal] = useState(0);
-  const [quickShipping, setQuickShipping] = useState(false);
   useEffect(() => {
     setSeedsInCart(JSON.parse(localStorage.getItem("organicFoodSeeds")));
-    const availableSeeds = JSON.parse(localStorage.getItem("organicFoodSeeds"));
-    let seedsPrice = 0;
-    availableSeeds.map((product) => {
-      seedsPrice = seedsPrice + product.seed.price * product.quantity;
-    });
-    setSeedSubtotal(seedsPrice);
-    if (quickShipping) {
-      setSeedTotal(seedsPrice + 150);
-    } else {
-      setSeedTotal(seedsPrice + 100);
-    }
-  }, [isCartUpdated, quickShipping]);
+  }, [isCartUpdated]);
 
   const deleteFromCartHandler = (index) => {
     const prevOrganicFoodSeeds = JSON.parse(
@@ -49,27 +35,6 @@ export default function SeedBag() {
 
     setSeedsInCart(JSON.parse(localStorage.getItem("organicFoodSeeds")));
     setIsCartUpdated((prevState) => !prevState);
-  };
-
-  const placeSeedsOrder = () => {
-    const orderedSeeds = JSON.parse(localStorage.getItem("organicFoodSeeds"));
-    axios
-      .post("https://shrouded-basin-02702.herokuapp.com/place_order", {
-        productDetails: orderedSeeds,
-        userId: user._id,
-        userName: user.name,
-        userEmail: user.email,
-        mobile: user.mobile,
-        orderStatus: 1,
-      })
-      .then((response) => {
-        console.log(response);
-        localStorage.setItem("organicFoodSeeds", JSON.stringify([]));
-        setIsCartUpdated((prev) => !prev);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   };
 
   return (
@@ -150,47 +115,6 @@ export default function SeedBag() {
                 })}
               </tbody>
             </table>
-          </div>
-          <hr />
-          <div className="row align-items-center">
-            <div className="col-md-6 px-3">
-              <p className="h5 fw-bold text-secondary">
-                Total Product Cost:{" "}
-                <span className="h4 text-info">{seedSubtotal}</span> {" Tk"}
-              </p>
-              <p className="h5 fw-bold text-secondary pb-1">
-                Shipping Charge:{" "}
-                <span className="h4 text-info">
-                  {quickShipping ? "150" : "100"}
-                </span>{" "}
-                {" Tk"}
-              </p>
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  id="seedQuickDelivary"
-                  onChange={(e) => setQuickShipping(e.target.checked)}
-                />
-                <label className="form-check-label" htmlFor="seedQuickDelivary">
-                  Get Delivary within 24h
-                </label>
-              </div>
-              <hr />
-              <p className="h5 fw-bold text-secondary">
-                Total: <span className="h4 text-info">{seedTotal}</span> {" Tk"}
-              </p>
-            </div>
-
-            <div className="col-md-6 px-3 text-center">
-              <button
-                onClick={placeSeedsOrder}
-                type="button"
-                className="list-btn px-5 py-2 mt-sm-4"
-              >
-                Place Seeds Order
-              </button>
-            </div>
           </div>
         </div>
       )}
