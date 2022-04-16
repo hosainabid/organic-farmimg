@@ -94,20 +94,22 @@ export default function PrebookItem({ crop }) {
         <h5 className="card-title">{crop.name}</h5>
         <div className="card-text">
           <p className="py-1">
-            Unit Quantity:{" "}
-            <span className="text-success fw-bold">{crop.quantity}</span>
+            Quantity: <span className="fw-bold">{crop.quantity}</span>
           </p>
           <p className="py-1">
-            Item left:{" "}
-            <span className="text-warning fw-bold">{crop.stock} </span> Unit
+            Stock: <span className="fw-bold">{crop.stock} </span> Unit
           </p>
           <p className="py-1">
-            Farmer Name: <span className="fw-bold">{crop.farmerName}</span>
+            Farmer Name:{" "}
+            <span className="fw-bold text-capitalize">{crop.farmerName}</span>
+          </p>
+          <p className="py-1">
+            Upcoming Date: <span className="fw-bold">{crop.upcomingDate}</span>
           </p>
         </div>
         <p className="py-1">
-          Item Price:{" "}
-          <span className="text-danger h4 fw-bold">{crop.price} </span> Tk
+          Price: <span className="text-danger h4 fw-bold">{crop.price} </span>{" "}
+          Tk
         </p>
       </div>
       <div className="card-footer">

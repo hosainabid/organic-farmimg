@@ -1,13 +1,11 @@
 import axios from "axios";
 import React, { useState, useEffect, Fragment } from "react";
-import useAuth from "../../../../../hooks/useAuth";
 import MySingleBlogPost from "./MySingleBlogPost";
 
 import rootAPI from "../../../../../configurables";
 import LoadingSpinner from "../../../../utilities/LoadingSpinner/LoadingSpinner";
 
 export default function PreviousBlogPost() {
-  const { user } = useAuth();
   const [apiRecall, setApiRecall] = useState(false);
   const [isForumLoaded, setIsForumLoaded] = useState(false);
   const [allForumPost, setAllForumPost] = useState([]);
@@ -30,17 +28,18 @@ export default function PreviousBlogPost() {
   return (
     <Fragment>
       <h3 className="text-center my-4">Update/Delete Your Blog Post</h3>
-      <div className="row justify-content-center"></div>
-
       {!isForumLoaded && <LoadingSpinner />}
       {Boolean(allForumPost.length) && (
         <div className="row justify-content-center">
           {allForumPost.map((post) => {
-            <MySingleBlogPost
-              setApiRecall={setApiRecall}
-              key={post._id}
-              post={post}
-            />;
+            console.log(post);
+            return (
+              <MySingleBlogPost
+                setApiRecall={setApiRecall}
+                key={post._id}
+                post={post}
+              />
+            );
           })}
         </div>
       )}

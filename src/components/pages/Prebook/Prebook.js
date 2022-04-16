@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import Header from "../../Header/Header";
 import LoadingSpinner from "../../utilities/LoadingSpinner/LoadingSpinner";
 import AllPrebookItems from "./AllPrebookItems";
@@ -21,32 +21,19 @@ export default function Prebook() {
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     loadAllCrops();
   }, []);
   return (
-    <div>
+    <Fragment>
       <Header />
-      <div className="container">
-        <h2 className="my-4 text-center">Prebook Your Item</h2>
+      <div className="container my-4">
         {isLoading ? (
           <LoadingSpinner />
         ) : (
           <AllPrebookItems allCrops={allCrops} />
         )}
       </div>
-    </div>
+    </Fragment>
   );
 }
-
-// <div className="row row-cols-1 row-cols-lg-4 row-cols-md-2 g-4">
-//           {allCrops ? (
-//             allCrops.map((crop) => (
-//               <div key={crop._id} className="col">
-//                 <PrebookItem crop={crop} />
-//               </div>
-//             ))
-//           ) : (
-//             <p className="text-center">No crop Available now</p>
-//           )}
-//         </div>

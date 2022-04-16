@@ -68,7 +68,7 @@ p {
 }
 
 table input {
-  min-width: 120px;
+  min-width: 80px;
 }
 
 .add-btn {
@@ -132,4 +132,7 @@ h4 {
 }
 #searchKey {
   width: 300px;
+}
+.order-summery-table td {
+  font-weight: 700;
 }

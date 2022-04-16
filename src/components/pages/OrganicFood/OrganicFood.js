@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import Header from "../../Header/Header";
 import LoadingSpinner from "../../utilities/LoadingSpinner/LoadingSpinner";
 import AllOrganicFood from "./AllOrganicFood";
@@ -24,16 +24,15 @@ export default function OrganicFood() {
   }, []);
 
   return (
-    <div>
+    <Fragment>
       <Header />
-      <div className="container">
-        <h2 className="my-4 text-center">Organic Food</h2>
+      <div className="container my-4">
         {isLoading ? (
           <LoadingSpinner />
         ) : (
           <AllOrganicFood allCrops={allCrops} />
         )}
       </div>
-    </div>
+    </Fragment>
   );
 }

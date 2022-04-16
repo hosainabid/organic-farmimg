@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import Header from "../../Header/Header";
 import axios from "axios";
 import LoadingSpinner from "../../utilities/LoadingSpinner/LoadingSpinner";
@@ -6,11 +6,11 @@ import AllSeeds from "./AllSeeds/AllSeeds";
 import rootAPI from "../../../configurables";
 
 export default function SeedBank() {
-  const [isSeedLoaded, setIsSeedLoaded] = React.useState(false);
-  const [allSeed, setAllSeed] = React.useState("");
+  const [isSeedLoaded, setIsSeedLoaded] = useState(false);
+  const [allSeed, setAllSeed] = useState("");
   const loadAllSeed = async () => {
     try {
-      const data = await axios.get(`${rootAPI}/all_seeds`).then((res) => {
+      await axios.get(`${rootAPI}/all_seeds`).then((res) => {
         setAllSeed(res.data);
         setIsSeedLoaded(true);
       });
@@ -19,14 +19,15 @@ export default function SeedBank() {
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     loadAllSeed();
   }, []);
   return (
-    <div>
+    <Fragment>
       <Header />
-      <h2 className="text-center my-4">Seed back</h2>
-      {isSeedLoaded ? <AllSeeds allSeed={allSeed} /> : <LoadingSpinner />}
-    </div>
+      <div className="container my-4">
+        {isSeedLoaded ? <AllSeeds allSeed={allSeed} /> : <LoadingSpinner />}
+      </div>
+    </Fragment>
   );
 }

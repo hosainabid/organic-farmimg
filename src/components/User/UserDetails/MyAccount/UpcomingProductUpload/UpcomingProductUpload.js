@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect, Fragment } from "react";
 import useAuth from "../../../../../hooks/useAuth";
 import LoadingSpinner from "../../../../utilities/LoadingSpinner/LoadingSpinner";
+import rootAPI from "../../../../../configurables";
 
 export default function UpcomingProductUpload() {
   const [cropName, setCropName] = useState("");
@@ -9,21 +10,25 @@ export default function UpcomingProductUpload() {
   const [cropQuantity, setCropQuantity] = useState("");
   const [cropPrice, setCropPrice] = useState(0);
   const [cropStock, setCropStock] = useState(0);
+  const [cropUpcomingDate, setCropUpcomingDate] = useState();
   const [cropImage, setCropImage] = useState(null);
   const [allCrop, setAllCrop] = useState([]);
   const [flag, setFlag] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [myCrop, setMyCrop] = useState([]);
+  const [isPosting, setIsPosting] = useState(false);
 
   const [updatedCropName, setUpdatedCropName] = useState("");
   const [updatedCropCategory, setUpdatedCropCategory] = useState("");
   const [updatedCropQuantity, setUpdatedCropQuantity] = useState("");
   const [updatedCropPrice, setUpdatedCropPrice] = useState(0);
   const [updatedCropStock, setUpdatedCropStock] = useState(0);
+  const [updatedUpcomingDate, setUpdatedUpcomingDate] = useState();
 
   const { user } = useAuth();
 
   const uploadCropHandler = (event) => {
+    setIsPosting(true);
     event.preventDefault();
     const d = new Date();
     const postTime = `${d.toLocaleString("default", {
@@ -40,31 +45,32 @@ export default function UpcomingProductUpload() {
     formData.append("farmerId", user._id);
     formData.append("farmerName", user.name);
     formData.append("postTime", postTime);
+    formData.append("upcomingDate", cropUpcomingDate);
 
     axios
-      .post(
-        "https://shrouded-basin-02702.herokuapp.com/add_new_upcoming_product",
-        formData
-      )
+      .post(`${rootAPI}/add_new_upcoming_product`, formData)
       .then((res) => {
         console.log(res);
         setFlag((prevState) => !prevState);
+        setCropName("");
+        setCropCategory("");
+        setCropQuantity("");
+        setCropPrice(0);
+        setCropStock(0);
+        setCropUpcomingDate();
+        setCropImage(null);
       })
       .catch((error) => {
         console.log(error);
+      })
+      .finally(() => {
+        setIsPosting(false);
       });
-
-    setCropName("");
-    setCropCategory("");
-    setCropQuantity("");
-    setCropPrice(0);
-    setCropStock(0);
-    setCropImage(null);
   };
   const loadMyCrops = async () => {
     try {
       const data = await axios
-        .get("https://shrouded-basin-02702.herokuapp.com/all_upcoming_products")
+        .get(`${rootAPI}/all_upcoming_products`)
         .then((res) => {
           setAllCrop(res.data.reverse());
           setIsLoading(false);
@@ -90,11 +96,13 @@ export default function UpcomingProductUpload() {
     updatedCropQuantity,
     updatedCropPrice,
     updatedCropStock,
+    updatedUpcomingDate,
     prevName,
     prevCategory,
     prevQuantity,
     prevPrice,
-    prevStock
+    prevStock,
+    prevUpcomingDate
   ) => {
     const d = new Date();
     const postTime = `${d.toLocaleString("default", {
@@ -102,20 +110,18 @@ export default function UpcomingProductUpload() {
     })}'${d.getDate()} ${d.getFullYear()}`;
 
     axios
-      .post(
-        "https://shrouded-basin-02702.herokuapp.com/update_upcoming_product_info",
-        {
-          id: id,
-          name: updatedCropName || prevName,
-          category: updatedCropCategory || prevCategory,
-          quantity: updatedCropQuantity || prevQuantity,
-          price: updatedCropPrice || prevPrice,
-          stock: updatedCropStock || prevStock,
-          farmerId: farmerId,
-          farmerName: farmerName,
-          postTime: postTime,
-        }
-      )
+      .post(`${rootAPI}/update_upcoming_product_info`, {
+        id: id,
+        name: updatedCropName || prevName,
+        category: updatedCropCategory || prevCategory,
+        quantity: updatedCropQuantity || prevQuantity,
+        price: updatedCropPrice || prevPrice,
+        stock: updatedCropStock || prevStock,
+        farmerId: farmerId,
+        farmerName: farmerName,
+        postTime: postTime,
+        upcomingDate: updatedUpcomingDate || prevUpcomingDate,
+      })
       .then((res) => {
         console.log(res);
         setFlag((prevState) => !prevState);
@@ -129,12 +135,9 @@ export default function UpcomingProductUpload() {
 
   const deleteMyCrop = (id) => {
     axios
-      .post(
-        "https://shrouded-basin-02702.herokuapp.com/delete_upcoming_product",
-        {
-          id: id,
-        }
-      )
+      .post(`${rootAPI}/delete_upcoming_product`, {
+        id: id,
+      })
       .then((res) => {
         console.log(res);
         setFlag((prevState) => !prevState);
@@ -144,96 +147,109 @@ export default function UpcomingProductUpload() {
       });
   };
   return (
-    <>
+    <Fragment>
       <h3 className="text-center mb-4">Upload A New Upcoming Crop</h3>
       <div className="row justify-content-center">
         <div className="col-lg-10">
-          <form onSubmit={uploadCropHandler}>
-            <div>
-              <div className="form-group mt-4">
-                <input
-                  required
-                  type="text"
-                  className="form-control"
-                  value={cropName}
-                  placeholder="Crop Name..."
-                  onChange={(e) => {
-                    setCropName(e.target.value);
-                  }}
-                />
-              </div>
-              <div className="form-group mt-4">
-                <input
-                  required
-                  type="text"
-                  className="form-control"
-                  value={cropCategory}
-                  placeholder="Crop Category..."
-                  onChange={(e) => {
-                    setCropCategory(e.target.value);
-                  }}
-                />
-              </div>
-              <div className="form-group mt-4">
-                <input
-                  required
-                  type="text"
-                  className="form-control"
-                  value={cropQuantity}
-                  placeholder="Crop Quantity..."
-                  onChange={(e) => {
-                    setCropQuantity(e.target.value);
-                  }}
-                />
-              </div>
+          {!isPosting ? (
+            <form onSubmit={uploadCropHandler}>
+              <div>
+                <div className="form-group mt-4">
+                  <input
+                    required
+                    type="text"
+                    className="form-control"
+                    value={cropName}
+                    placeholder="Crop Name..."
+                    onChange={(e) => {
+                      setCropName(e.target.value);
+                    }}
+                  />
+                </div>
+                <div className="form-group mt-4">
+                  <input
+                    required
+                    type="text"
+                    className="form-control"
+                    value={cropCategory}
+                    placeholder="Crop Category..."
+                    onChange={(e) => {
+                      setCropCategory(e.target.value);
+                    }}
+                  />
+                </div>
+                <div className="form-group mt-4">
+                  <input
+                    required
+                    type="text"
+                    className="form-control"
+                    value={cropQuantity}
+                    placeholder="Crop Quantity..."
+                    onChange={(e) => {
+                      setCropQuantity(e.target.value);
+                    }}
+                  />
+                </div>
 
-              <div className="form-group mt-4">
-                <label htmlFor="cropStock">Crop Price</label>
-                <input
-                  required
-                  type="number"
-                  id="cropPrice"
-                  className="form-control"
-                  value={cropPrice}
-                  min={0}
-                  placeholder="Crop Price..."
-                  onChange={(e) => {
-                    setCropPrice(e.target.value);
-                  }}
-                />
-              </div>
+                <div className="form-group mt-4">
+                  <label htmlFor="cropStock">Price</label>
+                  <input
+                    required
+                    type="number"
+                    id="cropPrice"
+                    className="form-control"
+                    value={cropPrice}
+                    min={0}
+                    placeholder="Crop Price..."
+                    onChange={(e) => {
+                      setCropPrice(e.target.value);
+                    }}
+                  />
+                </div>
 
-              <div className="form-group mt-4">
-                <label htmlFor="cropStock">Crop Stock</label>
-                <input
-                  required
-                  type="number"
-                  id="cropStock"
-                  className="form-control"
-                  value={cropStock}
-                  min={0}
-                  placeholder="Crop Stock..."
-                  onChange={(e) => {
-                    setCropStock(e.target.value);
-                  }}
-                />
-              </div>
+                <div className="form-group mt-4">
+                  <label htmlFor="cropStock">Stock</label>
+                  <input
+                    required
+                    type="number"
+                    id="cropStock"
+                    className="form-control"
+                    value={cropStock}
+                    min={0}
+                    placeholder="Crop Stock..."
+                    onChange={(e) => {
+                      setCropStock(e.target.value);
+                    }}
+                  />
+                </div>
 
-              <div className="form-group mt-4">
-                <input
-                  required
-                  type="file"
-                  className="form-control"
-                  onChange={(e) => setCropImage(e.target.files[0])}
-                />
+                <div className="form-group mt-4">
+                  <input
+                    required
+                    type="date"
+                    className="form-control"
+                    onChange={(e) => setCropUpcomingDate(e.target.value)}
+                  />
+                </div>
+
+                <div className="form-group mt-4">
+                  <input
+                    required
+                    type="file"
+                    className="form-control"
+                    onChange={(e) => setCropImage(e.target.files[0])}
+                  />
+                </div>
               </div>
-            </div>
-            <div className="form-group mt-4">
-              <button type="submit" className="list-btn px-4 py-2 text-white">
-                Upload Crop
-              </button>
-            </div>
-          </form>
+              <div className="form-group mt-4">
+                <button type="submit" className="list-btn px-4 py-2 text-white">
+                  Upload Crop
+                </button>
+              </div>
+            </form>
+          ) : (
+            <LoadingSpinner />
+          )}
         </div>
       </div>
       <hr />
@@ -251,7 +267,8 @@ export default function UpcomingProductUpload() {
                   <th scope="col">Quantity</th>
                   <th scope="col">Price</th>
                   <th scope="col">Stock</th>
-                  <th scope="col">Post Time</th>
+                  <th scope="col">Update Upcoming Date</th>
+                  <th scope="col">Previous Upcoming Time</th>
                   <th scope="col">Edit</th>
                   <th scope="col">Delete</th>
                 </tr>
@@ -303,7 +320,14 @@ export default function UpcomingProductUpload() {
                         defaultValue={crop.stock}
                       />
                     </td>
-                    <td>{crop.postTime}</td>
+                    <td>
+                      <input
+                        className="form-control"
+                        type="date"
+                        onChange={(e) => setUpdatedUpcomingDate(e.target.value)}
+                      />
+                    </td>
+                    <td>{crop.upcomingDate}</td>
                     <td>
                       <button
                         onClick={() =>
@@ -316,11 +340,13 @@ export default function UpcomingProductUpload() {
                             updatedCropQuantity,
                             updatedCropPrice,
                             updatedCropStock,
+                            updatedUpcomingDate,
                             crop.name,
                             crop.category,
                             crop.quantity,
                             crop.price,
-                            crop.stock
+                            crop.stock,
+                            crop.upcomingDate
                           )
                         }
                         className="list-btn px-3 py-1"
@@ -345,6 +371,6 @@ export default function UpcomingProductUpload() {
       )}
 
       {isLoading && <LoadingSpinner />}
-    </>
+    </Fragment>
   );
 }

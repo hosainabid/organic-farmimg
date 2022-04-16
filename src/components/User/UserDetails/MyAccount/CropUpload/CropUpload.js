@@ -141,7 +141,7 @@ export default function CropUpload() {
                   type="text"
                   className="form-control"
                   value={cropName}
-                  placeholder="Crop Name..."
+                  placeholder="Name..."
                   onChange={(e) => {
                     setCropName(e.target.value);
                   }}
@@ -153,7 +153,7 @@ export default function CropUpload() {
                   type="text"
                   className="form-control"
                   value={cropCategory}
-                  placeholder="Crop Category..."
+                  placeholder="Category..."
                   onChange={(e) => {
                     setCropCategory(e.target.value);
                   }}
@@ -165,25 +165,9 @@ export default function CropUpload() {
                   type="text"
                   className="form-control"
                   value={cropQuantity}
-                  placeholder="Crop Quantity..."
+                  placeholder="Quantity..."
                   onChange={(e) => {
                     setCropQuantity(e.target.value);
-                  }}
-                />
-              </div>
-
-              <div className="form-group mt-4">
-                <label htmlFor="cropStock">Crop Price</label>
-                <input
-                  required
-                  type="number"
-                  id="cropPrice"
-                  className="form-control"
-                  value={cropPrice}
-                  min={1}
-                  placeholder="Crop Quality..."
-                  onChange={(e) => {
-                    setCropPrice(e.target.value);
                   }}
                 />
               </div>
@@ -197,9 +181,25 @@ export default function CropUpload() {
                   className="form-control"
                   value={cropStock}
                   min={0}
-                  placeholder="Crop Quality..."
+                  placeholder="Stock..."
                   onChange={(e) => {
                     setCropStock(e.target.value);
+                  }}
+                />
+              </div>
+
+              <div className="form-group mt-4">
+                <label htmlFor="cropStock">Crop Price</label>
+                <input
+                  required
+                  type="number"
+                  id="cropPrice"
+                  className="form-control"
+                  value={cropPrice}
+                  min={1}
+                  placeholder="Price..."
+                  onChange={(e) => {
+                    setCropPrice(e.target.value);
                   }}
                 />
               </div>

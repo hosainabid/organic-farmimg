@@ -79,21 +79,21 @@ export default function OrganicFoodItem({ crop }) {
         <h5 className="card-title text-capitalize">{crop.name}</h5>
         <div className="card-text">
           <p className="py-1">
-            Unit Quantity:{" "}
-            <span className="text-success fw-bold">{crop.quantity}</span>
+            Quantity: <span className="fw-bold">{crop.quantity}</span>
           </p>
 
           <p className="py-1">
-            Item left:{" "}
-            <span className="text-warning fw-bold">{crop.stock} </span>
+            Stock: <span className="fw-bold">{crop.stock} </span>
             Unit
           </p>
           <p className="py-1">
-            Farmer Name: <span className="fw-bold">{crop.farmerName}</span>
+            Farmer Name:{" "}
+            <span className="fw-bold text-info text-capitalize">
+              {crop.farmerName}
+            </span>
           </p>
           <p className="py-1">
-            Item left:{" "}
-            <span className="text-warning fw-bold">{crop.price} </span>
+            Price: <span className="fw-bold">{crop.price} </span>
             Tk
           </p>
         </div>
