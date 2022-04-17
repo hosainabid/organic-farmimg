@@ -308,7 +308,6 @@ export default function Registration() {
                     required
                     onChange={(e) => setUserImage(e.target.files[0])}
                     type="file"
-                    value={userImage}
                     className="form-control"
                     name="Choose a image please..."
                   />
