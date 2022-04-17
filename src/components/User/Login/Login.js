@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import Header from "../../Header/Header";
 import rootAPI from "../../../configurables";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Login() {
   const [userLoginEmail, setUserLoginEmail] = useState("");
@@ -31,6 +33,15 @@ export default function Login() {
       })
       .then((res) => {
         console.log(res);
+        toast.success(res.data.message, {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
         setIsOtpSended(true);
       })
       .catch((error) => console.log(error))

@@ -23,7 +23,7 @@ export default function Registration() {
   const handleRegFormComplete = (e) => {
     e.preventDefault();
     toast.info("Please Wait...!", {
-      position: "top-right",
+      position: "top-center",
       autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -40,7 +40,7 @@ export default function Registration() {
         console.log(res);
         if (res.data.isSuccess) {
           toast.info(res.data.message, {
-            position: "top-right",
+            position: "top-center",
             autoClose: 3000,
             hideProgressBar: false,
             closeOnClick: true,
@@ -50,7 +50,7 @@ export default function Registration() {
           });
         } else {
           toast.info(res.data.message, {
-            position: "top-right",
+            position: "top-center",
             autoClose: 3000,
             hideProgressBar: false,
             closeOnClick: true,
@@ -64,7 +64,7 @@ export default function Registration() {
       })
       .catch((error) => {
         toast.error("Please try again!", {
-          position: "top-right",
+          position: "top-center",
           autoClose: 2000,
           hideProgressBar: false,
           closeOnClick: true,
@@ -87,7 +87,7 @@ export default function Registration() {
           toast.success(
             "OTP is correct! Please wait for registration complete",
             {
-              position: "top-right",
+              position: "top-center",
               autoClose: 2000,
               hideProgressBar: false,
               closeOnClick: true,
@@ -111,7 +111,7 @@ export default function Registration() {
               console.log(res);
               if (res.data.isSuccess) {
                 toast.success(res.data.message, {
-                  position: "top-right",
+                  position: "top-center",
                   autoClose: 2000,
                   hideProgressBar: false,
                   closeOnClick: true,
@@ -122,7 +122,7 @@ export default function Registration() {
                 history.replace("/myAccount");
               } else {
                 toast.error(res.data.message, {
-                  position: "top-right",
+                  position: "top-center",
                   autoClose: 2000,
                   hideProgressBar: false,
                   closeOnClick: true,
@@ -134,7 +134,7 @@ export default function Registration() {
             })
             .catch(() => {
               toast.error(res.data.message, {
-                position: "top-right",
+                position: "top-center",
                 autoClose: 2000,
                 hideProgressBar: false,
                 closeOnClick: true,
@@ -145,7 +145,7 @@ export default function Registration() {
             });
         } else {
           toast.error(res.data.message, {
-            position: "top-right",
+            position: "top-center",
             autoClose: 2000,
             hideProgressBar: false,
             closeOnClick: true,
@@ -159,7 +159,6 @@ export default function Registration() {
         console.log(error);
       })
       .finally(() => {
-        setIsFormComplete(false);
         setFirstName("");
         setFirstName("");
         setAddress("");
