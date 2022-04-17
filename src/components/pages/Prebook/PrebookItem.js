@@ -104,7 +104,7 @@ export default function PrebookItem({ crop }) {
             <span className="fw-bold text-capitalize">{crop.farmerName}</span>
           </p>
           <p className="py-1">
-            Upcoming Date: <span className="fw-bold">{crop.upcomingDate}</span>
+            Estimated Date: <span className="fw-bold">{crop.upcomingDate}</span>
           </p>
         </div>
         <p className="py-1">

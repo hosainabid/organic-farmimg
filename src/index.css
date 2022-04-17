@@ -136,3 +136,8 @@ h4 {
 .order-summery-table td {
   font-weight: 700;
 }
+
+.forget-pass:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}

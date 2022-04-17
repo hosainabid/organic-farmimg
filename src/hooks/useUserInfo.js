@@ -14,16 +14,20 @@ const useUserInfo = () => {
       password: userLoginPassword,
     };
 
-    axios.post(`${rootAPI}/login`, loginDetails).then((res) => {
-      if (res.data.isSuccess) {
-        setUser(res.data.user_info);
-        localStorage.setItem(
-          "organicFarm-user",
-          JSON.stringify(res.data.user_info)
-        );
-        history.replace("/myAccount");
-      }
-    });
+    axios
+      .post(`${rootAPI}/login`, loginDetails)
+      .then((res) => {
+        console.log(res);
+        if (res.data.isSuccess) {
+          setUser(res.data.user_info);
+          localStorage.setItem(
+            "organicFarm-user",
+            JSON.stringify(res.data.user_info)
+          );
+          history.replace("/myAccount");
+        }
+      })
+      .catch((error) => console.log(error));
   };
 
   const userLogout = (history) => {

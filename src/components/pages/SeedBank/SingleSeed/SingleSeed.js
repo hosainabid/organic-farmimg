@@ -83,11 +83,13 @@ export default function SingleSeed({ seed }) {
         <h5 className="card-title text-capitalize">{seed.name}</h5>
         <div className="card-text">
           <p className="py-1">
-            Quantity:{" "}
-            <span className="text-success fw-bold">{seed.quantity}</span>
+            Quantity: <span className="fw-bold">{seed.quantity}</span>
           </p>
           <p className="py-1">
-            Stock: <span className="text-warning fw-bold">{seed.stock}</span>
+            Stock: <span className="fw-bold">{seed.stock}</span>
+          </p>
+          <p className="py-1">
+            Type: <span className="fw-bold">{seed.type}</span>
           </p>
           <p className="py-1">
             Price:{" "}

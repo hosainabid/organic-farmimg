@@ -9,7 +9,7 @@ const SingleForumPost = ({
   onCommentSubmit,
 }) => {
   const { user } = useAuth();
-  let allComment = JSON.parse(postDetails.commments);
+  // let allComment = JSON.parse(postDetails.commments);
   // console.log(allComment);
   return (
     <div className="row justify-content-center mb-5">
@@ -43,9 +43,9 @@ const SingleForumPost = ({
         </div>
         <hr />
         <form
-          onSubmit={(event) =>
-            onCommentSubmit(event, postDetails._id, user.name, allComment)
-          }
+        // onSubmit={(event) =>
+        //   onCommentSubmit(event, postDetails._id, user.name, allComment)
+        // }
         >
           {isCommentPosting ? (
             <p className="text-center h5 my-2 text-secondary">
@@ -72,7 +72,7 @@ const SingleForumPost = ({
           )}
         </form>
 
-        {allComment.length ? (
+        {/* {allComment.length ? (
           allComment.map((commentDetails, index) => (
             <div
               className="border my-3 p-2 rounded shadow"
@@ -89,7 +89,7 @@ const SingleForumPost = ({
           ))
         ) : (
           <p className="text-center my-3 p-2">There is no comment</p>
-        )}
+        )} */}
       </div>
     </div>
   );

@@ -65,6 +65,7 @@ export default function UpcomingProductUpload() {
       })
       .finally(() => {
         setIsPosting(false);
+        event.target.reset();
       });
   };
   const loadMyCrops = async () => {
@@ -224,8 +225,10 @@ export default function UpcomingProductUpload() {
                 </div>
 
                 <div className="form-group mt-4">
+                  <label htmlFor="upcomingDate">Estimated Date</label>
                   <input
                     required
+                    id="upcomingDate"
                     type="date"
                     className="form-control"
                     onChange={(e) => setCropUpcomingDate(e.target.value)}
