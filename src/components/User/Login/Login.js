@@ -33,16 +33,30 @@ export default function Login() {
       })
       .then((res) => {
         console.log(res);
-        toast.success(res.data.message, {
-          position: "top-center",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-        setIsOtpSended(true);
+        if (res.data.isSuccess) {
+          toast.success(res.data.message, {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+          setIsOtpSended(true);
+        } else {
+          toast.error(res.data.message, {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+          setOtpField("");
+          setIsOtpSended(false);
+        }
       })
       .catch((error) => console.log(error))
       .finally(() => {
