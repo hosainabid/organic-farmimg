@@ -24,7 +24,26 @@ const useUserInfo = () => {
             "organicFarm-user",
             JSON.stringify(res.data.user_info)
           );
+          toast.success(res.data.message, {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
           history.replace("/myAccount");
+        } else {
+          toast.error(res.data.message, {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
         }
       })
       .catch((error) => console.log(error));
