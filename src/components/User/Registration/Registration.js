@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import Header from "../../Header/Header";
 import rootAPI from "../../../configurables";
 import { useHistory } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Registration() {
   const [firstName, setFirstName] = useState("");
@@ -20,6 +22,15 @@ export default function Registration() {
 
   const handleRegFormComplete = (e) => {
     e.preventDefault();
+    toast.info("Please Wait...!", {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
 
     axios
       .post(`${rootAPI}/send_otp_for_user_reg`, {
@@ -27,11 +38,40 @@ export default function Registration() {
       })
       .then((res) => {
         console.log(res);
+        if (res.data.isSuccess) {
+          toast.info(res.data.message, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        } else {
+          toast.info(res.data.message, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        }
         setIsFormComplete(true);
         e.target.reset();
       })
       .catch((error) => {
-        console.log(error);
+        toast.error("Please try again!", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       });
   };
 
@@ -43,36 +83,98 @@ export default function Registration() {
         OTP: Number(otp),
       })
       .then((res) => {
-        console.log("OTP true block");
-        console.log(res);
-        console.log(typeof Number(otp));
-        // const formData = new FormData();
-        // formData.append("name", `${firstName} ${lastName}`);
-        // formData.append("mobile", number);
-        // formData.append("email", email);
-        // formData.append("role", role);
-        // formData.append("address", address);
-        // formData.append("password", password);
-        // formData.append("balance", 0);
-        // formData.append("file", userImage);
-        // axios
-        //   .post(`${rootAPI}/user_registration`, formData)
-        //   .then((res) => {
-        //     console.log(res);
-        //     // history.replace("/myAccount");
-        //   })
-        //   .catch((error) => {
-        //     console.log(error);
-        //   });
+        if (res.data.isSuccess) {
+          toast.success(
+            "OTP is correct! Please wait for registration complete",
+            {
+              position: "top-right",
+              autoClose: 2000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            }
+          );
+          const formData = new FormData();
+          formData.append("name", `${firstName} ${lastName}`);
+          formData.append("mobile", number);
+          formData.append("email", email);
+          formData.append("role", role);
+          formData.append("address", address);
+          formData.append("password", password);
+          formData.append("balance", 0);
+          formData.append("file", userImage);
+          axios
+            .post(`${rootAPI}/user_registration`, formData)
+            .then((res) => {
+              console.log(res);
+              if (res.data.isSuccess) {
+                toast.success(res.data.message, {
+                  position: "top-right",
+                  autoClose: 2000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                });
+                history.replace("/myAccount");
+              } else {
+                toast.error(res.data.message, {
+                  position: "top-right",
+                  autoClose: 2000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                });
+              }
+            })
+            .catch(() => {
+              toast.error(res.data.message, {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
+            });
+        } else {
+          toast.error(res.data.message, {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        }
       })
       .catch((error) => {
         console.log(error);
+      })
+      .finally(() => {
+        setIsFormComplete(false);
+        setFirstName("");
+        setFirstName("");
+        setAddress("");
+        setNumber("");
+        setOtp("");
+        setPassword("");
+        setRole("");
+        setUserImage(null);
       });
   };
 
   return (
     <div>
       <Header />
+      <ToastContainer />
       <div className="container mt-4">
         <div className="row justify-content-center align-items-center">
           <div className="col-sm-9 col-lg-6">
@@ -92,6 +194,7 @@ export default function Registration() {
                       type="text"
                       className="form-control"
                       placeholder="First name"
+                      value={firstName}
                       onChange={(e) => setFirstName(e.target.value)}
                     />
                   </div>
@@ -107,6 +210,7 @@ export default function Registration() {
                       type="text"
                       className="form-control"
                       placeholder="Last name"
+                      value={lastName}
                       onChange={(e) => setLastName(e.target.value)}
                     />
                   </div>
@@ -124,6 +228,7 @@ export default function Registration() {
                     className="form-control"
                     aria-describedby="emailHelp"
                     placeholder="Enter email"
+                    value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
@@ -140,6 +245,7 @@ export default function Registration() {
                       type="password"
                       className="form-control"
                       placeholder="Password"
+                      value={password}
                       onChange={(e) => setPassword(e.target.value)}
                     />
                   </div>
@@ -155,6 +261,7 @@ export default function Registration() {
                       type="text"
                       className="form-control"
                       placeholder="Enter your phone number"
+                      value={number}
                       onChange={(e) => setNumber(e.target.value)}
                     />
                   </div>
@@ -167,6 +274,7 @@ export default function Registration() {
                     required
                     id="address"
                     row="2"
+                    value={address}
                     className="form-control"
                     aria-describedby="emailHelp"
                     placeholder="Enter your address"
@@ -200,6 +308,7 @@ export default function Registration() {
                     required
                     onChange={(e) => setUserImage(e.target.files[0])}
                     type="file"
+                    value={userImage}
                     className="form-control"
                     name="Choose a image please..."
                   />
@@ -219,9 +328,10 @@ export default function Registration() {
                     <input
                       required
                       onChange={(e) => setOtp(e.target.value)}
-                      type="number"
+                      type="text"
                       className="form-control"
                       name="Your OTP..."
+                      value={otp}
                     />
                   </div>
                   <button type="submit" className="myBtn my-4 py-2 px-3 h4">

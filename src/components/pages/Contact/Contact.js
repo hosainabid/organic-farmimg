@@ -1,10 +1,21 @@
 import React from "react";
 import Header from "../../Header/Header";
 import emailjs from "@emailjs/browser";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Contact() {
   const sendEmail = (e) => {
     e.preventDefault();
+    toast.info("Sending Email", {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
     emailjs
       .sendForm(
         "service_oyt98e6",
@@ -15,9 +26,27 @@ export default function Contact() {
       .then(
         (result) => {
           console.log(result.text);
+          toast.success(result.text, {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
         },
         (error) => {
           console.log(error.text);
+          toast.error(error.text, {
+            position: "top-center",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
         }
       );
     e.target.reset();
@@ -25,6 +54,7 @@ export default function Contact() {
   return (
     <div>
       <Header />
+      <ToastContainer />
       <div className="container my-4">
         <div className="row justify-content-center align-items-center">
           <div className="col-md-7 col-sm-10 col-xs-12 border m-3">
