@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import Footer from "./components/Footer/Footer";
 import About from "./components/pages/About/About";
 import Blogs from "./components/pages/Blogs/Blogs";
 import Contact from "./components/pages/Contact/Contact";
@@ -12,6 +13,7 @@ import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import Login from "./components/User/Login/Login";
 import Registration from "./components/User/Registration/Registration";
 import UserDetails from "./components/User/UserDetails/UserDetails";
+import CopyRight from "./components/utilities/CopyRight/CopyRight";
 import AuthProvider from "./contexts/AuthProvider";
 
 function App() {
@@ -62,6 +64,8 @@ function App() {
           </Switch>
         </BrowserRouter>
       </AuthProvider>
+      <Footer />
+      <CopyRight />
     </div>
   );
 }

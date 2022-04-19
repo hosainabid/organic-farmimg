@@ -19,6 +19,7 @@ import OrderShipped from "./MyBag/OrderStatus/Shipped/OrderShipped";
 import PreviousForumPost from "./ForumPost/PreviousForumPost";
 import BlogPost from "./BlogPost/BlogPost";
 import PreviousBlogPost from "./BlogPost/PreviousBlogPost";
+import MyCart from "./MyCart/MyCart";
 
 const MyAccount = () => {
   return (
@@ -58,6 +59,12 @@ const MyAccount = () => {
               <MyBag />
             </Route>
           </PrivateRoute>
+        </Switch>
+        {/* my cart here  */}
+        <Switch>
+          <Route exact path="/myAccount/myCart">
+            <MyCart />
+          </Route>
         </Switch>
 
         {/* forum routes start from here...  */}

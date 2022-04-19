@@ -2,7 +2,8 @@ import axios from "axios";
 import React, { useState, Fragment } from "react";
 import { NavLink } from "react-router-dom";
 import useAuth from "../../../../../hooks/useAuth";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import rootAPI from "../../../../../configurables";
 
 const ForumPost = () => {
@@ -15,6 +16,15 @@ const ForumPost = () => {
 
   const forumPostHandler = (event) => {
     event.preventDefault();
+    toast.info("Posting on Forum. Please wait!", {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
     setIsRequestingAPI(true);
 
     const d = new Date();
@@ -34,7 +44,30 @@ const ForumPost = () => {
 
     axios
       .post(`${rootAPI}/post_forum`, formData)
-      .then()
+      .then((res) => {
+        if (res.data.isSuccess) {
+          event.target.reset();
+          toast.success(res.data.message, {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        } else {
+          toast.error(res.data.message, {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        }
+      })
       .catch((error) => {
         console.log(error);
       })
@@ -47,6 +80,7 @@ const ForumPost = () => {
   };
   return (
     <Fragment>
+      <ToastContainer />
       <div className="my-2 d-flex justify-content-end">
         <NavLink
           to="/myAccount/forumPost/previousForumPosts"

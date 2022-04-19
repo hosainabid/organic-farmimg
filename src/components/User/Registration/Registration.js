@@ -119,7 +119,7 @@ export default function Registration() {
                   draggable: true,
                   progress: undefined,
                 });
-                history.replace("/myAccount");
+                history.replace("/login");
               } else {
                 toast.error(res.data.message, {
                   position: "top-center",

@@ -15,6 +15,7 @@ export default function User() {
     let organicFoodJSON = JSON.parse(
       window.localStorage.getItem("organicFood")
     );
+
     if (seedJSON) {
       seedJSON.map(
         (seed) => (totalItemQuantity = totalItemQuantity + seed.quantity)
@@ -51,7 +52,7 @@ export default function User() {
             </li>
 
             <li id="myBag">
-              <Link to="/myAccount/myBag">
+              <Link to="/myAccount/myCart">
                 <button type="button" className="list-btn">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

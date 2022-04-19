@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState, Fragment } from "react";
 import useAuth from "../../../../../hooks/useAuth";
 import LoadingSpinner from "../../../../utilities/LoadingSpinner/LoadingSpinner";
+import rootAPI from "../../../../../configurables";
 
 export default function CropUpload() {
   const [cropName, setCropName] = useState("");
@@ -41,7 +42,7 @@ export default function CropUpload() {
     formData.append("postTime", postTime);
 
     axios
-      .post("https://shrouded-basin-02702.herokuapp.com/add_new_crop", formData)
+      .post(`${rootAPI}/add_new_crop`, formData)
       .then((res) => {
         console.log(res);
         setFlag((prevState) => !prevState);
@@ -60,12 +61,10 @@ export default function CropUpload() {
 
   const loadMyCrops = async () => {
     try {
-      const data = await axios
-        .get("https://shrouded-basin-02702.herokuapp.com/all_crops")
-        .then((res) => {
-          setAllCrop(res.data.reverse());
-          setIsLoading(false);
-        });
+      const data = await axios.get(`${rootAPI}/all_crops`).then((res) => {
+        setAllCrop(res.data.reverse());
+        setIsLoading(false);
+      });
     } catch (e) {
       console.log(e);
     }
@@ -75,7 +74,7 @@ export default function CropUpload() {
 
   const deleteMyCrop = (id) => {
     axios
-      .post("https://shrouded-basin-02702.herokuapp.com/delete_crop", {
+      .post(`${rootAPI}/delete_crop`, {
         id: id,
       })
       .then((res) => {
@@ -108,7 +107,7 @@ export default function CropUpload() {
     })}'${d.getDate()} ${d.getFullYear()}`;
 
     axios
-      .post("https://shrouded-basin-02702.herokuapp.com/update_crop_info", {
+      .post(`${rootAPI}/update_crop_info`, {
         id: id,
         name: updatedCropName || prevName,
         category: updatedCropCategory || prevCategory,
