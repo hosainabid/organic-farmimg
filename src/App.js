@@ -17,57 +17,59 @@ import CopyRight from "./components/utilities/CopyRight/CopyRight";
 import AuthProvider from "./contexts/AuthProvider";
 
 function App() {
-  return (
-    <div className="App">
-      <AuthProvider>
-        <BrowserRouter>
-          <Switch>
-            <Route exact path="/">
-              <Home />
-            </Route>
-            <Route path="/home">
-              <Home />
-            </Route>
-            <Route path="/about">
-              <About />
-            </Route>
-            <Route path="/contact">
-              <Contact />
-            </Route>
-            <Route path="/seedBank">
-              <SeedBank />
-            </Route>
-            <Route path="/organicFood">
-              <OrganicFood />
-            </Route>
-            <Route path="/prebook">
-              <Prebook />
-            </Route>
-            <Route path="/forum">
-              <Forum />
-            </Route>
-            <Route path="/blogs">
-              <Blogs />
-            </Route>
-            <Route path="/login">
-              <Login />
-            </Route>
-            <Route path="/registration">
-              <Registration />
-            </Route>
-            <PrivateRoute path="/myAccount">
-              <UserDetails />
-            </PrivateRoute>
-            <Route>
-              <NotFound />
-            </Route>
-          </Switch>
-        </BrowserRouter>
-      </AuthProvider>
-      <Footer />
-      <CopyRight />
-    </div>
-  );
+	return (
+		<div className="App">
+			<div className="main-content">
+				<AuthProvider>
+					<BrowserRouter>
+						<Switch>
+							<Route exact path="/">
+								<Home />
+							</Route>
+							<Route path="/home">
+								<Home />
+							</Route>
+							<Route path="/about">
+								<About />
+							</Route>
+							<Route path="/contact">
+								<Contact />
+							</Route>
+							<Route path="/seedBank">
+								<SeedBank />
+							</Route>
+							<Route path="/organicFood">
+								<OrganicFood />
+							</Route>
+							<Route path="/prebook">
+								<Prebook />
+							</Route>
+							<Route path="/forum">
+								<Forum />
+							</Route>
+							<Route path="/blogs">
+								<Blogs />
+							</Route>
+							<Route path="/login">
+								<Login />
+							</Route>
+							<Route path="/registration">
+								<Registration />
+							</Route>
+							<PrivateRoute path="/myAccount">
+								<UserDetails />
+							</PrivateRoute>
+							<Route>
+								<NotFound />
+							</Route>
+						</Switch>
+					</BrowserRouter>
+				</AuthProvider>
+			</div>
+			<Footer />
+			<CopyRight />
+		</div>
+	);
 }
 
 export default App;

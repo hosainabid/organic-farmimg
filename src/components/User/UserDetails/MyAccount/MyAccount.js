@@ -22,105 +22,100 @@ import PreviousBlogPost from "./BlogPost/PreviousBlogPost";
 import MyCart from "./MyCart/MyCart";
 
 const MyAccount = () => {
-  return (
-    <div className="d-md-flex">
-      <div className="col-md-4 col-lg-3 col-xl-2 col-sm-12">
-        <Sidebar />
-      </div>
-      <div className="col-md-8 col-lg-9 col-xl-10 col-sm-12 ps-md-5">
-        <Switch>
-          <Route exact path="/myAccount">
-            <Dashboard />
-          </Route>
-        </Switch>
-        <Switch>
-          <PrivateRouteForAdmin path="/myAccount/uploadSeed">
-            <UploadSeed />
-          </PrivateRouteForAdmin>
-        </Switch>
-        <Switch>
-          <PrivateRouteForAdmin path="/myAccount/allUser">
-            <AllUser />
-          </PrivateRouteForAdmin>
-        </Switch>
-        <Switch>
-          <PrivateRouteForFarmer path="/myAccount/cropUpload">
-            <CropUpload />
-          </PrivateRouteForFarmer>
-        </Switch>
-        <Switch>
-          <Route path="/myAccount/upcomingProductUpload">
-            <UpcomingProductUpload />
-          </Route>
-        </Switch>
-        <Switch>
-          <PrivateRoute>
-            <Route exact path="/myAccount/myBag">
-              <MyBag />
-            </Route>
-          </PrivateRoute>
-        </Switch>
-        {/* my cart here  */}
-        <Switch>
-          <Route exact path="/myAccount/myCart">
-            <MyCart />
-          </Route>
-        </Switch>
+	return (
+		<div className="d-md-flex">
+			<div className="col-md-4 col-lg-3 col-xl-2 col-sm-12">
+				<Sidebar />
+			</div>
+			<div className="col-md-8 col-lg-9 col-xl-10 col-sm-12 ps-md-5">
+				<Switch>
+					<Route exact path="/myAccount">
+						<Dashboard />
+					</Route>
+				</Switch>
+				<Switch>
+					<PrivateRouteForAdmin path="/myAccount/uploadSeed">
+						<UploadSeed />
+					</PrivateRouteForAdmin>
+				</Switch>
+				<Switch>
+					<PrivateRouteForAdmin path="/myAccount/allUser">
+						<AllUser />
+					</PrivateRouteForAdmin>
+				</Switch>
+				<Switch>
+					<PrivateRouteForFarmer path="/myAccount/cropUpload">
+						<CropUpload />
+					</PrivateRouteForFarmer>
+				</Switch>
+				<Switch>
+					<Route path="/myAccount/upcomingProductUpload">
+						<UpcomingProductUpload />
+					</Route>
+				</Switch>
+				<Switch>
+					<PrivateRoute>
+						<Route exact path="/myAccount/myBag">
+							<MyBag />
+						</Route>
+					</PrivateRoute>
+				</Switch>
+				{/* my cart here  */}
+				<Switch>
+					<Route exact path="/myAccount/myCart">
+						<MyCart />
+					</Route>
+				</Switch>
 
-        {/* forum routes start from here...  */}
-        <Switch>
-          <Route exact path="/myAccount/forumPost">
-            <ForumPost />
-          </Route>
-        </Switch>
-        <Switch>
-          <Route path="/myAccount/forumPost/previousForumPosts">
-            <PreviousForumPost />
-          </Route>
-        </Switch>
-        {/* forum routes ends here ... */}
+				{/* forum routes start from here...  */}
+				<Switch>
+					<Route exact path="/myAccount/forumPost">
+						<ForumPost />
+					</Route>
+				</Switch>
+				<Switch>
+					<Route path="/myAccount/forumPost/previousForumPosts">
+						<PreviousForumPost />
+					</Route>
+				</Switch>
+				{/* forum routes ends here ... */}
 
-        {/* blog routes start from here...  */}
-        <Switch>
-          <PrivateRouteForAdmin exact path="/myAccount/blogPost">
-            <BlogPost />
-          </PrivateRouteForAdmin>
-        </Switch>
-        <Switch>
-          <PrivateRouteForAdmin path="/myAccount/blogPost/previousBlogPosts">
-            <PreviousBlogPost />
-          </PrivateRouteForAdmin>
-        </Switch>
-        {/* bloh routes ends here ... */}
+				{/* blog routes start from here...  */}
+				<Switch>
+					<PrivateRouteForAdmin exact path="/myAccount/blogPost">
+						<BlogPost />
+					</PrivateRouteForAdmin>
+				</Switch>
+				<Switch>
+					<PrivateRouteForAdmin path="/myAccount/blogPost/previousBlogPosts">
+						<PreviousBlogPost />
+					</PrivateRouteForAdmin>
+				</Switch>
+				{/* bloh routes ends here ... */}
 
-        <Switch>
-          <Route path="/myAccount/myBag/pending">
-            <OrderPending />
-          </Route>
-        </Switch>
-        <Switch>
-          <Route path="/myAccount/myBag/confirmed">
-            <OrderConfirmed />
-          </Route>
-        </Switch>
-        <Switch>
-          <Route path="/myAccount/myBag/shipped">
-            <OrderShipped />
-          </Route>
-        </Switch>
-        <Switch>
-          <Route path="/myAccount/myBag/complete">
-            <OrderComplete />
-          </Route>
-        </Switch>
-        <Switch>
-          <Route path="/myAccount/myBag/cancelled">
-            <OrderCancelled />
-          </Route>
-        </Switch>
-      </div>
-    </div>
-  );
+				<Switch>
+					<Route path="/myAccount/myBag/pending">
+						<OrderPending />
+					</Route>
+				</Switch>
+				<Switch>
+					<Route path="/myAccount/myBag/shipped">
+						<OrderShipped />
+					</Route>
+				</Switch>
+				<Switch>
+					<Route path="/myAccount/myBag/complete">
+						<OrderComplete />
+					</Route>
+				</Switch>
+				<Switch>
+					<Route path="/myAccount/myBag/cancelled">
+						<OrderCancelled />
+					</Route>
+				</Switch>
+			</div>
+		</div>
+	);
 };
 
 export default MyAccount;
