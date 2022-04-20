@@ -17,12 +17,61 @@ export default function Login() {
   const [isOtpSended, setIsOtpSended] = useState(false);
   const [isOtpCorrect, setIsOtpCorrect] = useState(false);
   const [newPassword, setNewPassword] = useState("");
-  const { userLogin } = useAuth();
   const history = useHistory();
+  const { setUser } = useAuth();
   const handleLogin = (e) => {
     e.preventDefault();
     userLogin(userLoginEmail, userLoginPassword, history);
     e.target.reset();
+  };
+  const userLogin = (userLoginEmail, userLoginPassword, history) => {
+    toast.info("Please wait for Login!", {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+    const loginDetails = {
+      email: userLoginEmail,
+      password: userLoginPassword,
+    };
+
+    axios
+      .post(`${rootAPI}/login`, loginDetails)
+      .then((res) => {
+        if (res.data.isSuccess) {
+          toast.success("Welcome to your OrganicFarming !", {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+          setUser(res.data.user_info);
+          localStorage.setItem(
+            "organicFarm-user",
+            JSON.stringify(res.data.user_info)
+          );
+          history.replace("/myAccount");
+        } else {
+          toast.error(res.data.message, {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        }
+        console.log(res);
+      })
+      .catch((error) => console.log(error));
   };
 
   const handleEmailSubmit = (e) => {
@@ -104,6 +153,7 @@ export default function Login() {
   return (
     <div>
       <Header />
+      <ToastContainer />
       <div className="container my-4">
         <div className="row justify-content-center align-items-center">
           <div className="col-sm-9 col-lg-6 col-xs-12">
