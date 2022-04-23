@@ -11,21 +11,13 @@ export default function PreviousForumPost() {
   const [isForumLoaded, setIsForumLoaded] = useState(false);
   const [allForumPost, setAllForumPost] = useState([]);
 
-  const loadAllForumPost = async () => {
-    try {
-      const data = await axios
-        .get(`${rootAPI}/all_forum_posts_with_comments`)
-        .then((res) => {
-          setAllForumPost(res.data.reverse());
-          setIsForumLoaded(true);
-        });
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
   useEffect(() => {
-    loadAllForumPost();
+    axios.get(`${rootAPI}/all_forum_posts_with_comments`).then((res) => {
+      setAllForumPost(res.data.reverse());
+      setIsForumLoaded(true);
+    }).catch(err => {
+      console.log(err)
+    })
   }, [apiRecall]);
 
   return (

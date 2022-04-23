@@ -48,11 +48,10 @@ const SingleForumPost = ({ postDetails, setApiRecall }) => {
 			}
 
 			axios
-				.post(`${rootAPI}/add_comment_to_forum_post`, formData)
+				.post(`${rootAPI}/add_comment_to_blog_post`, formData)
 				.then((res) => {
 					console.log(res);
 					if (res.data.isSuccess) {
-						// event.target.reset();
 						window.location.reload()
 						toast.success("Thank you for your valuable comment", {
 							position: "top-center",
@@ -137,7 +136,7 @@ const SingleForumPost = ({ postDetails, setApiRecall }) => {
 
 		console.log(newCommentsWithReply);
 
-		axios.post(`${rootAPI}/add_comment_to_forum_post`, {
+		axios.post(`${rootAPI}/add_comment_to_blog_post`, {
 			id: postDetails._id,
 			commments: newCommentsWithReply,
 		}).then((res) => {

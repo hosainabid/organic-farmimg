@@ -12,22 +12,12 @@ export default function Forum() {
   const [isSeedLoaded, setIsSeedLoaded] = useState(false);
   const [allForumPost, setAllForumPost] = useState([]);
 
-  const loadAllForumPost = async () => {
-    try {
-      await axios
-        .get(`${rootAPI}/all_forum_posts_with_comments`)
-        .then((res) => {
-          console.log(res);
-          setAllForumPost(res.data.reverse());
-          setIsSeedLoaded(true);
-        });
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
   React.useEffect(() => {
-    loadAllForumPost();
+    axios.get(`${rootAPI}/all_forum_posts_with_comments`).then((res) => {
+      console.log(res);
+      setAllForumPost(res.data.reverse());
+      setIsSeedLoaded(true);
+    });
   }, [apiRecall]);
 
   console.log(allForumPost);

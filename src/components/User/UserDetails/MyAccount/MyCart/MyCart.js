@@ -7,12 +7,14 @@ import SeedBag from "./SeedBag";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import rootAPI from "../../../../../configurables";
+import StripeCheckout from 'react-stripe-checkout';
 export default function MyCart() {
   const { v4: uuidv4 } = require("uuid");
   const [subTotal, setSubtotal] = useState(0);
   const [seeds, setSeeds] = useState([]);
   const [prebook, setPrebook] = useState([]);
   const [crops, setCrops] = useState([]);
+  const [isPaid, setPaymentSuccess] = useState(false);
   const { user, isCartUpdated, setIsCartUpdated } = useAuth();
   const [quickDelivary, setQuickDelivary] = useState();
   const [isShipOriginalAddress, setIsShipOriginalAddress] = useState();
@@ -353,9 +355,18 @@ export default function MyCart() {
                 )}
 
                 <div className="mx-2 my-4">
-                  <button onClick={placeOrder} className="myBtn w-100 h5 py-2">
+                  {isPaid ? <button onClick={placeOrder} className="myBtn w-100 h5 py-2">
                     Place order
-                  </button>
+                  </button> : <div>
+                    <p className="text-warning">Please pay first to place Order</p>
+                    <StripeCheckout
+                      token={token => setPaymentSuccess(true)}
+                      // amount={product.price * 100 * quantity}
+                      amount={10 * 100 * 4}
+                      currency="BDT"
+                      stripeKey="pk_test_51IZRWSKMRot2hgd9XemY5rgpL0HFUWREI1HvRZIcUdH1a6m5xbaT8EPLuPe5iKPqNXAqrIw8bfJjwC8rbbq4Sy4400hZjx6lwV"
+                    />
+                  </div>}
                 </div>
               </div>
             </div>
