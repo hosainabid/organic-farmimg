@@ -20,6 +20,7 @@ import PreviousForumPost from "./ForumPost/PreviousForumPost";
 import BlogPost from "./BlogPost/BlogPost";
 import PreviousBlogPost from "./BlogPost/PreviousBlogPost";
 import MyCart from "./MyCart/MyCart";
+import MyOrders from "./MyBag/OrderStatus/MyOrders/MyOrders";
 
 const MyAccount = () => {
 	return (
@@ -64,6 +65,12 @@ const MyAccount = () => {
 				<Switch>
 					<Route exact path="/myAccount/myCart">
 						<MyCart />
+					</Route>
+				</Switch>
+				{/* my orders here  */}
+				<Switch>
+					<Route exact path="/myAccount/myOrders">
+						<MyOrders />
 					</Route>
 				</Switch>
 

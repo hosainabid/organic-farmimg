@@ -8,6 +8,7 @@ export default function Dashboard() {
   const { user } = useAuth();
 
   const [orders, setOrders] = useState([]);
+  const [allOrders, setAllOrders] = useState([]);
   const [prebooks, setPrebooks] = useState([]);
   const [statusPending, setStatusPending] = useState(0);
   const [statusShipping, setStatusShipping] = useState(0);
@@ -16,11 +17,62 @@ export default function Dashboard() {
   const [orderAPILoaded, setOrderAPILoaded] = useState(false);
   const [prebookAPILoaded, setPrebookAPILoaded] = useState(false);
 
+  const forAdmin = allOrders?.map((r) => {
+    return (
+      { ...r, productDetails: r?.productDetails?.filter((e) => e?.type === 'seed')}
+    )
+  });
+  const forFarmer = allOrders?.map((r) => {
+    return (
+      {
+        ...r,
+        productDetails: r?.productDetails?.filter((e) => e?.type !== 'seed' && e.farmerId === user['_id'])
+      }
+    )
+  });
+
+  const newForAdmin = forAdmin?.length > 0 && forAdmin?.filter((r) => r?.productDetails?.length > 0);
+  const newForFarmer = forFarmer?.length > 0 && forFarmer?.filter((r) => r?.productDetails?.length > 0);
+  const newForUser = allOrders.filter((r) => r.buyerEmail === user.email)
+
+  const pendingForAdmin = newForAdmin?.length > 0 && newForAdmin?.filter((r) => r?.status === 'pending')?.length;
+  const shippedForAdmin = newForAdmin?.length > 0 && newForAdmin?.filter((r) => r?.status === 'shipped')?.length;
+  const canceledForAdmin = newForAdmin?.length > 0 && newForAdmin?.filter((r) => r?.status === 'canceled')?.length;
+  const paidForAdmin = newForAdmin?.length > 0 && newForAdmin?.filter((r) => r?.status === 'paid')?.length;
+
+  const pendingForFarmer = newForFarmer?.length > 0 && newForFarmer?.filter((r) => r?.status === 'pending')?.length;
+  const shippedForFarmer = newForFarmer?.length > 0 && newForFarmer?.filter((r) => r?.status === 'shipped')?.length;
+  const canceledForFarmer = newForFarmer?.length > 0 && newForFarmer?.filter((r) => r?.status === 'canceled')?.length;
+  const paidForFarmer = newForFarmer?.length > 0 && newForFarmer?.filter((r) => r?.status === 'paid')?.length;
+
+  const pendingForUser = newForUser?.length > 0 && newForUser?.filter((r) => r?.status === 'pending')?.length;
+  const shippedForUser = newForUser?.length > 0 && newForUser?.filter((r) => r?.status === 'shipped')?.length;
+  const canceledForUser = newForUser?.length > 0 && newForUser?.filter((r) => r?.status === 'canceled')?.length;
+  const paidForUser = newForUser?.length > 0 && newForUser?.filter((r) => r?.status === 'paid')?.length;
+
+  const revenueForAdmin = newForAdmin?.length > 0 && newForAdmin?.filter((r) => r?.status === 'paid');
+  let totalRevenueAdmin = 0;
+  revenueForAdmin?.length > 0 && revenueForAdmin?.forEach(data => {
+    totalRevenueAdmin += parseFloat(data?.total);
+  });
+  const profitForAdmin = totalRevenueAdmin > 0 ? totalRevenueAdmin - (totalRevenueAdmin * 0.50) : 0;
+
+  const revenueForFarmer = newForFarmer?.length > 0 && newForFarmer?.filter((r) => r?.status === 'paid');
+  let totalRevenueFarmer = 0;
+  revenueForFarmer?.length > 0 && revenueForFarmer?.forEach(data => {
+    totalRevenueFarmer += parseFloat(data?.total);
+  });
+  const profitForFarmer = totalRevenueFarmer > 0 ? totalRevenueFarmer - (totalRevenueFarmer * 0.10) : 0;
+
+
+  console.log({totalRevenueAdmin, profitForAdmin})
+
   const loadOrders = async () => {
     await axios
       .get(`${rootAPI}/order_lists`)
       .then((res) => {
         setOrders(res.data);
+        setAllOrders((pre) => [...pre, ...res.data]);
         setOrderAPILoaded(true);
       })
       .catch((error) => console.log(error));
@@ -31,6 +83,7 @@ export default function Dashboard() {
       .get(`${rootAPI}/all_prebookings`)
       .then((res) => {
         setPrebooks(res.data);
+        setAllOrders((pre) => [...pre, ...res.data]);
         setPrebookAPILoaded(true);
       })
       .catch((error) => console.log(error));
@@ -165,6 +218,9 @@ export default function Dashboard() {
     }
   }, [prebookAPILoaded, user.role]);
 
+  const isAdmin = user.role === 'admin';
+  const isFarmer = user.role === 'farmar';
+
   return (
     <div className="mt-4">
       <h3 className="mb-4">Dashboard</h3>
@@ -173,7 +229,11 @@ export default function Dashboard() {
         <div className="col-sm-6 col-lg-3">
           <OrderStatusCard
             title="pending order"
-            quantity={statusPending}
+            quantity={
+              (isAdmin && pendingForAdmin + (pendingForUser || 0))
+                || (isFarmer && pendingForFarmer + (pendingForUser || 0))
+                || 0
+            }
             textClass="text-warning"
           />
         </div>
@@ -181,7 +241,11 @@ export default function Dashboard() {
         <div className="col-sm-6 col-lg-3">
           <OrderStatusCard
             title="shipped order"
-            quantity={statusShipping}
+            quantity={
+              (isAdmin && shippedForAdmin + (shippedForUser || 0))
+                || (isFarmer && shippedForFarmer + (shippedForUser || 0))
+                || 0
+            }
             textClass="text-info"
           />
         </div>
@@ -189,7 +253,11 @@ export default function Dashboard() {
         <div className="col-sm-6 col-lg-3">
           <OrderStatusCard
             title="cancelled"
-            quantity={statusCancelled}
+            quantity={
+              (isAdmin && canceledForAdmin + (canceledForUser || 0))
+                || (isFarmer && canceledForFarmer + (canceledForUser || 0))
+                || 0
+            }
             textClass="text-danger"
           />
         </div>
@@ -197,8 +265,36 @@ export default function Dashboard() {
         <div className="col-sm-6 col-lg-3">
           <OrderStatusCard
             title="complete"
-            quantity={statusComplete}
+            quantity={
+              (isAdmin && paidForAdmin + (paidForUser || 0))
+                || (isFarmer && paidForFarmer + (paidForUser || 0))
+                || 0
+            }
             textClass="text-success"
+          />
+        </div>
+        {/* revenue  */}
+        <div className="col-xs-12 col-md-6">
+          <OrderStatusCard
+            title="total revenue"
+            quantity={
+              (isAdmin && totalRevenueAdmin.toFixed(2) + ' TK')
+                || (isFarmer && totalRevenueFarmer.toFixed(2) + ' TK')
+                || 0
+            }
+            textClass="text-warning"
+          />
+        </div>
+        {/* profit  */}
+        <div className="col-xs-12 col-md-6">
+          <OrderStatusCard
+            title="total profit"
+            quantity={
+              (isAdmin && profitForAdmin.toFixed(2) + ' TK')
+                || (isFarmer && profitForFarmer.toFixed(2) + ' TK')
+                || 0
+            }
+            textClass="text-warning"
           />
         </div>
       </div>
