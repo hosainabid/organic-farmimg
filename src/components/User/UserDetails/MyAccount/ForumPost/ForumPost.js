@@ -40,7 +40,7 @@ const ForumPost = () => {
     formData.append("postContent", postContent);
     formData.append("postTime", postTime);
     formData.append("file", postImage);
-    formData.append("commments", JSON.stringify([]));
+    formData.append("commments", [null]);
 
     axios
       .post(`${rootAPI}/post_forum`, formData)

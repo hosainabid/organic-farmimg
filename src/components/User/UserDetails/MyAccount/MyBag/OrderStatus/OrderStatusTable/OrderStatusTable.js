@@ -12,6 +12,7 @@ export default function OrderStatusTable({ myOrders, pendingOrders, isSuccess, s
             <th scope="col">Date</th>
             <th scope="col">Total</th>
             <th scope="col">Status</th>
+            <th scope="col">Order Details</th>
           </tr>
         </thead>
         <tbody style={{position: 'relative'}}>

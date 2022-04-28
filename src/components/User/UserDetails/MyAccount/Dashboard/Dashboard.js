@@ -33,7 +33,7 @@ export default function Dashboard() {
 
   const newForAdmin = forAdmin?.length > 0 && forAdmin?.filter((r) => r?.productDetails?.length > 0);
   const newForFarmer = forFarmer?.length > 0 && forFarmer?.filter((r) => r?.productDetails?.length > 0);
-  const newForUser = allOrders.filter((r) => r.buyerEmail === user.email)
+  const newForUser = allOrders.filter((r) => r.buyerEmail === user.email);
 
   const pendingForAdmin = newForAdmin?.length > 0 && newForAdmin?.filter((r) => r?.status === 'pending')?.length;
   const shippedForAdmin = newForAdmin?.length > 0 && newForAdmin?.filter((r) => r?.status === 'shipped')?.length;
@@ -220,6 +220,7 @@ export default function Dashboard() {
 
   const isAdmin = user.role === 'admin';
   const isFarmer = user.role === 'farmar';
+  const isUser = user.role === 'user';
 
   return (
     <div className="mt-4">
@@ -232,6 +233,7 @@ export default function Dashboard() {
             quantity={
               (isAdmin && pendingForAdmin + (pendingForUser || 0))
                 || (isFarmer && pendingForFarmer + (pendingForUser || 0))
+                || (isUser && (pendingForUser || 0))
                 || 0
             }
             textClass="text-warning"
@@ -244,6 +246,7 @@ export default function Dashboard() {
             quantity={
               (isAdmin && shippedForAdmin + (shippedForUser || 0))
                 || (isFarmer && shippedForFarmer + (shippedForUser || 0))
+                || (isUser && (shippedForUser || 0))
                 || 0
             }
             textClass="text-info"
@@ -256,6 +259,7 @@ export default function Dashboard() {
             quantity={
               (isAdmin && canceledForAdmin + (canceledForUser || 0))
                 || (isFarmer && canceledForFarmer + (canceledForUser || 0))
+                || (isUser && (canceledForUser || 0))
                 || 0
             }
             textClass="text-danger"
@@ -268,35 +272,44 @@ export default function Dashboard() {
             quantity={
               (isAdmin && paidForAdmin + (paidForUser || 0))
                 || (isFarmer && paidForFarmer + (paidForUser || 0))
+                || (isUser && (paidForUser || 0))
                 || 0
             }
             textClass="text-success"
           />
         </div>
         {/* revenue  */}
-        <div className="col-xs-12 col-md-6">
-          <OrderStatusCard
-            title="total revenue"
-            quantity={
-              (isAdmin && totalRevenueAdmin.toFixed(2) + ' TK')
-                || (isFarmer && totalRevenueFarmer.toFixed(2) + ' TK')
-                || 0
-            }
-            textClass="text-warning"
-          />
-        </div>
+        {
+          !isUser && (
+            <div className="col-xs-12 col-md-6">
+              <OrderStatusCard
+                title="total revenue"
+                quantity={
+                  (isAdmin && totalRevenueAdmin.toFixed(2) + ' TK')
+                    || (isFarmer && totalRevenueFarmer.toFixed(2) + ' TK')
+                    || 0
+                }
+                textClass="text-warning"
+              />
+            </div>
+          )
+        }
         {/* profit  */}
-        <div className="col-xs-12 col-md-6">
-          <OrderStatusCard
-            title="total profit"
-            quantity={
-              (isAdmin && profitForAdmin.toFixed(2) + ' TK')
-                || (isFarmer && profitForFarmer.toFixed(2) + ' TK')
-                || 0
-            }
-            textClass="text-warning"
-          />
-        </div>
+        {
+          !isUser && (
+            <div className="col-xs-12 col-md-6">
+              <OrderStatusCard
+                title="total profit"
+                quantity={
+                  (isAdmin && profitForAdmin.toFixed(2) + ' TK')
+                    || (isFarmer && profitForFarmer.toFixed(2) + ' TK')
+                    || 0
+                }
+                textClass="text-warning"
+              />
+            </div>
+          )
+        }
       </div>
     </div>
   );

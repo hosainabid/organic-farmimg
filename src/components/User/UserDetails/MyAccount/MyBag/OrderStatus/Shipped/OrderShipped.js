@@ -52,10 +52,10 @@ export default function OrderShipped() {
     <Fragment>
       <h3>Shipped Orders</h3>
       {
-        user.role === 'admin' && newForAdmin?.length > 0 && <OrderStatusTable shippedOrders={newForAdmin} />
+        user.role === 'admin' && newForAdmin?.length > 0 ? <OrderStatusTable shippedOrders={newForAdmin} /> : ''
       }
       {
-        user.role === 'farmar' && newForFarmer?.length && <OrderStatusTable shippedOrders={newForFarmer} />
+        user.role === 'farmar' && newForFarmer?.length ? <OrderStatusTable shippedOrders={newForFarmer} /> : ''
       }
     </Fragment>
   );

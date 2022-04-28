@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
 import rootAPT from "../../../../../configurables";
 
 export default function MySingleBlogPost({ post, setApiRecall }) {
@@ -14,10 +15,28 @@ export default function MySingleBlogPost({ post, setApiRecall }) {
       })
       .then(function (response) {
         console.log(response);
+        toast.success('Post deleted successfully!', {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
         setApiLoading(true);
       })
       .catch(function (error) {
         console.log(error);
+        toast.error('Something went wrong!', {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       })
       .finally(() => {
         setApiLoading(false);
@@ -40,10 +59,28 @@ export default function MySingleBlogPost({ post, setApiRecall }) {
       })
       .then(function (response) {
         console.log(response);
+        toast.success('Post updated successfully!', {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
         setApiLoading(true);
       })
       .catch(function (error) {
         console.log(error);
+        toast.error('Something went wrong!', {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       })
       .finally(() => {
         setApiLoading(false);
@@ -53,6 +90,7 @@ export default function MySingleBlogPost({ post, setApiRecall }) {
 
   return (
     <div className="col-md-10 col-sm-12 col-lg-7 mb-4 border rounded p-4 shadow">
+      <ToastContainer />
       <div className="form-group">
         <label htmlFor="post-title">Post Title</label>
         <input

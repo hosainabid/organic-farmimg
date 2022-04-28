@@ -55,14 +55,14 @@ export default function OrderPending() {
     <Fragment>
       <h3>Pending Orders</h3>
       {
-        user.role === 'admin' && newForAdmin?.length > 0 && (
+        user.role === 'admin' && newForAdmin?.length > 0 ? (
           <OrderStatusTable pendingOrders={newForAdmin} isSuccess={isSuccess} setIsSuccess={setIsSuccess} />
-        )
+        ) : ''
       }
       {
-        user.role === 'farmar' && newForFarmer?.length > 0 && (
+        user.role === 'farmar' && newForFarmer?.length > 0 ? (
           <OrderStatusTable pendingOrders={newForFarmer} isSuccess={isSuccess} setIsSuccess={setIsSuccess} />
-        )
+        ) : ''
       }
     </Fragment>
   );

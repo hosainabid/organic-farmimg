@@ -52,10 +52,10 @@ export default function OrderCancelled() {
     <Fragment>
       <h3>Cancelled Orders</h3>
       {
-        user.role === 'admin' && newForAdmin?.length > 0 && <OrderStatusTable shippedOrders={newForAdmin} />
+        user.role === 'admin' && newForAdmin?.length > 0 ? <OrderStatusTable shippedOrders={newForAdmin} /> : ''
       }
       {
-        user.role === 'farmar' && newForFarmer?.length && <OrderStatusTable shippedOrders={newForFarmer} />
+        user.role === 'farmar' && newForFarmer?.length ? <OrderStatusTable shippedOrders={newForFarmer} /> : ''
       }
     </Fragment>
   );

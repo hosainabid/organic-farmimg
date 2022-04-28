@@ -43,11 +43,20 @@ export default function User() {
       <div className="container">
         <div className="d-flex justify-content-end ">
           <ul className="d-flex userinfo-ul align-items-center">
-            <li className="list-btn">
+            <li className="">
               {user ? (
-                <Link to="/myAccount">My Account</Link>
+                <div>
+                  <div className="list-btn" style={{marginRight: '5px', display: 'inline-block'}}>
+                    <Link to="/myAccount/Account">My Account</Link>
+                  </div>
+                  <div className="list-btn" style={{marginRight: '5px', display: 'inline-block'}}>
+                    <Link to="/myAccount">Dashboard</Link>
+                  </div>
+                </div>
               ) : (
-                <Link to="/login">LogIn/SignUp</Link>
+                <div className="list-btn">
+                  <Link to="/login">LogIn/SignUp</Link>
+                </div>
               )}
             </li>
 

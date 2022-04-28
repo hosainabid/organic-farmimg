@@ -3,7 +3,7 @@ import React from "react";
 export default function Footer() {
 	return (
 		<footer className="bg-dark py-5">
-			<div className="container text-center" id="mc_embed_signup">
+			<div className="container text-center" id="mc_embed_signup" style={{width: '100%', maxWidth: '600px'}}>
 				<form
 					action="https://gmail.us1.list-manage.com/subscribe/post?u=fc70fcdc4fbf05075af361a97&amp;id=cfa44d70ea"
 					method="post"
@@ -72,14 +72,14 @@ export default function Footer() {
 									id="mc-embedded-subscribe"
 									className="button"
 								/>
-								<p className="brandingLogo">
+								{/* <p className="brandingLogo">
 									<a
 										href="http://eepurl.com/hZW4Pz"
 										title="Mailchimp - email marketing made easy and fun"
 									>
 										<img src="https://eep.io/mc-cdn-images/template_images/branding_logo_text_dark_dtp.svg" />
 									</a>
-								</p>
+								</p> */}
 							</div>
 						</div>
 					</div>

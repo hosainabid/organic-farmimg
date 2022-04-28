@@ -25,21 +25,22 @@ export default function PreviousForumPost() {
       <h3 className="text-center my-4">Update/Delete Your Forum Post</h3>
       <div className="row justify-content-center"></div>
 
-      {!isForumLoaded && <LoadingSpinner />}
-      {Boolean(allForumPost.length) && (
-        <div className="row justify-content-center">
-          {allForumPost.map((post) => {
-            if (post.publisherID === user._id)
-              return (
-                <MySingleForumPost
-                  setApiRecall={setApiRecall}
-                  key={post._id}
-                  post={post}
-                />
-              );
-          })}
-        </div>
-      )}
+      {
+        allForumPost?.length > 0 ? (
+          <div className="row justify-content-center">
+            {allForumPost?.map((post) => {
+              if (user?.role !== 'user' && (user?.role === 'admin' || post?.publisherID === user?._id))
+                return (
+                  <MySingleForumPost
+                    setApiRecall={setApiRecall}
+                    key={post._id}
+                    post={post}
+                  />
+                );
+            })}
+          </div>
+        ) : (<LoadingSpinner />)
+      }
     </Fragment>
   );
 }

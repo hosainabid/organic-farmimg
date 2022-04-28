@@ -21,6 +21,8 @@ import BlogPost from "./BlogPost/BlogPost";
 import PreviousBlogPost from "./BlogPost/PreviousBlogPost";
 import MyCart from "./MyCart/MyCart";
 import MyOrders from "./MyBag/OrderStatus/MyOrders/MyOrders";
+import Account from "../../Account/Account";
+import OrderCommission from "./MyBag/OrderStatus/Commission/OrderCommission";
 
 const MyAccount = () => {
 	return (
@@ -32,6 +34,11 @@ const MyAccount = () => {
 				<Switch>
 					<Route exact path="/myAccount">
 						<Dashboard />
+					</Route>
+				</Switch>
+				<Switch>
+					<Route exact path="/myAccount/Account">
+						<Account />
 					</Route>
 				</Switch>
 				<Switch>
@@ -118,6 +125,11 @@ const MyAccount = () => {
 				<Switch>
 					<Route path="/myAccount/myBag/cancelled">
 						<OrderCancelled />
+					</Route>
+				</Switch>
+				<Switch>
+					<Route path="/myAccount/myBag/commission">
+						<OrderCommission />
 					</Route>
 				</Switch>
 			</div>

@@ -13,7 +13,7 @@ export default function Registration() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [number, setNumber] = useState("");
-  const [role, setRole] = useState("");
+  const [role, setRole] = useState("user");
   const [address, setAddress] = useState("");
   const [userImage, setUserImage] = useState(null);
   const [isFormComplete, setIsFormComplete] = useState(false);
@@ -290,14 +290,14 @@ export default function Registration() {
                   <select
                     className="form-control"
                     id="selectRoll"
-                    defaultValue={"DEFAULT"}
+                    defaultValue={role}
                     required
                     onChange={(e) => setRole(e.target.value)}
                   >
                     <option value="DEFAULT" disabled>
                       Select Your Roll
                     </option>
-                    <option value="user">User</option>
+                    <option value="user" selected>User</option>
                     <option value="farmar">Farmar</option>
                   </select>
                 </div>

@@ -16,7 +16,7 @@ export default function MyCart() {
 	const [crops, setCrops] = useState([]);
 	const [isPaid, setPaymentSuccess] = useState(false);
 	const { user, isCartUpdated, setIsCartUpdated } = useAuth();
-	const [quickDelivary, setQuickDelivary] = useState();
+	const [quickDelivary, setQuickDelivary] = useState(false);
 	const [isShipOriginalAddress, setIsShipOriginalAddress] = useState();
 	const [shippingAddress, setShippingAddress] = useState("");
 
@@ -47,6 +47,7 @@ export default function MyCart() {
 
 		setSubtotal(seedsPrice + prebookPrice + cropsPrice);
 	};
+	console.log({quickDelivary})
 
 	useEffect(() => {
 		setSeeds(JSON.parse(localStorage.getItem("organicFoodSeeds")));
@@ -80,6 +81,10 @@ export default function MyCart() {
 			const productDetails = addedPrebookOrders.map((item) => {
 				return {
 					productId: item.cropDetails._id,
+					productName: item.cropDetails.name || '',
+					productPrice: item.cropDetails.price || '',
+					productCategory: item.cropDetails.category || '',
+					farmerName: item.cropDetails.farmerName || '',
 					farmerId: item.cropDetails.farmerId,
 					productQuantity: item.quantity,
 					type: "prebook",
@@ -92,13 +97,14 @@ export default function MyCart() {
 					buyerId: user._id,
 					buyerName: user.name,
 					buyerEmail: user.email,
-					buyerMobile: user.number,
+					buyerMobile: user.mobile,
 					buyerAddress: shippingAddress || user.address,
 					total: `${
 						Boolean(quickDelivary) ? subTotal + 100 : subTotal
 					}`,
 					date: new Date().toString(),
 					status: "pending",
+					quickDelivary
 				})
 				.then((res) => {
 					if (res.data.isSuccess) {
@@ -121,6 +127,10 @@ export default function MyCart() {
 			const productDetails1 = addedSeedOrders.map((item) => {
 				return {
 					productId: item.seed._id,
+					productName: item.seed.name || '',
+					productPrice: item.seed.price || '',
+					productCategory: item.seed.category || '',
+					farmerName: item.seed.farmerName || '',
 					productQuantity: item.quantity,
 					type: "seed",
 				};
@@ -131,6 +141,10 @@ export default function MyCart() {
 			const productDetails2 = addedOFOrders.map((item) => {
 				return {
 					productId: item.cropDetails._id,
+					productName: item.cropDetails.name || '',
+					productPrice: item.cropDetails.price || '',
+					productCategory: item.cropDetails.category || '',
+					farmerName: item.cropDetails.farmerName || '',
 					productQuantity: item.quantity,
 					farmerId: item.cropDetails.farmerId,
 					type: "crop",
@@ -143,7 +157,7 @@ export default function MyCart() {
 					buyerName: user.name,
 					buyerEmail: user.email,
 					buyerId: user["_id"],
-					buyerMobile: user.number,
+					buyerMobile: user.mobile,
 					buyerAddress: shippingAddress || user.address,
 					total: `${
 						Boolean(quickDelivary) ? subTotal + 100 : subTotal
@@ -152,6 +166,7 @@ export default function MyCart() {
 					isSeedAvailable: true,
 					isOrganicFoodAvailable: true,
 					status: "pending",
+					quickDelivary
 				})
 				.then((res) => {
 					console.log(res);
@@ -175,11 +190,14 @@ export default function MyCart() {
 				const productDetails = addedSeedOrders.map((item) => {
 					return {
 						productId: item.seed._id,
+						productName: item.seed.name || '',
+						productPrice: item.seed.price || '',
+						productCategory: item.seed.category || '',
+						farmerName: item.seed.farmerName || '',
 						productQuantity: item.quantity,
 						type: "seed",
 					};
 				});
-				console.log(productDetails);
 				await axios
 					.post(`${rootAPI}/place_order`, {
 						orderGroupId,
@@ -187,7 +205,7 @@ export default function MyCart() {
 						buyerName: user.name,
 						buyerEmail: user.email,
 						buyerId: user["_id"],
-						buyerMobile: user.number,
+						buyerMobile: user.mobile,
 						buyerAddress: shippingAddress || user.address,
 						total: `${
 							Boolean(quickDelivary) ? subTotal + 100 : subTotal
@@ -196,6 +214,7 @@ export default function MyCart() {
 						status: "pending",
 						isSeedAvailable: true,
 						isOrganicFoodAvailable: false,
+						quickDelivary
 					})
 					.then((res) => {
 						console.log(res);
@@ -234,7 +253,7 @@ export default function MyCart() {
 						buyerName: user.name,
 						buyerEmail: user.email,
 						buyerId: user._id,
-						buyerMobile: user.number,
+						buyerMobile: user.mobile,
 						buyerAddress: shippingAddress || user.address,
 						total: `${
 							Boolean(quickDelivary) ? subTotal + 100 : subTotal
@@ -243,6 +262,7 @@ export default function MyCart() {
 						status: "pending",
 						isSeedAvailable: false,
 						isOrganicFoodAvailable: true,
+						quickDelivary
 					})
 					.then((res) => {
 						console.log(res);
@@ -334,7 +354,7 @@ export default function MyCart() {
 									className="form-check-label"
 									htmlFor="quickShip"
 								>
-									Get Delivary within minimal time.
+									Express Delivery
 								</label>
 							</div>
 							<p className="text-center my-4 h5">

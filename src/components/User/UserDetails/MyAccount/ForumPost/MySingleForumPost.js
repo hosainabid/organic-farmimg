@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState, useRef } from "react";
 import rootAPT from "../../../../../configurables";
+import { toast, ToastContainer } from "react-toastify";
 
 export default function MySingleForumPost({ post, setApiRecall }) {
   const [apiLoading, setApiLoading] = useState(false);
@@ -14,10 +15,28 @@ export default function MySingleForumPost({ post, setApiRecall }) {
       })
       .then(function (response) {
         console.log(response);
+        toast.success('Post deleted successfully!', {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
         setApiLoading(true);
       })
       .catch(function (error) {
         console.log(error);
+        toast.error('Something went wrong!', {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       })
       .finally(() => {
         setApiLoading(false);
@@ -40,10 +59,28 @@ export default function MySingleForumPost({ post, setApiRecall }) {
       })
       .then(function (response) {
         console.log(response);
+        toast.success('Post updated successfully!', {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
         setApiLoading(true);
       })
       .catch(function (error) {
         console.log(error);
+        toast.error('Something went wrong!', {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       })
       .finally(() => {
         setApiLoading(false);
@@ -53,6 +90,7 @@ export default function MySingleForumPost({ post, setApiRecall }) {
 
   return (
     <div className="col-md-10 col-sm-12 col-lg-7 mb-4 border rounded p-4 shadow">
+      <ToastContainer />
       <div className="form-group">
         <label htmlFor="post-title">Post Title</label>
         <input

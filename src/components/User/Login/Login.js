@@ -7,9 +7,14 @@ import Header from "../../Header/Header";
 import rootAPI from "../../../configurables";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import dayjs from "dayjs";
 
 export default function Login() {
   const [userLoginEmail, setUserLoginEmail] = useState("");
+  const [loginAttempt, setLoginAttempt] = useState([]);
+  const [totalTime, setTotalTime] = useState(0);
+  const [startTimeout, setStartTimeout] = useState(false);
+  const [countDown, setCountDown] = useState(null);
   const [userLoginPassword, setUserLoginPassword] = useState("");
   const [forgetEmail, setForgetEmail] = useState("");
   const [isForgetPass, setIsForgetPass] = useState(false);
@@ -19,6 +24,15 @@ export default function Login() {
   const [newPassword, setNewPassword] = useState("");
   const history = useHistory();
   const { setUser } = useAuth();
+  const getTimeout = localStorage.getItem('timeout');
+
+  React.useEffect(() => {
+    if (getTimeout) {
+      setTotalTime(getTimeout)
+      setStartTimeout(true);
+    }
+  }, [getTimeout]);
+
   const handleLogin = (e) => {
     e.preventDefault();
     userLogin(userLoginEmail, userLoginPassword, history);
@@ -57,6 +71,7 @@ export default function Login() {
             "organicFarm-user",
             JSON.stringify(res.data.user_info)
           );
+          setLoginAttempt([]);
           history.replace("/myAccount");
         } else {
           toast.error(res.data.message, {
@@ -68,6 +83,7 @@ export default function Login() {
             draggable: true,
             progress: undefined,
           });
+          setLoginAttempt((prev) => [...prev, 'failed']);
         }
         console.log(res);
       })
@@ -150,6 +166,31 @@ export default function Login() {
         setForgetEmail("");
       });
   };
+
+  React.useEffect(() => {
+    if (loginAttempt.length > 2) {
+      const timeout = new Date((new Date()).getTime() + 30 * 60000);
+      localStorage.setItem('timeout', timeout);
+      window.location.reload();
+    }
+  }, [loginAttempt]);
+
+  if (startTimeout) {
+    setInterval(function(){
+      if (localStorage.getItem('timeout')) {
+        if (((new Date()).getTime() - new Date(totalTime).getTime()) > 0) {
+          localStorage.removeItem('timeout');
+          setTotalTime(0);
+        }
+        setCountDown(dayjs((new Date(totalTime || 0)).getTime() - (new Date()).getTime()).format('mm:ss'))
+      }
+    }, 1000);
+  }
+
+  if (countDown?.second < 0) {
+    setCountDown(null);
+  }
+
   return (
     <div>
       <Header />
@@ -203,9 +244,21 @@ export default function Login() {
                   >
                     Forget Password?
                   </button>
-                  <button type="submit" className="myBtn my-4 py-2 px-4 h5">
-                    Login
-                  </button>
+                  {
+                    !getTimeout && (
+                      <button type="submit" className="myBtn my-4 py-2 px-4 h5">
+                        Login
+                      </button>
+                    )
+                  }
+                  {/* countDown */}
+                  {
+                    getTimeout && countDown ? (
+                      <div className="alert alert-danger" role="alert">
+                        Due to entering wrong password many time, you're blocked! You'll be unblock in {countDown?.split(':')[0]} minutes and {countDown?.split(':')[1]} seconds!
+                      </div>
+                    ) : ''
+                  }
                 </form>
               </div>
             ) : (

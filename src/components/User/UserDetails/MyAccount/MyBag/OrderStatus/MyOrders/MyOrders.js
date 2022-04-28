@@ -39,7 +39,7 @@ export default function MyOrders() {
     <Fragment>
       <h3>My Orders</h3>
       {
-        user.role !== 'admin' && myOrders.length > 0 && <OrderStatusTable myOrders={myOrders} isSuccess={isSuccess} setIsSuccess={setIsSuccess} isMyOrder={true} />
+        user.role !== 'admin' && myOrders.length > 0 ? <OrderStatusTable myOrders={myOrders} isSuccess={isSuccess} setIsSuccess={setIsSuccess} isMyOrder={true} /> : ''
       }
     </Fragment>
   );

@@ -3,6 +3,7 @@ import React, { useState, Fragment } from "react";
 import { NavLink } from "react-router-dom";
 import useAuth from "../../../../../hooks/useAuth";
 import rootAPI from "../../../../../configurables";
+import { toast, ToastContainer } from "react-toastify";
 
 const BlogPost = () => {
   const [postTitle, setPostTitle] = useState("");
@@ -29,13 +30,32 @@ const BlogPost = () => {
     formData.append("postContent", postContent);
     formData.append("postTime", postTime);
     formData.append("file", postImage);
-    formData.append("commments", JSON.stringify([]));
+    formData.append("commments", [null]);
 
     axios
       .post(`${rootAPI}/post_blog`, formData)
-      .then((res) => console.log(res))
+      .then((res) => {
+        toast.success('Blog post created successfully!', {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      })
       .catch((error) => {
         console.log(error);
+        toast.error('Something went wrong!', {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       })
       .finally(() => {
         setIsRequestingAPI(false);
@@ -47,6 +67,7 @@ const BlogPost = () => {
 
   return (
     <Fragment>
+      <ToastContainer />
       <div className="my-2 d-flex justify-content-end">
         <NavLink
           to="/myAccount/blogPost/previousBlogPosts"

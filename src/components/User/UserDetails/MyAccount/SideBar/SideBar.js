@@ -232,64 +232,97 @@ export default function Sidebar() {
 									</li>
 								</ul>
 							</li>
-							<li className="nav-item my-2">
-								<NavLink
-									to="/myAccount/myBag"
-									className="nav-link d-flex align-items-center"
-									aria-current="page"
-								>
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										width="18"
-										height="18"
-										fill="currentColor"
-										className="bi bi-bag-fill"
-										viewBox="0 0 16 16"
-									>
-										<path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z" />
-									</svg>
-									<span className="ms-2">User Orders</span>
-								</NavLink>
+							{
+								user.role !== "user" && (
+									<li className="nav-item my-2">
+										<NavLink
+											to="/myAccount/myBag"
+											className="nav-link d-flex align-items-center"
+											aria-current="page"
+										>
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												width="18"
+												height="18"
+												fill="currentColor"
+												className="bi bi-bag-fill"
+												viewBox="0 0 16 16"
+											>
+												<path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z" />
+											</svg>
+											<span className="ms-2">User Orders</span>
+										</NavLink>
 
-								<ul className="my-order submenu ps-2">
-									<li className="nav-item my-2">
-										<NavLink
-											to="/myAccount/myBag/pending"
-											className="nav-link d-flex align-items-center"
-											aria-current="page"
-										>
-											Pending
-										</NavLink>
+										<ul className="my-order submenu ps-2">
+											<li className="nav-item my-2">
+												<NavLink
+													to="/myAccount/myBag/pending"
+													className="nav-link d-flex align-items-center"
+													aria-current="page"
+												>
+													<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" className="bi bi-bag-fill" style={{maxWidth: '18px', maxHeight: '18px'}}>
+														<path d="M208 320h384c8.8 0 16-7.2 16-16V48c0-8.8-7.2-16-16-16H448v128l-48-32-48 32V32H208c-8.8 0-16 7.2-16 16v256c0 8.8 7.2 16 16 16zm416 64H128V16c0-8.8-7.2-16-16-16H16C7.2 0 0 7.2 0 16v32c0 8.8 7.2 16 16 16h48v368c0 8.8 7.2 16 16 16h82.9c-1.8 5-2.9 10.4-2.9 16 0 26.5 21.5 48 48 48s48-21.5 48-48c0-5.6-1.2-11-2.9-16H451c-1.8 5-2.9 10.4-2.9 16 0 26.5 21.5 48 48 48s48-21.5 48-48c0-5.6-1.2-11-2.9-16H624c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16z"/>
+													</svg>
+													<span className="ms-2">Pending</span>
+												</NavLink>
+											</li>
+											<li className="nav-item my-2">
+												<NavLink
+													to="/myAccount/myBag/shipped"
+													className="nav-link d-flex align-items-center"
+													aria-current="page"
+												>
+													<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" className="bi bi-bag-fill" style={{maxWidth: '18px', maxHeight: '18px'}}>
+														<path d="M624 352h-16V243.9c0-12.7-5.1-24.9-14.1-33.9L494 110.1c-9-9-21.2-14.1-33.9-14.1H416V48c0-26.5-21.5-48-48-48H112C85.5 0 64 21.5 64 48v48H8c-4.4 0-8 3.6-8 8v16c0 4.4 3.6 8 8 8h272c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H40c-4.4 0-8 3.6-8 8v16c0 4.4 3.6 8 8 8h208c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H8c-4.4 0-8 3.6-8 8v16c0 4.4 3.6 8 8 8h208c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H64v128c0 53 43 96 96 96s96-43 96-96h128c0 53 43 96 96 96s96-43 96-96h48c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zM160 464c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm320 0c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm80-208H416V144h44.1l99.9 99.9V256z"/>
+													</svg>
+													<span className="ms-2">Shipped</span>
+												</NavLink>
+											</li>
+											<li className="nav-item my-2">
+												<NavLink
+													to="/myAccount/myBag/complete"
+													className="nav-link d-flex align-items-center"
+													aria-current="page"
+												>
+													<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" className="bi bi-bag-fill" style={{maxWidth: '18px', maxHeight: '18px'}}>
+														<path d="M352 160v-32C352 57.42 294.579 0 224 0 153.42 0 96 57.42 96 128v32H0v272c0 44.183 35.817 80 80 80h288c44.183 0 80-35.817 80-80V160h-96zm-192-32c0-35.29 28.71-64 64-64s64 28.71 64 64v32H160v-32zm160 120c-13.255 0-24-10.745-24-24s10.745-24 24-24 24 10.745 24 24-10.745 24-24 24zm-192 0c-13.255 0-24-10.745-24-24s10.745-24 24-24 24 10.745 24 24-10.745 24-24 24z"/>
+													</svg>
+													<span className="ms-2">Completed</span>
+												</NavLink>
+											</li>
+											<li className="nav-item my-2">
+												<NavLink
+													to="/myAccount/myBag/cancelled"
+													className="nav-link d-flex align-items-center"
+													aria-current="page"
+												>
+													<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="bi bi-bag-fill" style={{maxWidth: '18px', maxHeight: '18px'}}>
+														<path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zM124 296c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h264c6.6 0 12 5.4 12 12v56c0 6.6-5.4 12-12 12H124z"/>
+													</svg>
+													<span className="ms-2">Cancelled</span>
+												</NavLink>
+											</li>
+											{
+												user.role === 'admin' && (
+													<li className="nav-item my-2">
+														<NavLink
+															to="/myAccount/myBag/commission"
+															className="nav-link d-flex align-items-center"
+															aria-current="page"
+														>
+															<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 288 512" className="bi bi-bag-fill" style={{maxWidth: '18px', maxHeight: '18px'}}>
+															<path d="M209.2 233.4l-108-31.6C88.7 198.2 80 186.5 80 173.5c0-16.3 13.2-29.5 29.5-29.5h66.3c12.2 0 24.2 3.7 34.2 10.5 6.1 4.1 14.3 3.1 19.5-2l34.8-34c7.1-6.9 6.1-18.4-1.8-24.5C238 74.8 207.4 64.1 176 64V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48h-2.5C45.8 64-5.4 118.7.5 183.6c4.2 46.1 39.4 83.6 83.8 96.6l102.5 30c12.5 3.7 21.2 15.3 21.2 28.3 0 16.3-13.2 29.5-29.5 29.5h-66.3C100 368 88 364.3 78 357.5c-6.1-4.1-14.3-3.1-19.5 2l-34.8 34c-7.1 6.9-6.1 18.4 1.8 24.5 24.5 19.2 55.1 29.9 86.5 30v48c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16v-48.2c46.6-.9 90.3-28.6 105.7-72.7 21.5-61.6-14.6-124.8-72.5-141.7z"/>
+															</svg>
+															<span className="ms-2">Commission</span>
+														</NavLink>
+													</li>
+												)
+											}
+										</ul>
 									</li>
-									<li className="nav-item my-2">
-										<NavLink
-											to="/myAccount/myBag/shipped"
-											className="nav-link d-flex align-items-center"
-											aria-current="page"
-										>
-											Shipped
-										</NavLink>
-									</li>
-									<li className="nav-item my-2">
-										<NavLink
-											to="/myAccount/myBag/complete"
-											className="nav-link d-flex align-items-center"
-											aria-current="page"
-										>
-											Complete
-										</NavLink>
-									</li>
-									<li className="nav-item my-2">
-										<NavLink
-											to="/myAccount/myBag/cancelled"
-											className="nav-link d-flex align-items-center"
-											aria-current="page"
-										>
-											Cancelled
-										</NavLink>
-									</li>
-								</ul>
-							</li>
+								)
+							}
+
 							<li className="nav-item my-2">
 								<NavLink
 									to="/login"

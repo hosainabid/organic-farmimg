@@ -6,10 +6,10 @@ export default function WeaterUpdate({ latitude, longitude }) {
   const [weatherUpdate, setWeatherUpdate] = useState();
 
   const loadingWeatherUpdate = async () => {
-    const url = `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`;
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`;
     try {
-      const data = await axios.get(url).then((res) => {
-        setWeatherUpdate(res.data);
+      await axios.get(url).then((res) => {
+        setWeatherUpdate(res?.data);
       });
     } catch (e) {
       console.log(e);

@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { Fragment } from "react";
 import LoadingSpinner from "../../../../utilities/LoadingSpinner/LoadingSpinner";
 import rootAPI from "../../../../../configurables";
+import { toast, ToastContainer } from "react-toastify";
 
 const AllUser = () => {
   const [isAllUserLoaded, setIsAllUserLoaded] = React.useState(false);
@@ -24,13 +25,48 @@ const AllUser = () => {
   }, [flag]);
 
   //   make admin function
-  const makeAdminHandler = (id) => {
+  const makeAdminHandler = (id, role) => {
     axios
       .post(`${rootAPI}/make_admin`, {
         id: id,
-        role: "admin",
+        role,
       })
       .then(function (response) {
+        toast.success(`User role updated to ${role}! Reloading...`, {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        setTimeout(() => window.location.reload(), 2000);
+        console.log(response);
+        setFlag(false);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  //   make admin function
+  const deleteUser = (id) => {
+    axios
+      .post(`${rootAPI}/delete_user`, {
+        id: id,
+      })
+      .then(function (response) {
+        toast.success(`User deleted successfully! Reloading...`, {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        setTimeout(() => window.location.reload(), 2000);
         console.log(response);
         setFlag(false);
       })
@@ -47,28 +83,26 @@ const AllUser = () => {
       <td>{user.email}</td>
       <td>{user.role}</td>
       <td>
-        {!(user.role === "admin") && (
-          <button
-            onClick={() => makeAdminHandler(user._id)}
-            className="list-btn"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              className="bi bi-person-check-fill"
-              viewBox="0 0 16 16"
-            >
-              <path
-                fillRule="evenodd"
-                d="M15.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L12.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z"
-              />
-              <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-            </svg>
-            Make Admin
-          </button>
-        )}
+        <select className="form-select" aria-label="Change Role" onChange={(r) => makeAdminHandler(user._id, r.target.value)}>
+          {
+            (user.role !== 'admin' && user.role !== 'farmar' && user.role !== 'user')
+              ? <option selected>Change Role</option> : <option>Change Role</option>
+          }
+          {
+            user.role === 'admin' ? <option value="admin" selected>Admin</option> : <option value="admin">Admin</option>
+          }
+          {
+            user.role === 'farmar' ? <option value="farmar" selected>Farmer</option> : <option value="farmar">Farmer</option>
+          }
+          {
+            user.role === 'user' ? <option value="user" selected>User</option> : <option value="user">User</option>
+          }
+        </select>
+      </td>
+      <td>
+        <button className="btn btn-danger" onClick={() => deleteUser(user._id)}>
+          delete
+        </button>
       </td>
     </tr>
   ));
@@ -76,6 +110,7 @@ const AllUser = () => {
   return (
     <Fragment>
       <h3 className="text-center">All User Details</h3>
+      <ToastContainer />
 
       <div className="table-responsive">
         <table className="table table-hover">
@@ -87,6 +122,7 @@ const AllUser = () => {
               <th scope="col">Email</th>
               <th scope="col">Role</th>
               <th scope="col">Make Admin</th>
+              <th scope="col">Delete User</th>
             </tr>
           </thead>
           <tbody>{allUserContainer}</tbody>
