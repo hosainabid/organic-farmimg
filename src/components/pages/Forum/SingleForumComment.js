@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import useAuth from "../../../hooks/useAuth";
 
-export default function SingleForumComment({ commentDetails, submitReply }) {
+export default function SingleForumComment({ commentDetails, submitReply, reply }) {
   const [wantReply, setWantReply] = useState(false);
   const commentReply = useRef("");
   const { user } = useAuth();
@@ -17,12 +17,16 @@ export default function SingleForumComment({ commentDetails, submitReply }) {
         </div>
         <div className="d-flex justify-content-between align-items-center">
           <i className="px-4 col-10">{commentDetails.commentString}</i>
-          <button
-            className="border-0 bg-white text-info col-2 forget-pass"
-            onClick={() => setWantReply(true)}
-          >
-            Reply
-          </button>
+          {
+            reply ? (
+              <button
+                className="border-0 bg-white text-info col-2 forget-pass"
+                onClick={() => setWantReply(true)}
+              >
+                Reply
+              </button>
+            ) : ''
+          }
         </div>
         <details>
           <summary>View replies</summary>

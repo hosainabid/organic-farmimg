@@ -147,6 +147,8 @@ const SingleForumPost = ({ postDetails, setApiRecall }) => {
 			});
 	};
 
+	const isLoggedIn = user?.role === 'admin' || user?.role === 'farmar' || user?.role === 'user';
+
 	return (
 		<Fragment>
 			<ToastContainer />
@@ -203,13 +205,25 @@ const SingleForumPost = ({ postDetails, setApiRecall }) => {
 								placeholder="Submit your comment here..."
 								onChange={(e) => setNewComment(e.target.value)}
 							/>
-							<button
-								type="submit"
-								className="list-btn py-2 px-3"
-								style={{ borderRadius: "20px" }}
-							>
-								Comment
-							</button>
+							{
+								(isLoggedIn) ? (
+									<button
+										type="submit"
+										className="list-btn py-2 px-3"
+										style={{ borderRadius: "20px", cursor: 'pointer' }}
+									>
+										Comment
+									</button>
+								) : (
+									<button
+										className="list-btn py-2 px-3"
+										disabled
+										style={{ borderRadius: "20px", cursor: 'pointer' }}
+									>
+										Comment
+									</button>
+								)
+							}
 						</div>
 					</form>
 
@@ -219,7 +233,7 @@ const SingleForumPost = ({ postDetails, setApiRecall }) => {
 								key={commentDetails.commentId}
 								commentDetails={commentDetails}
 								setReply={setReply}
-								reply={reply}
+								reply={isLoggedIn ? isLoggedIn : null}
 								submitReply={submitReply}
 							/>
 						))
